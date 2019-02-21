@@ -34,15 +34,15 @@ class MemoGroupsRepository {
     });
   }
 
-  addGroup(MemoGroup memoGroup) {
+  void addGroup(MemoGroup memoGroup) {
     memoGroupsRef.push().set(memoGroup.asMap());
   }
 
-  removeGroup(MemoGroup memoGroup) {
+  void removeGroup(MemoGroup memoGroup) {
     memoGroupsRef.child(memoGroup.key).remove();
   }
 
-  updateGroup(MemoGroup memoGroup) {
+  void updateGroup(MemoGroup memoGroup) {
     memoGroupsRef.child(memoGroup.key).update(memoGroup.asMap());
   }
 }
