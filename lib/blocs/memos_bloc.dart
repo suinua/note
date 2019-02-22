@@ -9,23 +9,20 @@ class MemosBloc {
   List<Memo> _memos = <Memo>[];
 
   StreamController<List<Memo>> _memosController =
-  StreamController<List<Memo>>();
-  StreamController<Memo> _addMemoController =
-  StreamController<Memo>();
-  StreamController<Memo> _removeMemoController =
-  StreamController<Memo>();
-  StreamController<Memo> _updateMemoController =
-  StreamController<Memo>();
+      StreamController<List<Memo>>();
+  StreamController<Memo> _addMemoController = StreamController<Memo>();
+  StreamController<Memo> _removeMemoController = StreamController<Memo>();
+  StreamController<Memo> _updateMemoController = StreamController<Memo>();
 
   StreamSink<List<Memo>> get _setMemos => _memosController.sink;
 
   Stream<List<Memo>> get getAllMemos => _memosController.stream;
 
-  Stream<Memo> get addMemo => _addMemoController.stream;
+  StreamSink<Memo> get addMemo => _addMemoController.sink;
 
-  Stream<Memo> get removeMemo => _removeMemoController.stream;
+  StreamSink<Memo> get removeMemo => _removeMemoController.sink;
 
-  Stream<Memo> get updateMemo => _updateMemoController.stream;
+  StreamSink<Memo> get updateMemo => _updateMemoController.sink;
 
   MemosBloc(this.parentGroupKey) {
     void _onAdded(Memo addedMemo) {
@@ -47,19 +44,18 @@ class MemosBloc {
       _setMemos.add(_memos);
     }
 
-    _repository = MemosRepository(
-        parentGroupKey,
+    _repository = MemosRepository(parentGroupKey,
         onMemoAdded: _onAdded,
         onMemoRemoved: _onRemoved,
         onMemoChanged: _onChanged);
 
-    addMemo.listen((Memo memo) {
+    _addMemoController.stream.listen((Memo memo) {
       _repository.addMemo(memo);
     });
-    removeMemo.listen((Memo memo) {
+    _removeMemoController.stream.listen((Memo memo) {
       _repository.removeMemo(memo);
     });
-    updateMemo.listen((Memo memo) {
+    _updateMemoController.stream.listen((Memo memo) {
       _repository.updateMemo(memo);
     });
   }

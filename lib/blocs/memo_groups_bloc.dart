@@ -20,11 +20,11 @@ class MemoGroupsBloc {
 
   Stream<List<MemoGroup>> get getAllGroups => _memoGroupsController.stream;
 
-  Stream<MemoGroup> get addGroup => _addGroupController.stream;
+  StreamSink<MemoGroup> get addGroup => _addGroupController.sink;
 
-  Stream<MemoGroup> get removeGroup => _removeGroupController.stream;
+  StreamSink<MemoGroup> get removeGroup => _removeGroupController.sink;
 
-  Stream<MemoGroup> get updateGroup => _updateGroupController.stream;
+  StreamSink<MemoGroup> get updateGroup => _updateGroupController.sink;
 
   MemoGroupsBloc() {
     void _onAdded(MemoGroup addedGroup) {
@@ -51,13 +51,13 @@ class MemoGroupsBloc {
         onGroupRemoved: _onRemoved,
         onGroupChanged: _onChanged);
 
-    addGroup.listen((MemoGroup memoGroup) {
+    _addGroupController.stream.listen((MemoGroup memoGroup) {
       _repository.addGroup(memoGroup);
     });
-    removeGroup.listen((MemoGroup memoGroup) {
+    _removeGroupController.stream.listen((MemoGroup memoGroup) {
       _repository.removeGroup(memoGroup);
     });
-    updateGroup.listen((MemoGroup memoGroup) {
+    _updateGroupController.stream.listen((MemoGroup memoGroup) {
       _repository.updateGroup(memoGroup);
     });
   }
