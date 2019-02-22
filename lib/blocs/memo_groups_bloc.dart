@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/firebase/memo_groups_repository.dart';
 import 'package:note/models/memo_group.dart';
 
-class MemoGroupsBloc {
+class MemoGroupsBloc implements Bloc{
   MemoGroupsRepository _repository;
   List<MemoGroup> _memoGroups = <MemoGroup>[];
 

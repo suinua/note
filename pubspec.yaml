@@ -17,7 +17,15 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  # firebase
   firebase_database: ^1.1.0
+
+  # widget,layout
+
+  #bloc
+  bloc_provider: ^0.1.1
+
+  # other
   flutter:
     sdk: flutter
 
