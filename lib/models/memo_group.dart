@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 
@@ -24,7 +25,7 @@ class MemoGroup {
     _memosBloc.updateMemo.add(memo);
   }
 
-  MemoGroup(this.title, this.description, {this.key, List<Memo> memos = const <Memo>[]}){
+  MemoGroup({@required this.title,@required  this.description,this.key, List<Memo> memos = const <Memo>[]}){
     _memos = memos;
    _memosBloc = MemosBloc(this.key);
    _memosBloc.getAllMemos.listen((event){
@@ -34,8 +35,8 @@ class MemoGroup {
 
   factory MemoGroup.fromMap(Map<String, dynamic> memoGroup) {
     return MemoGroup(
-      memoGroup['title'],
-      memoGroup['description'],
+      title:memoGroup['title'],
+      description:memoGroup['description'],
       key: memoGroup['key'],
       memos: memoGroup['memos'].map((memo) => Memo.fromMap(memo)).toList(),
     );
