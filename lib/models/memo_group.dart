@@ -1,6 +1,8 @@
 import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 
+
+//memo groupはmemosBlocを通じてmemosを管理してる。
 class MemoGroup {
   final String key;
   String title;
