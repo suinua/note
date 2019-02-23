@@ -20,19 +20,19 @@ class MemosRepository {
         .child('memos');
 
     memosRef.onChildAdded.listen((event) {
-      Map<String, dynamic> value = event.snapshot.value;
+      Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
       this.onMemoAdded(Memo.fromMap(value));
     });
     memosRef.onChildRemoved.listen((event) {
-      Map<String, dynamic> value = event.snapshot.value;
+      Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
       this.onMemoRemoved(Memo.fromMap(value));
     });
     memosRef.onChildAdded.listen((event) {
-      Map<String, dynamic> value = event.snapshot.value;
+      Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
       this.onMemoChanged(Memo.fromMap(value));

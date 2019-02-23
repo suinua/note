@@ -15,19 +15,19 @@ class MemoGroupsRepository {
     memoGroupsRef = FirebaseDatabase.instance.reference().child('memo_groups');
 
     memoGroupsRef.onChildAdded.listen((event) {
-      Map<String, dynamic> value = event.snapshot.value;
+      Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
       this.onGroupAdded(MemoGroup.fromMap(value));
     });
     memoGroupsRef.onChildRemoved.listen((event) {
-      Map<String, dynamic> value = event.snapshot.value;
+      Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
       this.onGroupRemoved(MemoGroup.fromMap(value));
     });
     memoGroupsRef.onChildAdded.listen((event) {
-      Map<String, dynamic> value = event.snapshot.value;
+      Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
       this.onGroupChanged(MemoGroup.fromMap(value));
@@ -35,7 +35,8 @@ class MemoGroupsRepository {
   }
 
   void addGroup(MemoGroup memoGroup) {
-    memoGroupsRef.push().set(memoGroup.asMap());
+    print('add group to firebase ${memoGroup.asMap()}');
+    memoGroupsRef.push().set(memoGroup.asMap())..catchError(print);
   }
 
   void removeGroup(MemoGroup memoGroup) {
