@@ -9,9 +9,7 @@ class NoteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: MemoGroupsPage(),
-      ),
+      home: MemoGroupsPage(),
     );
   }
 }
