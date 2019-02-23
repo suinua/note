@@ -27,10 +27,12 @@ class MemoGroup {
 
   MemoGroup({@required this.title,@required  this.description,this.key, List<Memo> memos = const <Memo>[]}){
     _memos = memos;
-   _memosBloc = MemosBloc(this.key);
-   _memosBloc.getAllMemos.listen((event){
-     _memos = event;
-   });
+    if (key != null){
+      _memosBloc = MemosBloc(key);
+      _memosBloc.getAllMemos.listen((event){
+        _memos = event;
+      });
+    }
   }
 
   factory MemoGroup.fromMap(Map<String, dynamic> memoGroup) {
