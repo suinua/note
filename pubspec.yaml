@@ -26,6 +26,9 @@ dependencies:
   bloc_provider: ^0.1.1
 
   # other
+  test: ^1.5.1
+  flutter_driver:
+    sdk: flutter
   flutter:
     sdk: flutter
 
