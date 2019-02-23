@@ -1,27 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/pages/create_memo_group_page.dart';
 import 'package:note/views/widgets/memo_group_widget.dart';
 
 class MemoGroupsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = MemoGroupsBlocProvider.of(context);
-    return Column(
-      children: <Widget>[
-        StreamBuilder<List<MemoGroup>>(
-          stream: bloc.getAllGroups,
-          initialData: <MemoGroup>[],
-          builder: (_, AsyncSnapshot<List<MemoGroup>> memoGroups) {
-            return _buildGroups(memoGroups.data);
-          },
-        ),
-      ],
+    return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 4.0,
+        icon: const Icon(Icons.add),
+        label: Text('add memo group'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => CreateMemoGroupPage(),
+            ),
+          );
+        },
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            //TODO : Expandedが使えない
+            height: 600,
+            child: StreamBuilder<List<MemoGroup>>(
+              stream: bloc.getAllGroups,
+              builder: (_, AsyncSnapshot<List<MemoGroup>> memoGroups) {
+                if (memoGroups.hasData) {
+                  return _buildGroups(memoGroups.data);
+                } else {
+                  return _buildGroups([]);
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildGroups(List<MemoGroup> memoGroups) {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemCount: memoGroups.length,
       semanticChildCount: 2,
       itemBuilder: (_, int index) {
