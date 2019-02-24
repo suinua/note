@@ -22,30 +22,32 @@ class MemoGroupsPage extends StatelessWidget {
           );
         },
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            //TODO : Expandedが使えない
-            height: 600,
-            child: StreamBuilder<List<MemoGroup>>(
-              stream: bloc.getAllGroups,
-              builder: (_, AsyncSnapshot<List<MemoGroup>> memoGroups) {
-                if (memoGroups.hasData) {
-                  return _buildGroups(memoGroups.data);
-                } else {
-                  return _buildGroups([]);
-                }
-              },
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text(
+          'Memo Groups',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.white30,
+      ),
+      body: StreamBuilder<List<MemoGroup>>(
+        stream: bloc.getAllGroups,
+        builder: (_, AsyncSnapshot<List<MemoGroup>> memoGroups) {
+          if (memoGroups.hasData) {
+            return _buildGroups(memoGroups.data);
+          } else {
+            return _buildGroups([]);
+          }
+        },
       ),
     );
   }
 
   Widget _buildGroups(List<MemoGroup> memoGroups) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemCount: memoGroups.length,
       semanticChildCount: 2,
       itemBuilder: (_, int index) {
