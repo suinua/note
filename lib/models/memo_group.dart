@@ -58,6 +58,6 @@ class MemoGroup {
 
   @override
   bool operator ==(o) {
-    return o is MemoGroup && key == key;
+    return o is MemoGroup && o.key == key;
   }
 }

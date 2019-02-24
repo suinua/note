@@ -16,6 +16,6 @@ class Memo {
 
   @override
   bool operator ==(o) {
-    return o is Memo && key == key;
+    return o is Memo && o.key == key;
   }
 }
