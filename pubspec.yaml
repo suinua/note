@@ -18,7 +18,7 @@ environment:
 
 dependencies:
   # firebase
-  firebase_database: ^1.1.0
+  firebase_database: ^2.0.1+1
 
   # widget,layout
 
