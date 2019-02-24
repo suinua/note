@@ -1,28 +1,26 @@
-import 'dart:async';
-
 import 'package:note/firebase/memos_repository.dart';
 import 'package:note/models/memo.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MemosBloc {
   final String parentGroupKey;
   MemosRepository _repository;
   List<Memo> _memos = <Memo>[];
 
-  StreamController<List<Memo>> _memosController =
-      StreamController<List<Memo>>();
-  StreamController<Memo> _addMemoController = StreamController<Memo>();
-  StreamController<Memo> _removeMemoController = StreamController<Memo>();
-  StreamController<Memo> _updateMemoController = StreamController<Memo>();
+  BehaviorSubject<List<Memo>> _memosController = BehaviorSubject<List<Memo>>();
+   BehaviorSubject<Memo> _addMemoController =  BehaviorSubject<Memo>();
+   BehaviorSubject<Memo> _removeMemoController =  BehaviorSubject<Memo>();
+   BehaviorSubject<Memo> _updateMemoController =  BehaviorSubject<Memo>();
 
-  StreamSink<List<Memo>> get _setMemos => _memosController.sink;
+  Sink<List<Memo>> get _setMemos => _memosController.sink;
 
   Stream<List<Memo>> get getAllMemos => _memosController.stream;
 
-  StreamSink<Memo> get addMemo => _addMemoController.sink;
+  Sink<Memo> get addMemo => _addMemoController.sink;
 
-  StreamSink<Memo> get removeMemo => _removeMemoController.sink;
+  Sink<Memo> get removeMemo => _removeMemoController.sink;
 
-  StreamSink<Memo> get updateMemo => _updateMemoController.sink;
+  Sink<Memo> get updateMemo => _updateMemoController.sink;
 
   MemosBloc(this.parentGroupKey) {
     void _onAdded(Memo addedMemo) {

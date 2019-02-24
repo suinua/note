@@ -1,31 +1,30 @@
-import 'dart:async';
-
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/firebase/memo_groups_repository.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MemoGroupsBloc implements Bloc{
   MemoGroupsRepository _repository;
   List<MemoGroup> _memoGroups = <MemoGroup>[];
 
-  StreamController<List<MemoGroup>> _memoGroupsController =
-      StreamController<List<MemoGroup>>();
-  StreamController<MemoGroup> _addGroupController =
-      StreamController<MemoGroup>();
-  StreamController<MemoGroup> _removeGroupController =
-      StreamController<MemoGroup>();
-  StreamController<MemoGroup> _updateGroupController =
-      StreamController<MemoGroup>();
+  BehaviorSubject<List<MemoGroup>> _memoGroupsController =
+      BehaviorSubject<List<MemoGroup>>();
+  BehaviorSubject<MemoGroup> _addGroupController =
+      BehaviorSubject<MemoGroup>();
+  BehaviorSubject<MemoGroup> _removeGroupController =
+      BehaviorSubject<MemoGroup>();
+  BehaviorSubject<MemoGroup> _updateGroupController =
+      BehaviorSubject<MemoGroup>();
 
-  StreamSink<List<MemoGroup>> get _setGroups => _memoGroupsController.sink;
+  Sink<List<MemoGroup>> get _setGroups => _memoGroupsController.sink;
 
   Stream<List<MemoGroup>> get getAllGroups => _memoGroupsController.stream;
 
-  StreamSink<MemoGroup> get addGroup => _addGroupController.sink;
+  Sink<MemoGroup> get addGroup => _addGroupController.sink;
 
-  StreamSink<MemoGroup> get removeGroup => _removeGroupController.sink;
+  Sink<MemoGroup> get removeGroup => _removeGroupController.sink;
 
-  StreamSink<MemoGroup> get updateGroup => _updateGroupController.sink;
+  Sink<MemoGroup> get updateGroup => _updateGroupController.sink;
 
   MemoGroupsBloc() {
     void _onAdded(MemoGroup addedGroup) {
@@ -71,5 +70,14 @@ class MemoGroupsBloc implements Bloc{
     await _addGroupController.close();
     await _removeGroupController.close();
     await _updateGroupController.close();
+  }
+
+  submit() {
+    if (_memoGroupsController.value == null || _memoGroupsController.value.isEmpty) {
+      print('Error');
+      return;
+    } else {
+      print('OK');
+    }
   }
 }
