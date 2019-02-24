@@ -25,10 +25,13 @@ dependencies:
   #bloc
   bloc_provider: ^0.1.1
 
-  # other
+  #testing
   test: ^1.5.1
   flutter_driver:
     sdk: flutter
+
+  # other
+  rxdart: ^0.21.0
   flutter:
     sdk: flutter
 
