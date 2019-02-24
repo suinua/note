@@ -41,7 +41,6 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
                       bloc.addGroup.add(MemoGroup(
                           title: _groupTitle, description: _groupDescription));
                       Navigator.pop(context);
-
                     }
                   : null,
               child: Text('save'),
