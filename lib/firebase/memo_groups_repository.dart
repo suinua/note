@@ -36,7 +36,7 @@ class MemoGroupsRepository {
 
   void addGroup(MemoGroup memoGroup) {
     print('add group to firebase ${memoGroup.asMap()}');
-    memoGroupsRef.push().set(memoGroup.asMap())..catchError(print);
+    memoGroupsRef.push().set(memoGroup.asMap());
   }
 
   void removeGroup(MemoGroup memoGroup) {
