@@ -44,6 +44,7 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
                     }
                   : null,
               child: Text('save'),
+              color: Colors.blue,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
