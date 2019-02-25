@@ -35,15 +35,17 @@ class MemoGroupsRepository {
   }
 
   void addGroup(MemoGroup memoGroup) {
-    print('add group to firebase ${memoGroup.asMap()}');
+    print('add group from firebase ${memoGroup.asMap()}');
     memoGroupsRef.push().set(memoGroup.asMap());
   }
 
   void removeGroup(MemoGroup memoGroup) {
+    print('remove group from firebase ${memoGroup.asMap()}');
     memoGroupsRef.child(memoGroup.key).remove();
   }
 
   void updateGroup(MemoGroup memoGroup) {
+    print('update group from firebase ${memoGroup.asMap()}');
     memoGroupsRef.child(memoGroup.key).update(memoGroup.asMap());
   }
 }
