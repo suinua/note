@@ -36,6 +36,9 @@ class MemoGroup {
       _memosBloc.getAllMemos.listen((event) {
         _memos = event;
       });
+      _memosBloc.getAllMemos.listen((allMemos) {
+        _memos = allMemos;
+      });
     }
   }
 
