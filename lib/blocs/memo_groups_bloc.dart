@@ -71,13 +71,4 @@ class MemoGroupsBloc implements Bloc{
     await _removeGroupController.close();
     await _updateGroupController.close();
   }
-
-  submit() {
-    if (_memoGroupsController.value == null || _memoGroupsController.value.isEmpty) {
-      print('Error');
-      return;
-    } else {
-      print('OK');
-    }
-  }
 }
