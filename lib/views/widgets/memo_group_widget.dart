@@ -28,8 +28,9 @@ class MemoGroupWidget extends StatelessWidget {
                           Center(
                             child: Text(
                               memoGroup.title,
-                              style: TextStyle(fontSize: 28),
-                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 25),
+                              maxLines: 2,
                             ),
                           ),
                           Divider(),
@@ -40,7 +41,8 @@ class MemoGroupWidget extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
                         memoGroup.description,
-                        style: TextStyle(fontSize: 15,color: Colors.black38),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 15, color: Colors.black38),
                         maxLines: 3,
                       ),
                     )
