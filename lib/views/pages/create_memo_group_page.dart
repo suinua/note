@@ -20,6 +20,7 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
     final bloc = MemoGroupsBlocProvider.of(context);
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(
           'New Memo Group',

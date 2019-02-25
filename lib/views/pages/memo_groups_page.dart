@@ -9,6 +9,7 @@ class MemoGroupsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = MemoGroupsBlocProvider.of(context);
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       floatingActionButton: FloatingActionButton.extended(
         elevation: 4.0,
         icon: const Icon(Icons.add),
