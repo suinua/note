@@ -66,7 +66,10 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
               border: OutlineInputBorder(),
             ),
           ),
+          Padding(padding: const EdgeInsets.only(bottom: 30.0)),
           TextField(
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             onChanged: (value) {
               setState(() {
                 _groupDescription = value;
