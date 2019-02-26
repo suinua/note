@@ -26,7 +26,7 @@ class MemoGroupPage extends StatelessWidget {
         actions: <Widget>[
           Center(
             child: IconButton(
-              icon: const Icon(Icons.settings),
+              icon: const Icon(Icons.settings,color: Colors.grey,),
               onPressed: () {
                 //TODO : 設定画面に飛ぶ
               },
