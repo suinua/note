@@ -1,12 +1,14 @@
+import 'package:meta/meta.dart';
+
 class Memo {
   final String key;
   String title;
   String body;
 
-  Memo(this.title, this.body, {this.key});
+  Memo({@required this.title, @required this.body, this.key});
 
   factory Memo.fromMap(Map<String, dynamic> memo) {
-    return Memo(memo['title'], memo['body'], key: memo['key']);
+    return Memo(title: memo['title'], body: memo['body'], key: memo['key']);
   }
 
   Map<String, dynamic> asMap() => {
