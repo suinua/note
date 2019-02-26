@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/pages/memo_group_page.dart';
 
 class MemoGroupWidget extends StatelessWidget {
   final MemoGroup memoGroup;
@@ -9,49 +10,59 @@ class MemoGroupWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //TODO : ネストしすぎ
-    return Container(
-      height: 170,
-      child: Column(
-        children: <Widget>[
-          Flexible(
-            child: Container(
-              height: 170,
-              child: Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Center(
-                            child: Text(
-                              memoGroup.title,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 25),
-                              maxLines: 2,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_){
+            return MemoGroupPage(memoGroup: memoGroup);
+          }),
+        );
+      },
+      child: Container(
+        height: 170,
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                height: 170,
+                child: Card(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            Center(
+                              child: Text(
+                                memoGroup.title,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 25),
+                                maxLines: 2,
+                              ),
                             ),
-                          ),
-                          Divider(),
-                        ],
+                            Divider(),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Text(
-                        memoGroup.description,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 15, color: Colors.black38),
-                        maxLines: 3,
-                      ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          memoGroup.description,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 15, color: Colors.black38),
+                          maxLines: 3,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
