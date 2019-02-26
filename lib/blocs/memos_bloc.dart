@@ -8,9 +8,9 @@ class MemosBloc {
   List<Memo> _memos = <Memo>[];
 
   BehaviorSubject<List<Memo>> _memosController = BehaviorSubject<List<Memo>>();
-   BehaviorSubject<Memo> _addMemoController =  BehaviorSubject<Memo>();
-   BehaviorSubject<Memo> _removeMemoController =  BehaviorSubject<Memo>();
-   BehaviorSubject<Memo> _updateMemoController =  BehaviorSubject<Memo>();
+  BehaviorSubject<Memo> _addMemoController = BehaviorSubject<Memo>();
+  BehaviorSubject<Memo> _removeMemoController = BehaviorSubject<Memo>();
+  BehaviorSubject<Memo> _updateMemoController = BehaviorSubject<Memo>();
 
   Sink<List<Memo>> get _setMemos => _memosController.sink;
 
@@ -48,12 +48,15 @@ class MemosBloc {
         onMemoChanged: _onChanged);
 
     _addMemoController.stream.listen((Memo memo) {
+      print('add memo : ${memo.asMap()}');
       _repository.addMemo(memo);
     });
     _removeMemoController.stream.listen((Memo memo) {
+      print('remove memo : ${memo.asMap()}');
       _repository.removeMemo(memo);
     });
     _updateMemoController.stream.listen((Memo memo) {
+      print('update memo : ${memo.asMap()}');
       _repository.updateMemo(memo);
     });
   }
