@@ -34,6 +34,14 @@ class MemoGroupPage extends StatelessWidget {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 4.0,
+        icon: const Icon(Icons.add),
+        label: Text('add memo'),
+        onPressed: () {
+          //TODO : 追加用のBottomSheetを表示
+        },
+      ),
       body: Column(
         children: <Widget>[
           Expanded(
