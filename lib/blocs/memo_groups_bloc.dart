@@ -52,15 +52,15 @@ class MemoGroupsBloc implements Bloc{
         onGroupChanged: _onChanged);
 
     _addGroupController.stream.listen((MemoGroup memoGroup) {
-      print('add group = ${memoGroup.asMap()}');
+      print('add group : ${memoGroup.asMap()}');
       _repository.addGroup(memoGroup);
     });
     _removeGroupController.stream.listen((MemoGroup memoGroup) {
-      print('remove group = ${memoGroup.asMap()}');
+      print('remove group : ${memoGroup.asMap()}');
       _repository.removeGroup(memoGroup);
     });
     _updateGroupController.stream.listen((MemoGroup memoGroup) {
-      print('update group = ${memoGroup.asMap()}');
+      print('update group : ${memoGroup.asMap()}');
       _repository.updateGroup(memoGroup);
     });
   }
