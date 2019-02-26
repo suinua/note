@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/pages/create_memo_page.dart';
 import 'package:note/views/widgets/memo_widget.dart';
 
 class MemoGroupPage extends StatelessWidget {
@@ -39,7 +40,9 @@ class MemoGroupPage extends StatelessWidget {
         icon: const Icon(Icons.add),
         label: Text('add memo'),
         onPressed: () {
-          //TODO : 追加用のBottomSheetを表示
+          Navigator.push(context, MaterialPageRoute(builder: (_){
+            return CreateMemoBottomSheet(memoGroup: memoGroup);
+          }));
         },
       ),
       body: Column(
