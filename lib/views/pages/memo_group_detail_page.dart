@@ -4,10 +4,10 @@ import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/create_memo_page.dart';
 import 'package:note/views/widgets/memo_widget.dart';
 
-class MemoGroupPage extends StatelessWidget {
+class MemoGroupDetailPage extends StatelessWidget {
   final MemoGroup memoGroup;
 
-  const MemoGroupPage({Key key, @required this.memoGroup}) : super(key: key);
+  const MemoGroupDetailPage({Key key, @required this.memoGroup}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

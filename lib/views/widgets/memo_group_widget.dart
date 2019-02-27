@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/pages/memo_group_page.dart';
+import 'package:note/views/pages/memo_group_detail_page.dart';
 
 class MemoGroupWidget extends StatelessWidget {
   final MemoGroup memoGroup;
@@ -15,7 +15,7 @@ class MemoGroupWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_){
-            return MemoGroupPage(memoGroup: memoGroup);
+            return MemoGroupDetailPage(memoGroup: memoGroup);
           }),
         );
       },
