@@ -45,17 +45,17 @@ class MemoGroup {
   factory MemoGroup.fromMap(Map<String, dynamic> memoGroup) {
     //TODO : 変数名がダメ　＋　分かりづらい
     List<Map<String,dynamic>> mapOfMemos = <Map<String,dynamic>>[];
-    memoGroup['memos'].values.toList().forEach((value){
-      mapOfMemos.add(Map<String,dynamic>.from(value));
-    });
+    if (memoGroup['memos'] != null) {
+      memoGroup['memos'].values.toList().forEach((value){
+        mapOfMemos.add(Map<String,dynamic>.from(value));
+      });
+    }
 
     return MemoGroup(
       title: memoGroup['title'],
       description: memoGroup['description'],
       key: memoGroup['key'],
-      memos: memoGroup['memos'] == null
-          ? []
-          : mapOfMemos.map((memo) => Memo.fromMap(memo)).toList(),
+      memos: mapOfMemos.map((memo) => Memo.fromMap(memo)).toList(),
     );
   }
 
