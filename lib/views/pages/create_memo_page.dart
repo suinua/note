@@ -43,6 +43,7 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
                   ? () {
                       widget.memoGroup
                           .addMemo(Memo(title: _memoTitle, body: _memoBody));
+                      Navigator.pop(context);
                     }
                   : null,
               child: Text('save'),
