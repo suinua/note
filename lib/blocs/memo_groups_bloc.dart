@@ -28,16 +28,22 @@ class MemoGroupsBloc implements Bloc{
 
   MemoGroupsBloc() {
     void _onAdded(MemoGroup addedGroup) {
+      print('added group to firebase : ${addedGroup.asMap()}');
+
       _memoGroups.add(addedGroup);
       _setGroups.add(_memoGroups);
     }
 
     void _onRemoved(MemoGroup removedGroup) {
+      print('removed group to firebase : ${removedGroup.asMap()}');
+
       _memoGroups.remove(removedGroup);
       _setGroups.add(_memoGroups);
     }
 
     void _onChanged(MemoGroup changedGroup) {
+      print('changed group to firebase : ${changedGroup.asMap()}');
+
       _memoGroups.forEach((MemoGroup memoGroup) {
         if (memoGroup == changedGroup) {
           memoGroup = changedGroup;

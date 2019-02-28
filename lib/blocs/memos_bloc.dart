@@ -24,16 +24,22 @@ class MemosBloc {
 
   MemosBloc(this.parentGroupKey) {
     void _onAdded(Memo addedMemo) {
+      print('added memo to firebase : ${addedMemo.asMap()}');
+
       _memos.add(addedMemo);
       _setMemos.add(_memos);
     }
 
     void _onRemoved(Memo removedMemo) {
+      print('removed memo to firebase : ${removedMemo.asMap()}');
+
       _memos.remove(removedMemo);
       _setMemos.add(_memos);
     }
 
     void _onChanged(Memo changedMemo) {
+      print('updated memo to firebase : ${changedMemo.asMap()}');
+
       _memos.forEach((Memo memo) {
         if (memo == changedMemo) {
           memo = changedMemo;

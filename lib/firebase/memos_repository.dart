@@ -43,17 +43,14 @@ class MemosRepository {
   }
 
   void addMemo(Memo memo) {
-    print('add memo to firebase : ${memo.asMap()}');
     memosRef.push().set(memo.asMap());
   }
 
   void removeMemo(Memo memo) {
-    print('remove memo to firebase : ${memo.asMap()}');
     memosRef.child(memo.key).remove();
   }
 
   void updateMemo(Memo memo) {
-    print('update memo to firebase : ${memo.asMap()}');
     memosRef.child(memo.key).update(memo.asMap());
   }
 }

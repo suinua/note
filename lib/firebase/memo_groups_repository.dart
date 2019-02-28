@@ -26,7 +26,7 @@ class MemoGroupsRepository {
 
       this.onGroupRemoved(MemoGroup.fromMap(value));
     });
-    memoGroupsRef.onChildAdded.listen((event) {
+    memoGroupsRef.onChildChanged.listen((event) {
       Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
 
@@ -35,17 +35,14 @@ class MemoGroupsRepository {
   }
 
   void addGroup(MemoGroup memoGroup) {
-    print('add group to firebase : ${memoGroup.asMap()}');
     memoGroupsRef.push().set(memoGroup.asMap());
   }
 
   void removeGroup(MemoGroup memoGroup) {
-    print('remove group to firebase : ${memoGroup.asMap()}');
     memoGroupsRef.child(memoGroup.key).remove();
   }
 
   void updateGroup(MemoGroup memoGroup) {
-    print('update group to firebase : ${memoGroup.asMap()}');
     memoGroupsRef.child(memoGroup.key).update(memoGroup.asMap());
   }
 }
