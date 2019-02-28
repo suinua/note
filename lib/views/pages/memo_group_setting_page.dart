@@ -39,7 +39,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
   @override
   Widget build(BuildContext context) {
     final bloc = MemoGroupsBlocProvider.of(context);
-    //TODO :　リネーム、 削除、 並び替え、
+    //TODO : 削除、 並び替え、
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
