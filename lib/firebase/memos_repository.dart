@@ -33,7 +33,7 @@ class MemosRepository {
 
       this.onMemoRemoved(Memo.fromMap(value));
     });
-    memosRef.onChildAdded.listen((event) {
+    memosRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
       value['key'] = event.snapshot.key;
