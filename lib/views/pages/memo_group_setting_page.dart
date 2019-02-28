@@ -5,7 +5,8 @@ import 'package:note/models/memo_group.dart';
 class MemoGroupSettingPage extends StatefulWidget {
   final MemoGroup memoGroup;
 
-  const MemoGroupSettingPage({Key key, @required this.memoGroup}) : super(key: key);
+  const MemoGroupSettingPage({Key key, @required this.memoGroup})
+      : super(key: key);
 
   @override
   _MemoGroupSettingPageState createState() => _MemoGroupSettingPageState();
@@ -13,6 +14,8 @@ class MemoGroupSettingPage extends StatefulWidget {
 
 class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
   //TODO : TextEditingControllerは、文字を入力した瞬間更新されないので_canSave関数の反映が遅れてしまう(?)
+  String _mockTitleForCanSave;
+  String _mockDescriptionForCanSave;
   TextEditingController _mockTitleController;
   TextEditingController _mockDescriptionController;
 
@@ -22,12 +25,15 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
     _mockDescriptionController =
         TextEditingController(text: widget.memoGroup.description);
 
+    _mockTitleForCanSave = widget.memoGroup.title;
+    _mockDescriptionForCanSave = widget.memoGroup.description;
+
     super.initState();
   }
 
   bool _canSave() {
-    return _mockTitleController.text != widget.memoGroup.title &&
-        _mockDescriptionController.text != widget.memoGroup.description;
+    return _mockTitleForCanSave != widget.memoGroup.title &&
+        _mockDescriptionForCanSave != widget.memoGroup.description;
   }
 
   @override
@@ -73,6 +79,11 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
         children: <Widget>[
           TextField(
             controller: _mockTitleController,
+            onChanged: (value){
+              setState(() {
+                _mockTitleForCanSave = value;
+              });
+            },
             decoration: InputDecoration(
               labelText: 'Title',
               border: OutlineInputBorder(),
@@ -81,6 +92,11 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
           Padding(padding: const EdgeInsets.only(bottom: 30.0)),
           TextField(
             controller: _mockDescriptionController,
+            onChanged: (value){
+              setState(() {
+                _mockDescriptionForCanSave = value;
+              });
+            },
             keyboardType: TextInputType.multiline,
             maxLines: null,
             decoration: InputDecoration(
