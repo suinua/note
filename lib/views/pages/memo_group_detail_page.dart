@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/create_memo_page.dart';
+import 'package:note/views/pages/memo_group_setting_page.dart';
 import 'package:note/views/widgets/memo_widget.dart';
 
 class MemoGroupDetailPage extends StatelessWidget {
   final MemoGroup memoGroup;
 
-  const MemoGroupDetailPage({Key key, @required this.memoGroup}) : super(key: key);
+  const MemoGroupDetailPage({Key key, @required this.memoGroup})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +30,19 @@ class MemoGroupDetailPage extends StatelessWidget {
         actions: <Widget>[
           Center(
             child: IconButton(
-              icon: const Icon(Icons.settings,color: Colors.grey,),
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.grey,
+              ),
               onPressed: () {
-                //TODO : 設定画面に飛ぶ
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return MemoGroupSettingPage(memoGroup: memoGroup);
+                    },
+                  ),
+                );
               },
             ),
           )
@@ -40,7 +53,7 @@ class MemoGroupDetailPage extends StatelessWidget {
         icon: const Icon(Icons.add),
         label: Text('add memo'),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_){
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
             return CreateMemoBottomSheet(memoGroup: memoGroup);
           }));
         },
@@ -55,10 +68,10 @@ class MemoGroupDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMemos(List<Memo> memos){
+  Widget _buildMemos(List<Memo> memos) {
     return ListView.builder(
       itemCount: memos.length,
-      itemBuilder: (_,int index){
+      itemBuilder: (_, int index) {
         return MemoWidget(memo: memos[index]);
       },
     );
