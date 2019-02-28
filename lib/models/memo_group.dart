@@ -43,11 +43,12 @@ class MemoGroup {
   }
 
   factory MemoGroup.fromMap(Map<String, dynamic> memoGroup) {
-    //TODO : 変数名がダメ　＋　分かりづらい
-    List<Map<String,dynamic>> mapOfMemos = <Map<String,dynamic>>[];
+    List<Memo> memos = [];
     if (memoGroup['memos'] != null) {
-      memoGroup['memos'].values.toList().forEach((value){
-        mapOfMemos.add(Map<String,dynamic>.from(value));
+      memoGroup['memos'].forEach((key, value) {
+        value['key'] = key;
+        Memo memo = Memo.fromMap((Map<String, dynamic>.from(value)));
+        memos.add(memo);
       });
     }
 
@@ -55,15 +56,24 @@ class MemoGroup {
       title: memoGroup['title'],
       description: memoGroup['description'],
       key: memoGroup['key'],
-      memos: mapOfMemos.map((memo) => Memo.fromMap(memo)).toList(),
+      memos: memos,
     );
   }
 
-  Map<String, dynamic> asMap() => {
-        'title': title,
-        'description': description,
-        'memos': _memos.map((memo) => memo.asMap()).toList(),
-      };
+  Map<String, dynamic> asMap() {
+    Map<String,dynamic> memos = {};
+    _memos.forEach((memo){
+      Map<String,dynamic> mapOfMemo = memo.asMap();
+      mapOfMemo.remove('key');
+      memos[memo.key] = mapOfMemo;
+    });
+
+    return {
+      'title': title,
+      'description': description,
+      'memos': memos
+    };
+  }
 
   @override
   bool operator ==(o) {

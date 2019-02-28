@@ -12,6 +12,7 @@ class Memo {
   }
 
   Map<String, dynamic> asMap() => {
+        'key':key,
         'title': title,
         'body': body,
       };
