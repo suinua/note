@@ -22,7 +22,7 @@ class MemoGroupDetailPage extends StatelessWidget {
         backgroundColor: Colors.white30,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.close, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
         actions: <Widget>[
           Center(
