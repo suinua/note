@@ -51,7 +51,23 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
         elevation: 0.0,
         backgroundColor: Colors.white30,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            if (_canSave()) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return _conformDialog(context,
+                      title: '変更があります、変更を破棄して閉じますか？');
+                },
+              ).then((value) {
+                if (value == _ConformDialogActionType.ok) {
+                  Navigator.pop(context);
+                }
+              });
+            } else {
+              Navigator.pop(context);
+            }
+          },
           icon: const Icon(Icons.close, color: Colors.black),
         ),
         actions: <Widget>[
