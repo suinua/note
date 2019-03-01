@@ -32,7 +32,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
   }
 
   bool _canSave() {
-    return _mockTitleForCanSave != widget.memoGroup.title &&
+    return _mockTitleForCanSave != widget.memoGroup.title ||
         _mockDescriptionForCanSave != widget.memoGroup.description;
   }
 
