@@ -39,7 +39,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
   @override
   Widget build(BuildContext context) {
     final bloc = MemoGroupsBlocProvider.of(context);
-    //TODO : 削除、 並び替え、
+    //TODO : 並び替え、
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -79,7 +79,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
         children: <Widget>[
           TextField(
             controller: _mockTitleController,
-            onChanged: (value){
+            onChanged: (value) {
               setState(() {
                 _mockTitleForCanSave = value;
               });
@@ -92,7 +92,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
           Padding(padding: const EdgeInsets.only(bottom: 30.0)),
           TextField(
             controller: _mockDescriptionController,
-            onChanged: (value){
+            onChanged: (value) {
               setState(() {
                 _mockDescriptionForCanSave = value;
               });
@@ -104,8 +104,48 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
               border: OutlineInputBorder(),
             ),
           ),
+          RaisedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return _conformDialog(context, title: '削除しますか？');
+                },
+              ).then((value) {
+                if (value == _ConformDialogActionType.ok) {
+                  //TODO : homeに戻す
+                  bloc.removeGroup.add(widget.memoGroup);
+                }
+              });
+            },
+            child: const Text('delete'),
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
         ],
       ),
     );
   }
+
+  Widget _conformDialog(BuildContext context, {@required String title}) {
+    return AlertDialog(
+      title: Text(title),
+      actions: <Widget>[
+        FlatButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.pop(context, _ConformDialogActionType.cancel);
+            }),
+        FlatButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.pop(context, _ConformDialogActionType.ok);
+            })
+      ],
+    );
+  }
 }
+
+enum _ConformDialogActionType { ok, cancel }
