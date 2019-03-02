@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
+import 'package:markdown/markdown.dart' as MarkDown;
 
 class MemoDetailPage extends StatelessWidget {
   final Memo memo;
 
   const MemoDetailPage({Key key, @required this.memo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class MemoDetailPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
-      body: Text(memo.body),
+      body: HtmlView(data: MarkDown.markdownToHtml(memo.body)),
     );
   }
 }
