@@ -23,7 +23,6 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(
           'New Memo',
@@ -69,19 +68,23 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
             ),
           ),
           Padding(padding: const EdgeInsets.only(bottom: 30.0)),
-          TextField(
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            onChanged: (value) {
-              setState(() {
-                _memoBody = value;
-              });
-            },
-            decoration: InputDecoration(
-              labelText: 'Body',
-              border: OutlineInputBorder(),
+          Expanded(
+            child: TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              onChanged: (value) {
+                setState(() {
+                  _memoBody = value;
+                });
+              },
+              decoration: InputDecoration(
+                labelText: 'Body',
+                border: OutlineInputBorder(),
+              ),
             ),
           ),
+          //MEMO : キーボードで文字が隠れるのを防ぐため1
+          Padding(padding: const EdgeInsets.only(bottom: 40.0)),
         ],
       ),
     );
