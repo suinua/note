@@ -32,6 +32,8 @@ dependencies:
 
   # other
   rxdart: ^0.21.0
+  flutter_html_view: ^0.5.11
+  markdown: ^2.0.2
   flutter:
     sdk: flutter
 
