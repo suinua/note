@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/confirm_dialog.dart';
 
 class MemoGroupSettingPage extends StatefulWidget {
   final MemoGroup memoGroup;
@@ -53,17 +54,13 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
         leading: IconButton(
           onPressed: () {
             if (_canSave()) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return _confirmDialog(context,
-                      title: '変更があります、変更を破棄して閉じますか？');
-                },
-              ).then((value) {
-                if (value == _ConfirmDialogActionType.ok) {
+              ConfirmDialog.show(
+                context,
+                title: '変更があります、破棄して閉じますか？',
+                onApproved: () {
                   Navigator.pop(context);
-                }
-              });
+                },
+              );
             } else {
               Navigator.pop(context);
             }
@@ -123,17 +120,13 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
           ),
           RaisedButton(
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return _confirmDialog(context, title: '削除しますか？');
-                },
-              ).then((value) {
-                if (value == _ConfirmDialogActionType.ok) {
-                  //TODO : homeに戻す
+              ConfirmDialog.show(
+                context,
+                title: '削除しますか?',
+                onApproved: () {
                   bloc.removeGroup.add(widget.memoGroup);
-                }
-              });
+                },
+              );
             },
             child: const Text('delete'),
             color: Colors.blue,
@@ -145,24 +138,4 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
       ),
     );
   }
-
-  Widget _confirmDialog(BuildContext context, {@required String title}) {
-    return AlertDialog(
-      title: Text(title),
-      actions: <Widget>[
-        FlatButton(
-            child: const Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context, _ConfirmDialogActionType.cancel);
-            }),
-        FlatButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.pop(context, _ConfirmDialogActionType.ok);
-            })
-      ],
-    );
-  }
 }
-
-enum _ConfirmDialogActionType { ok, cancel }
