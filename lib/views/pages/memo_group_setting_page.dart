@@ -75,11 +75,12 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
             child: RaisedButton(
               onPressed: _canSave()
                   ? () {
-                      widget.memoGroup.title = _mockTitleController.text;
-                      widget.memoGroup.description =
-                          _mockDescriptionController.text;
+                      setState(() {
+                        widget.memoGroup.title = _mockTitleController.text;
+                        widget.memoGroup.description =
+                            _mockDescriptionController.text;
+                      });
                       bloc.updateGroup.add(widget.memoGroup);
-                      Navigator.pop(context);
                     }
                   : null,
               child: Text('save'),
