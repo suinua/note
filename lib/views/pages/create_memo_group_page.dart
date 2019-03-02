@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/confirm_dialog.dart';
 
 class CreateMemoGroupPage extends StatefulWidget {
   @override
@@ -10,6 +11,10 @@ class CreateMemoGroupPage extends StatefulWidget {
 class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
   String _groupTitle = '';
   String _groupDescription = '';
+
+  bool _wasInput() {
+    return _groupTitle.isNotEmpty || _groupDescription.isNotEmpty;
+  }
 
   bool _canSave() {
     return _groupTitle.isNotEmpty;
@@ -29,7 +34,19 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
         elevation: 0.0,
         backgroundColor: Colors.white30,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: (){
+            if (_wasInput()) {
+              ConfirmDialog.show(
+                context,
+                title: '変更があります、破棄して閉じますか？',
+                onApproved: () {
+                  Navigator.pop(context);
+                },
+              );
+            } else {
+              Navigator.pop(context);
+            }
+          },
           icon: const Icon(Icons.close, color: Colors.black),
         ),
         actions: <Widget>[

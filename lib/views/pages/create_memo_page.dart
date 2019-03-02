@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/confirm_dialog.dart';
 
 class CreateMemoBottomSheet extends StatefulWidget {
   final MemoGroup memoGroup;
@@ -15,6 +16,10 @@ class CreateMemoBottomSheet extends StatefulWidget {
 class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
   String _memoTitle = '';
   String _memoBody = '';
+
+  bool _wasInput() {
+    return _memoTitle.isNotEmpty || _memoBody.isNotEmpty;
+  }
 
   bool _canSave() {
     return _memoTitle.isNotEmpty;
@@ -32,7 +37,19 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
         elevation: 0.0,
         backgroundColor: Colors.white30,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            if (_wasInput()) {
+              ConfirmDialog.show(
+                context,
+                title: '変更があります、破棄して閉じますか？',
+                onApproved: () {
+                  Navigator.pop(context);
+                },
+              );
+            } else {
+              Navigator.pop(context);
+            }
+          },
           icon: const Icon(Icons.close, color: Colors.black),
         ),
         actions: <Widget>[
