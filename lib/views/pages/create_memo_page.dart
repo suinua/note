@@ -57,33 +57,37 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
       body: Column(
         children: <Widget>[
           TextField(
+            style: TextStyle(fontSize: 30),
             onChanged: (value) {
               setState(() {
                 _memoTitle = value;
               });
             },
             decoration: InputDecoration(
-              labelText: 'Title',
-              border: OutlineInputBorder(),
+              hintText: 'Title',
+              border: InputBorder.none,
             ),
           ),
+          Divider(),
           Padding(padding: const EdgeInsets.only(bottom: 30.0)),
           Expanded(
             child: TextField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
+              style: TextStyle(fontSize: 25),
               onChanged: (value) {
                 setState(() {
                   _memoBody = value;
                 });
               },
               decoration: InputDecoration(
-                labelText: 'Body',
-                border: OutlineInputBorder(),
+                hintText: 'Body',
+                border: InputBorder.none,
               ),
             ),
           ),
-          //MEMO : キーボードで文字が隠れるのを防ぐため1
+          Divider(),
+          //MEMO : キーボードで文字が隠れるのを防ぐため
           Padding(padding: const EdgeInsets.only(bottom: 40.0)),
         ],
       ),

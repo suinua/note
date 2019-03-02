@@ -20,7 +20,6 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
     final bloc = MemoGroupsBlocProvider.of(context);
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text(
           'New Memo Group',
@@ -56,30 +55,36 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
       body: Column(
         children: <Widget>[
           TextField(
+            style: TextStyle(fontSize: 30),
             onChanged: (value) {
               setState(() {
                 _groupTitle = value;
               });
             },
             decoration: InputDecoration(
-              labelText: 'Title',
-              border: OutlineInputBorder(),
+              hintText: 'Title',
+              border: InputBorder.none,
             ),
           ),
           Padding(padding: const EdgeInsets.only(bottom: 30.0)),
-          TextField(
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            onChanged: (value) {
-              setState(() {
-                _groupDescription = value;
-              });
-            },
-            decoration: InputDecoration(
-              labelText: 'Description',
-              border: OutlineInputBorder(),
+          Expanded(
+            child: TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              style: TextStyle(fontSize: 25),
+              onChanged: (value) {
+                setState(() {
+                  _groupDescription = value;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Description',
+                border: InputBorder.none,
+              ),
             ),
           ),
+          //MEMO : キーボードで文字が隠れるのを防ぐため
+          Padding(padding: const EdgeInsets.only(bottom: 40.0)),
         ],
       ),
     );
