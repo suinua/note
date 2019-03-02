@@ -17,7 +17,7 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
   String _memoBody = '';
 
   bool _canSave() {
-    return _memoTitle.isNotEmpty && _memoBody.isNotEmpty;
+    return _memoTitle.isNotEmpty;
   }
 
   @override

@@ -12,7 +12,7 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
   String _groupDescription = '';
 
   bool _canSave() {
-    return _groupTitle.isNotEmpty && _groupDescription.isNotEmpty;
+    return _groupTitle.isNotEmpty;
   }
 
   @override
