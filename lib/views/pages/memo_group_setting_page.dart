@@ -93,19 +93,21 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
         children: <Widget>[
           TextField(
             controller: _mockTitleController,
+            style: TextStyle(fontSize: 30),
             onChanged: (value) {
               setState(() {
                 _mockTitleForCanSave = value;
               });
             },
             decoration: InputDecoration(
-              labelText: 'Title',
-              border: OutlineInputBorder(),
+              hintText: 'Title',
+              border: InputBorder.none,
             ),
           ),
           Padding(padding: const EdgeInsets.only(bottom: 30.0)),
           TextField(
             controller: _mockDescriptionController,
+            style: TextStyle(fontSize: 25),
             onChanged: (value) {
               setState(() {
                 _mockDescriptionForCanSave = value;
@@ -114,8 +116,8 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             decoration: InputDecoration(
-              labelText: 'Description',
-              border: OutlineInputBorder(),
+              hintText: 'Description',
+              border: InputBorder.none,
             ),
           ),
           RaisedButton(
