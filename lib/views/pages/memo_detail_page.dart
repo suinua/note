@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
-import 'package:flutter_html_view/flutter_html_view.dart';
-import 'package:markdown/markdown.dart' as MarkDown;
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class MemoDetailPage extends StatelessWidget {
   final Memo memo;
@@ -24,7 +23,7 @@ class MemoDetailPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
-      body: HtmlView(data: MarkDown.markdownToHtml(memo.body)),
+      body: Markdown(data: memo.body),
     );
   }
 }

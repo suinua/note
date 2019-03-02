@@ -36,13 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  cached_network_image:
-    dependency: transitive
-    description:
-      name: cached_network_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
   charcode:
     dependency: transitive
     description:
@@ -111,34 +104,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_cache_manager:
-    dependency: transitive
-    description:
-      name: flutter_cache_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0+1"
-  flutter_custom_tabs:
-    dependency: transitive
-    description:
-      name: flutter_custom_tabs
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0"
   flutter_driver:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_html_view:
-    dependency: "direct main"
-    description:
-      name: flutter_html_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.11"
   flutter_markdown:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_markdown
       url: "https://pub.dartlang.org"
@@ -175,13 +147,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.3+3"
-  html2md:
-    dependency: transitive
-    description:
-      name: html2md
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   http:
     dependency: transitive
     description:
@@ -246,7 +211,7 @@ packages:
     source: hosted
     version: "0.11.3+2"
   markdown:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: markdown
       url: "https://pub.dartlang.org"
@@ -308,13 +273,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
-  path_provider:
-    dependency: transitive
-    description:
-      name: path_provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1"
   pedantic:
     dependency: transitive
     description:
@@ -371,13 +329,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.21.0"
-  shared_preferences:
-    dependency: transitive
-    description:
-      name: shared_preferences
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.3"
   shelf:
     dependency: transitive
     description:
@@ -453,13 +404,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  synchronized:
-    dependency: transitive
-    description:
-      name: synchronized
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.3+2"
   term_glyph:
     dependency: transitive
     description:
@@ -495,13 +439,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
-  url_launcher:
-    dependency: transitive
-    description:
-      name: url_launcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.3"
   utf:
     dependency: transitive
     description:
@@ -509,13 +446,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0+5"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   vector_math:
     dependency: transitive
     description:
@@ -523,13 +453,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  video_player:
-    dependency: transitive
-    description:
-      name: video_player
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.2"
   vm_service_client:
     dependency: transitive
     description:
@@ -560,4 +483,4 @@ packages:
     version: "2.1.15"
 sdks:
   dart: ">=2.1.1-dev.0.0 <3.0.0"
-  flutter: ">=0.2.5 <2.0.0"
+  flutter: ">=0.1.4 <2.0.0"
