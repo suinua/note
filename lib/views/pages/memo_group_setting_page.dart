@@ -56,11 +56,11 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return _conformDialog(context,
+                  return _confirmDialog(context,
                       title: '変更があります、変更を破棄して閉じますか？');
                 },
               ).then((value) {
-                if (value == _ConformDialogActionType.ok) {
+                if (value == _ConfirmDialogActionType.ok) {
                   Navigator.pop(context);
                 }
               });
@@ -126,10 +126,10 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return _conformDialog(context, title: '削除しますか？');
+                  return _confirmDialog(context, title: '削除しますか？');
                 },
               ).then((value) {
-                if (value == _ConformDialogActionType.ok) {
+                if (value == _ConfirmDialogActionType.ok) {
                   //TODO : homeに戻す
                   bloc.removeGroup.add(widget.memoGroup);
                 }
@@ -146,23 +146,23 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
     );
   }
 
-  Widget _conformDialog(BuildContext context, {@required String title}) {
+  Widget _confirmDialog(BuildContext context, {@required String title}) {
     return AlertDialog(
       title: Text(title),
       actions: <Widget>[
         FlatButton(
             child: const Text('Cancel'),
             onPressed: () {
-              Navigator.pop(context, _ConformDialogActionType.cancel);
+              Navigator.pop(context, _ConfirmDialogActionType.cancel);
             }),
         FlatButton(
             child: const Text('OK'),
             onPressed: () {
-              Navigator.pop(context, _ConformDialogActionType.ok);
+              Navigator.pop(context, _ConfirmDialogActionType.ok);
             })
       ],
     );
   }
 }
 
-enum _ConformDialogActionType { ok, cancel }
+enum _ConfirmDialogActionType { ok, cancel }
