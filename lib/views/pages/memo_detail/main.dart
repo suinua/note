@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:note/views/pages/memo_detail/preview_widget.dart';
 
 class MemoDetailPage extends StatelessWidget {
   final Memo memo;
@@ -9,8 +10,6 @@ class MemoDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Color.fromRGBO(204, 204, 204, 0.5);
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -42,50 +41,13 @@ class MemoDetailPage extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              Markdown(
-                data: memo.body,
-                styleSheet: MarkdownStyleSheet.fromTheme(
-                  ThemeData(
-                      textTheme: TextTheme(
-                    display4: TextStyle(fontSize: 11.0 * 2.0),
-                    display3: TextStyle(fontSize: 56.0 * 2.0),
-                    display2: TextStyle(fontSize: 45.0 * 2.0),
-                    display1: TextStyle(fontSize: 34.0 * 2.0),
-                    headline: TextStyle(
-                      fontSize: 24.0 * 2.0,
-                      decoration: TextDecoration.underline,
-                      decorationColor: color,
-                    ),
-                    title: TextStyle(
-                      fontSize: 20.0 * 2.0,
-                      decoration: TextDecoration.underline,
-                      decorationColor: color,
-                    ),
-                    subhead: TextStyle(
-                      fontSize: 16.0 * 2.0,
-                      decoration: TextDecoration.underline,
-                      decorationColor: color,
-                    ),
-                    body2: TextStyle(
-                      fontSize: 14.0 * 2.0,
-                      decoration: TextDecoration.underline,
-                      decorationColor: color,
-                    ),
-                    body1: TextStyle(fontSize: 14.0 * 2.0),
-                    caption: TextStyle(fontSize: 12.0 * 2.0),
-                    button: TextStyle(fontSize: 14.0 * 2.0),
-                    subtitle: TextStyle(fontSize: 14.0 * 2.0),
-                    overline: TextStyle(fontSize: 10.0 * 2.0),
-                  )),
-                ),
-              ),
+              MemoPreviewWidget(memo: memo),
               EditingMemoWidget(memo: memo),
             ],
           )),
     );
   }
 }
-
 
 class EditingMemoWidget extends StatefulWidget {
   final Memo memo;
@@ -97,15 +59,14 @@ class EditingMemoWidget extends StatefulWidget {
 }
 
 class _EditingMemoWidgetState extends State<EditingMemoWidget> {
-
   //初期値用
   TextEditingController _memoTitleController;
   TextEditingController _memoBodyController;
 
   @override
   void initState() {
-    _memoTitleController = TextEditingController(text:widget.memo.title);
-    _memoBodyController = TextEditingController(text:widget.memo.body);
+    _memoTitleController = TextEditingController(text: widget.memo.title);
+    _memoBodyController = TextEditingController(text: widget.memo.body);
 
     super.initState();
   }
