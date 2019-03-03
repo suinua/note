@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/model_widgets/memo.dart';
 import 'package:note/views/pages/memo_group_detail/create_memo.dart';
 import 'package:note/views/pages/memo_group_detail/setting.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class MemoGroupDetailPage extends StatelessWidget {
   final MemoGroup memoGroup;
 
-  const MemoGroupDetailPage({Key key, @required this.memoGroup})
-      : super(key: key);
+  const MemoGroupDetailPage({Key key, this.memoGroup}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,18 +62,48 @@ class MemoGroupDetailPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: _buildMemos(memoGroup.getAllMemos),
-          ),
+              child: StreamBuilder<List<Memo>>(
+            stream: memoGroup.getAllMemos,
+            builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
+              if (memos.hasData) {
+                return _buildMemos(context, memos.data);
+              } else {
+                return _buildMemos(context, []);
+              }
+            },
+          )),
         ],
       ),
     );
   }
 
-  Widget _buildMemos(List<Memo> memos) {
-    return ListView.builder(
+  Widget _buildMemos(BuildContext context, List<Memo> memos) {
+    return ListView.separated(
       itemCount: memos.length,
+      separatorBuilder: (_, int index) => Divider(),
       itemBuilder: (_, int index) {
-        return MemoWidget(memo: memos[index]);
+        return Slidable(
+          delegate: SlidableDrawerDelegate(),
+          actionExtentRatio: 0.25,
+          child: MemoWidget(memo: memos[index]),
+          secondaryActions: <Widget>[
+            IconSlideAction(
+              caption: 'Delete',
+              color: Colors.red,
+              icon: Icons.delete,
+              onTap: () {
+                ConfirmDialog.show(
+                  context,
+                  title: memos[index].title,
+                  body: '削除しますか？',
+                  onApproved: () {
+                    memoGroup.removeMemo(memos[index]);
+                  },
+                );
+              },
+            ),
+          ],
+        );
       },
     );
   }
