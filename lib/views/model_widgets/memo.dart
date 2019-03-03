@@ -9,24 +9,19 @@ class MemoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: Text(memo.title),
-          subtitle: _buildMemoBodyWidget(memo.body),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) {
-                  return MemoDetailPage(memo: memo);
-                },
-              ),
-            );
-          },
-        ),
-        Divider(),
-      ],
+    return ListTile(
+      title: Text(memo.title),
+      subtitle: _buildMemoBodyWidget(memo.body),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) {
+              return MemoDetailPage(memo: memo);
+            },
+          ),
+        );
+      },
     );
   }
 
