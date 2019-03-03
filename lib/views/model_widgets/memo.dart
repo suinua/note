@@ -11,7 +11,11 @@ class MemoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(memo.title),
-      subtitle: _buildMemoBodyWidget(memo.body),
+      subtitle: Text(
+        memo.body,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
       onTap: () {
         Navigator.push(
           context,
@@ -22,15 +26,6 @@ class MemoWidget extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  //TODO : bodyデータは複雑になる可能性があるため
-  Widget _buildMemoBodyWidget(String memoBody) {
-    return Text(
-      memoBody,
-      overflow: TextOverflow.ellipsis,
-      maxLines: 1,
     );
   }
 }
