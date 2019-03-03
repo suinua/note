@@ -11,7 +11,7 @@ class MemoGroup {
   MemosBloc _memosBloc;
   List<Memo> _memos;
 
-  List<Memo> get getAllMemos => _memos;
+  Stream<List<Memo>> get getAllMemos => _memosBloc.getAllMemos;
 
   void addMemo(Memo memo) {
     _memosBloc.addMemo.add(memo);
@@ -32,13 +32,8 @@ class MemoGroup {
       List<Memo> memos = const <Memo>[]}) {
     _memos = memos;
     if (key != null) {
+      //TODO :
       _memosBloc = MemosBloc(key);
-      _memosBloc.getAllMemos.listen((event) {
-        _memos = event;
-      });
-      _memosBloc.getAllMemos.listen((allMemos) {
-        _memos = allMemos;
-      });
     }
   }
 
