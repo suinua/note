@@ -14,11 +14,6 @@ class MemoDetailPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            title: Text(
-              memo.title,
-              style: TextStyle(color: Colors.black),
-            ),
-            centerTitle: true,
             elevation: 0.0,
             backgroundColor: Colors.white30,
             leading: IconButton(
