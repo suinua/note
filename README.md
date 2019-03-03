@@ -15,19 +15,25 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
 ## ファイル構成
  - ページはフォルダで区切る
  例えば、メモグループページ
+ 
+```
  page/
     memo_group/
-        ファイル名に「page」は入れない。
-        「widget」の場合はファイル名に入れるようにする。
-        クラス名には「page」「widget」を入れるようにする。
+        //ファイル名に「page」は入れない。
+        //「widget」の場合はファイル名に入れる//ようにする。
+        //クラス名には「page」「widget」を入れ//るようにする。
         main.dart
         setting.dart
         create_memo.dart
+ ```
+ 
  - modelようのウィジェット
+ ```
  model_widgets/
-    ファイル名に「widget」は入れない。
-    クラス名にはつける。
+    //ファイル名に「widget」は入れない。
+    //クラス名にはつける。
     memo_group.dart
+ ```
 
 # ウィジェット
 タイトル
