@@ -15,8 +15,8 @@ class MemoGroupSettingPage extends StatefulWidget {
 
 class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
   //TODO : TextEditingControllerは、文字を入力した瞬間更新されないので_canSave関数の反映が遅れてしまう(?)
-  String _mockTitleForCanSave;
-  String _mockDescriptionForCanSave;
+  String _mockTitle;
+  String _mockDescription;
   TextEditingController _mockTitleController;
   TextEditingController _mockDescriptionController;
 
@@ -26,15 +26,15 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
     _mockDescriptionController =
         TextEditingController(text: widget.memoGroup.description);
 
-    _mockTitleForCanSave = widget.memoGroup.title;
-    _mockDescriptionForCanSave = widget.memoGroup.description;
+    _mockTitle = widget.memoGroup.title;
+    _mockDescription = widget.memoGroup.description;
 
     super.initState();
   }
 
   bool _canSave() {
-    return _mockTitleForCanSave != widget.memoGroup.title ||
-        _mockDescriptionForCanSave != widget.memoGroup.description;
+    return _mockTitle != widget.memoGroup.title ||
+        _mockDescription != widget.memoGroup.description;
   }
 
   @override
@@ -42,7 +42,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
     final bloc = MemoGroupsBlocProvider.of(context);
     //TODO : 並び替え、
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //TODO : 削除ボタンの位置、キーボードが上がると画面からはみ出てしまう。
       appBar: AppBar(
         title: Text(
           'New Memo Group',
@@ -96,7 +96,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
             style: TextStyle(fontSize: 30),
             onChanged: (value) {
               setState(() {
-                _mockTitleForCanSave = value;
+                _mockTitle = value;
               });
             },
             decoration: InputDecoration(
@@ -110,7 +110,7 @@ class _MemoGroupSettingPageState extends State<MemoGroupSettingPage> {
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
               setState(() {
-                _mockDescriptionForCanSave = value;
+                _mockDescription = value;
               });
             },
             keyboardType: TextInputType.multiline,
