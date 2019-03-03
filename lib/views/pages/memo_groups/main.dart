@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/pages/create_memo_group_page.dart';
-import 'package:note/views/widgets/memo_group_widget.dart';
+import 'package:note/views/model_widgets/memo_group.dart';
+import 'package:note/views/pages/create_memo_group.dart';
 
 class MemoGroupsPage extends StatelessWidget {
   @override

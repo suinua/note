@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/pages/create_memo_page.dart';
-import 'package:note/views/pages/memo_group_setting_page.dart';
-import 'package:note/views/widgets/memo_widget.dart';
+import 'package:note/views/model_widgets/memo.dart';
+import 'package:note/views/pages/memo_group_detail/create_memo.dart';
+import 'package:note/views/pages/memo_group_detail/setting.dart';
 
 class MemoGroupDetailPage extends StatelessWidget {
   final MemoGroup memoGroup;

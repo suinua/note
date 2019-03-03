@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
-import 'package:note/views/pages/memo_detail_page.dart';
+import 'package:note/views/pages/memo_detail/main.dart';
 
 class MemoWidget extends StatelessWidget {
   final Memo memo;

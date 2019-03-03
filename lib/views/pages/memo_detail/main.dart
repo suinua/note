@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:note/views/pages/editing_memo_widget.dart';
 
 class MemoDetailPage extends StatelessWidget {
   final Memo memo;
