@@ -8,6 +8,7 @@ import 'package:note/views/pages/memo_group_detail/setting.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class MemoGroupDetailPage extends StatelessWidget {
+  //TODO : descriptionを表示する
   final MemoGroup memoGroup;
 
   const MemoGroupDetailPage({Key key, this.memoGroup}) : super(key: key);
