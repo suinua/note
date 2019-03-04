@@ -1,5 +1,5 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:note/firebase/memo_groups_repository.dart';
+import 'package:note/repositorys/memo_groups_repository.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:rxdart/rxdart.dart';
 

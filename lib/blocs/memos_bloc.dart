@@ -1,4 +1,4 @@
-import 'package:note/firebase/memos_repository.dart';
+import 'package:note/repositorys/memos_repository.dart';
 import 'package:note/models/memo.dart';
 import 'package:rxdart/rxdart.dart';
 
