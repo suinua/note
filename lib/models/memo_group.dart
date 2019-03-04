@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:note/blocs/labels_bloc.dart';
 import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/models/label.dart';
 import 'package:note/models/memo.dart';
@@ -11,9 +12,12 @@ class MemoGroup {
 
   MemosBloc _memosBloc;
   List<Memo> _memos;
+
+  LabelsBloc _labelsBloc;
   List<Label> _memoLabels;
 
   Stream<List<Memo>> get getAllMemos => _memosBloc.getAllMemos;
+  Stream<List<Label>> get getAllMemoLabels => _labelsBloc.getAllLabels;
 
   void addMemo(Memo memo) {
     _memosBloc.addMemo.add(memo);
@@ -27,16 +31,16 @@ class MemoGroup {
     _memosBloc.updateMemo.add(memo);
   }
 
-  void addMemoLabel(Memo memo) {
-    //TODO : addLabel
+  void addMemoLabel(Label label) {
+    _labelsBloc.addLabel.add(label);
   }
 
-  void removeMemoLabel(Memo memo) {
-    //TODO : removeLabel
+  void removeMemoLabel(Label label) {
+    _labelsBloc.removeLabel.add(label);
   }
 
-  void updateMemoLabel(Memo memo) {
-    //TODO : updateLabel
+  void updateMemoLabel(Label label) {
+    _labelsBloc.updateLabel.add(label);
   }
 
   MemoGroup(
