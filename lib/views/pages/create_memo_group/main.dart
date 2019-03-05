@@ -48,19 +48,17 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
           icon: const Icon(Icons.close, color: Colors.black),
         ),
         actions: <Widget>[
-          Center(
-            child: IconButton(
-              onPressed: _canSave()
-                  ? () {
-                      //TODO : タップしたらその作ったグループのページに移行
-                      bloc.addGroup.add(MemoGroup(
-                          title: _groupTitle, description: _groupDescription));
-                      Navigator.pop(context);
-                    }
-                  : null,
-              icon: const Icon(Icons.save),
-              color: Colors.blue,
-            ),
+          IconButton(
+            onPressed: _canSave()
+                ? () {
+                    //TODO : タップしたらその作ったグループのページに移行
+                    bloc.addGroup.add(MemoGroup(
+                        title: _groupTitle, description: _groupDescription));
+                    Navigator.pop(context);
+                  }
+                : null,
+            icon: const Icon(Icons.save),
+            color: Colors.blue,
           )
         ],
       ),

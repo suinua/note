@@ -51,18 +51,16 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
           icon: const Icon(Icons.close, color: Colors.black),
         ),
         actions: <Widget>[
-          Center(
-            child: IconButton(
-              onPressed: _canSave()
-                  ? () {
-                      widget.memoGroup
-                          .addMemo(Memo(title: _memoTitle, body: _memoBody));
-                      Navigator.pop(context);
-                    }
-                  : null,
-              icon: const Icon(Icons.save),
-              color: Colors.blue,
-            ),
+          IconButton(
+            onPressed: _canSave()
+                ? () {
+                    widget.memoGroup
+                        .addMemo(Memo(title: _memoTitle, body: _memoBody));
+                    Navigator.pop(context);
+                  }
+                : null,
+            icon: const Icon(Icons.save),
+            color: Colors.blue,
           )
         ],
       ),
