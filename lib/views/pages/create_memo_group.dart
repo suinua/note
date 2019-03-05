@@ -31,8 +31,6 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        elevation: 0.0,
-        backgroundColor: Colors.white30,
         leading: IconButton(
           onPressed: (){
             if (_wasInput()) {

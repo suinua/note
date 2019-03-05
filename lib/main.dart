@@ -9,6 +9,9 @@ class NoteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+        ),
         primaryColor: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,

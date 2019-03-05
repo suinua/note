@@ -34,8 +34,6 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        elevation: 0.0,
-        backgroundColor: Colors.white30,
         leading: IconButton(
           onPressed: () {
             if (_wasInput()) {

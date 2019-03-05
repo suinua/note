@@ -29,8 +29,6 @@ class MemoGroupsPage extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        elevation: 0.0,
-        backgroundColor: Colors.white30,
       ),
       body: StreamBuilder<List<MemoGroup>>(
         stream: bloc.getAllGroups,
