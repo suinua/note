@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
@@ -59,7 +60,7 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
                     Navigator.pop(context);
                   }
                 : null,
-            icon: const Icon(Icons.save),
+            icon: const Icon(FontAwesomeIcons.solidSave),
             color: Colors.blue,
           )
         ],

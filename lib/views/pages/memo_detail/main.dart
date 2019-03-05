@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/pages/memo_detail/editing_widget.dart';
 import 'package:note/views/pages/memo_detail/preview_widget.dart';
@@ -39,7 +40,7 @@ class _MemoDetailPageState extends State<MemoDetailPage> {
         actions: <Widget>[
           IconButton(
               icon: Icon(
-                Icons.mode_edit,
+                FontAwesomeIcons.edit,
                 color: _displayMode.isEditing ? Colors.blue : Colors.grey,
               ),
               onPressed: () {

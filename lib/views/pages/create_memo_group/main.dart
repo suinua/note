@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/blocs/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
@@ -26,13 +27,8 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'New Memo Group',
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             if (_wasInput()) {
               ConfirmDialog.show(
                 context,
@@ -49,6 +45,11 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
         ),
         actions: <Widget>[
           IconButton(
+            icon: const Icon(FontAwesomeIcons.tags),
+            onPressed: () {},
+            color: Colors.blue,
+          ),
+          IconButton(
             onPressed: _canSave()
                 ? () {
                     //TODO : タップしたらその作ったグループのページに移行
@@ -57,7 +58,7 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
                     Navigator.pop(context);
                   }
                 : null,
-            icon: const Icon(Icons.save),
+            icon: const Icon(FontAwesomeIcons.solidSave),
             color: Colors.blue,
           )
         ],
