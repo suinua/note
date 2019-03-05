@@ -1,33 +1,33 @@
 import 'package:meta/meta.dart';
-import 'package:note/models/label.dart';
+import 'package:note/models/memo_label.dart';
 
 class Memo {
   final String key;
   String title;
   String body;
-  List<Label> _setLabels;
+  List<MemoLabel> _setLabels;
 
-  void setLabel(Label label) {
+  void setLabel(MemoLabel label) {
     _setLabels.add(label);
   }
 
-  void removeLabel(Label label) {
+  void removeLabel(MemoLabel label) {
     _setLabels.remove(label);
   }
 
   Memo(
       {@required this.title,
       @required this.body,
-      List<Label> labels = const <Label>[],
+      List<MemoLabel> labels = const <MemoLabel>[],
       this.key})
       : _setLabels = labels;
 
   factory Memo.fromMap(Map<String, dynamic> memo) {
-    List<Label> labels = [];
+    List<MemoLabel> labels = [];
     if (memo['memo_labels'] != null) {
       memo['memo_labels'].forEach((key, value) {
         value['key'] = key;
-        Label label = Label.fromMap((Map<String, dynamic>.from(value)));
+        MemoLabel label = MemoLabel.fromMap((Map<String, dynamic>.from(value)));
         labels.add(label);
       });
     }

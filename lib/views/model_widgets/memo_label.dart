@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:note/models/label.dart';
+import 'package:note/models/memo_label.dart';
 
-class LabelWidget extends StatelessWidget {
-  final Label label;
+class MemoLabelWidget extends StatelessWidget {
+  final MemoLabel label;
 
-  const LabelWidget({Key key, this.label}) : super(key: key);
+  const MemoLabelWidget({Key key, this.label}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
