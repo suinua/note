@@ -49,7 +49,7 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
         ),
         actions: <Widget>[
           Center(
-            child: RaisedButton(
+            child: IconButton(
               onPressed: _canSave()
                   ? () {
                       //TODO : タップしたらその作ったグループのページに移行
@@ -58,11 +58,8 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
                       Navigator.pop(context);
                     }
                   : null,
-              child: Text('save'),
+              icon: const Icon(Icons.save),
               color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
             ),
           )
         ],

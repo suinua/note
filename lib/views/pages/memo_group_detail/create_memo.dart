@@ -52,7 +52,7 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
         ),
         actions: <Widget>[
           Center(
-            child: RaisedButton(
+            child: IconButton(
               onPressed: _canSave()
                   ? () {
                       widget.memoGroup
@@ -60,11 +60,8 @@ class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
                       Navigator.pop(context);
                     }
                   : null,
-              child: Text('save'),
+              icon: const Icon(Icons.save),
               color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
             ),
           )
         ],
