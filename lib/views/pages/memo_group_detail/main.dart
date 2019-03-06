@@ -54,7 +54,7 @@ class MemoGroupDetailPage extends StatelessWidget {
         label: Text('add memo'),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CreateMemoBottomSheet(memoGroup: memoGroup);
+            return CreateMemoPage(memoGroup: memoGroup);
           }));
         },
       ),

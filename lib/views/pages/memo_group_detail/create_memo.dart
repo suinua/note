@@ -4,17 +4,17 @@ import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
 
-class CreateMemoBottomSheet extends StatefulWidget {
+class CreateMemoPage extends StatefulWidget {
   final MemoGroup memoGroup;
 
-  const CreateMemoBottomSheet({Key key, @required this.memoGroup})
+  const CreateMemoPage({Key key, @required this.memoGroup})
       : super(key: key);
 
   @override
-  _CreateMemoBottomSheetState createState() => _CreateMemoBottomSheetState();
+  _CreateMemoPageState createState() => _CreateMemoPageState();
 }
 
-class _CreateMemoBottomSheetState extends State<CreateMemoBottomSheet> {
+class _CreateMemoPageState extends State<CreateMemoPage> {
   String _memoTitle = '';
   String _memoBody = '';
 
