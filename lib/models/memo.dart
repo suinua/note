@@ -22,7 +22,7 @@ class Memo {
       this.key})
       : _setLabels = labels;
 
-  factory Memo.fromMap(Map<String, dynamic> memo) {
+  Memo.fromMap(this.key, Map<String, dynamic> memo) {
     List<MemoLabel> labels = [];
     if (memo['memo_labels'] != null) {
       memo['memo_labels'].forEach((key, value) {
@@ -31,13 +31,9 @@ class Memo {
         labels.add(label);
       });
     }
-
-    return Memo(
-      key: memo['key'],
-      title: memo['title'],
-      body: memo['body'],
-      labels: labels,
-    );
+    this.title = memo['title'];
+    this.body = memo['body'];
+    this._setLabels = labels;
   }
 
   Map<String, dynamic> asMap() {

@@ -22,23 +22,20 @@ class MemosRepository {
     memosRef.onChildAdded.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onMemoAdded(Memo.fromMap(value));
+      this.onMemoAdded(Memo.fromMap(event.snapshot.key,value));
     });
     memosRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onMemoRemoved(Memo.fromMap(value));
+      this.onMemoRemoved(Memo.fromMap(event.snapshot.key,value));
     });
     memosRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onMemoChanged(Memo.fromMap(value));
+      this.onMemoChanged(Memo.fromMap(event.snapshot.key,value));
     });
   }
 

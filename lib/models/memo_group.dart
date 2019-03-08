@@ -61,8 +61,7 @@ class MemoGroup {
     List<Memo> memos = [];
     if (memoGroup['memos'] != null) {
       memoGroup['memos'].forEach((key, value) {
-        value['key'] = key;
-        Memo memo = Memo.fromMap((Map<String, dynamic>.from(value)));
+        Memo memo = Memo.fromMap(key,Map<String, dynamic>.from(value));
         memos.add(memo);
       });
     }
