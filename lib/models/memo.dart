@@ -1,11 +1,35 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:note/models/memo_label.dart';
 
 class Memo {
+  final String parentKey;
   final String key;
-  String title;
-  String body;
+  DatabaseReference _memoRef;
+
+  String _title;
+  String _body;
+
+  String get title => _title;
+
+  String get body => _body;
   List<MemoLabel> _setLabels;
+
+  //TODO : blocを通さずにfirebaseを操作している
+
+  void remove() {
+    _memoRef.remove();
+  }
+
+  void updateTitle(String value) {
+    _title = value;
+    _memoRef.update(asMap());
+  }
+
+  void updateBody(String value) {
+    _body = value;
+    _memoRef.update(asMap());
+  }
 
   void setLabel(MemoLabel label) {
     _setLabels.add(label);
@@ -16,13 +40,22 @@ class Memo {
   }
 
   Memo(
-      {@required this.title,
-      @required this.body,
+      {@required title,
+      @required body,
       List<MemoLabel> labels = const <MemoLabel>[],
-      this.key})
-      : _setLabels = labels;
+      this.key,
+      this.parentKey})
+      : _title = title,
+        _body = body,
+        _setLabels = labels,
+        _memoRef = FirebaseDatabase.instance
+            .reference()
+            .child('memo_groups')
+            .child(parentKey)
+            .child('memos')
+            .child(key);
 
-  Memo.fromMap(this.key, Map<String, dynamic> memo) {
+  Memo.fromMap(this.parentKey, this.key, Map<String, dynamic> memo) {
     List<MemoLabel> labels = [];
     if (memo['memo_labels'] != null) {
       memo['memo_labels'].forEach((key, value) {
@@ -31,21 +64,27 @@ class Memo {
         labels.add(label);
       });
     }
-    this.title = memo['title'];
-    this.body = memo['body'];
+
+    this._title = memo['title'];
+    this._body = memo['body'];
     this._setLabels = labels;
+    this._memoRef = FirebaseDatabase.instance
+        .reference()
+        .child('memo_groups')
+        .child(parentKey)
+        .child('memos')
+        .child(key);
   }
 
   Map<String, dynamic> asMap() {
     Map<String, dynamic> labels = {};
-    _setLabels.forEach((label) {
+    _setLabels?.forEach((label) {
       Map<String, dynamic> mapOfMemo = label.asMap();
       mapOfMemo.remove('key');
       labels[label.key] = mapOfMemo;
     });
 
     return {
-      'key': key,
       'title': title,
       'body': body,
       'set_labels': labels,

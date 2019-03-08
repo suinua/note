@@ -33,7 +33,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
           onChanged: (value) {
             //TODO : 保存されない
             setState(() {
-              widget.memo.title = value;
+              widget.memo.updateTitle(value);
             });
           },
           decoration: InputDecoration(
@@ -51,7 +51,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
               setState(() {
-                widget.memo.body = value;
+                widget.memo.updateBody(value);
               });
             },
             decoration: InputDecoration(

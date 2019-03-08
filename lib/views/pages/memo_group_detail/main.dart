@@ -96,7 +96,7 @@ class MemoGroupDetailPage extends StatelessWidget {
                   title: memos[index].title,
                   body: '削除しますか？',
                   onApproved: () {
-                    memoGroup.removeMemo(memos[index]);
+                    memos[index].remove();
                   },
                 );
               },

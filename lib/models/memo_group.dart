@@ -24,14 +24,6 @@ class MemoGroup {
     _memosBloc.addMemo.add(memo);
   }
 
-  void removeMemo(Memo memo) {
-    _memosBloc.removeMemo.add(memo);
-  }
-
-  void updateMemo(Memo memo) {
-    _memosBloc.updateMemo.add(memo);
-  }
-
   void addMemoLabel(MemoLabel label) {
     _labelsBloc.addLabel.add(label);
   }
@@ -59,10 +51,12 @@ class MemoGroup {
   }
 
   MemoGroup.fromMap(this.key, Map<String, dynamic> memoGroup) {
+    _memosBloc = MemosBloc(key);
+
     List<Memo> memos = [];
     if (memoGroup['memos'] != null) {
       memoGroup['memos'].forEach((key, value) {
-        Memo memo = Memo.fromMap(key, Map<String, dynamic>.from(value));
+        Memo memo = Memo.fromMap(this.key,key, Map<String, dynamic>.from(value));
         memos.add(memo);
       });
     }
@@ -70,7 +64,6 @@ class MemoGroup {
     List<MemoLabel> labels = [];
     if (memoGroup['memo_labels'] != null) {
       memoGroup['memo_labels'].forEach((key, value) {
-        value['key'] = key;
         MemoLabel label = MemoLabel.fromMap((Map<String, dynamic>.from(value)));
         labels.add(label);
       });
