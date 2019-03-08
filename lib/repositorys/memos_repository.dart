@@ -5,6 +5,7 @@ import 'package:note/models/memo.dart';
 class MemosRepository {
   final String parentGroupKey;
   DatabaseReference memosRef;
+
   final Function(Memo) onMemoAdded;
   final Function(Memo) onMemoRemoved;
   final Function(Memo) onMemoChanged;
@@ -23,19 +24,19 @@ class MemosRepository {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onMemoAdded(Memo.fromMap(event.snapshot.key,value));
+      this.onMemoAdded(Memo.fromMap(event.snapshot.key, value));
     });
     memosRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onMemoRemoved(Memo.fromMap(event.snapshot.key,value));
+      this.onMemoRemoved(Memo.fromMap(event.snapshot.key, value));
     });
     memosRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onMemoChanged(Memo.fromMap(event.snapshot.key,value));
+      this.onMemoChanged(Memo.fromMap(event.snapshot.key, value));
     });
   }
 
