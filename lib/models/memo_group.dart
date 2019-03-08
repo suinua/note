@@ -17,6 +17,7 @@ class MemoGroup {
   List<MemoLabel> _memoLabels;
 
   Stream<List<Memo>> get getAllMemos => _memosBloc.getAllMemos;
+
   Stream<List<MemoLabel>> get getAllMemoLabels => _labelsBloc.getAllLabels;
 
   void addMemo(Memo memo) {
@@ -57,11 +58,11 @@ class MemoGroup {
     }
   }
 
-  factory MemoGroup.fromMap(Map<String, dynamic> memoGroup) {
+  MemoGroup.fromMap(this.key, Map<String, dynamic> memoGroup) {
     List<Memo> memos = [];
     if (memoGroup['memos'] != null) {
       memoGroup['memos'].forEach((key, value) {
-        Memo memo = Memo.fromMap(key,Map<String, dynamic>.from(value));
+        Memo memo = Memo.fromMap(key, Map<String, dynamic>.from(value));
         memos.add(memo);
       });
     }
@@ -75,13 +76,10 @@ class MemoGroup {
       });
     }
 
-    return MemoGroup(
-      title: memoGroup['title'],
-      description: memoGroup['description'],
-      key: memoGroup['key'],
-      memos: memos,
-      labels: labels,
-    );
+    this.title = memoGroup['title'];
+    this.description = memoGroup['description'];
+    this._memos = memos;
+    this._memoLabels = labels;
   }
 
   Map<String, dynamic> asMap() {

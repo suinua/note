@@ -16,21 +16,18 @@ class MemoGroupsRepository {
 
     memoGroupsRef.onChildAdded.listen((event) {
       Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onGroupAdded(MemoGroup.fromMap(value));
+      this.onGroupAdded(MemoGroup.fromMap(event.snapshot.key,value));
     });
     memoGroupsRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onGroupRemoved(MemoGroup.fromMap(value));
+      this.onGroupRemoved(MemoGroup.fromMap(event.snapshot.key,value));
     });
     memoGroupsRef.onChildChanged.listen((event) {
       Map<String, dynamic> value = Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onGroupChanged(MemoGroup.fromMap(value));
+      this.onGroupChanged(MemoGroup.fromMap(event.snapshot.key,value));
     });
   }
 
