@@ -4,22 +4,21 @@ import 'package:note/models/memo.dart';
 class EditingMemoWidget extends StatefulWidget {
   final Memo memo;
 
-  const EditingMemoWidget({Key key, this.memo}) : super(key: key);
+  const EditingMemoWidget({Key key, @required this.memo}) : super(key: key);
 
   @override
   _EditingMemoWidgetState createState() => _EditingMemoWidgetState();
 }
 
 class _EditingMemoWidgetState extends State<EditingMemoWidget> {
-
   //初期値用
   TextEditingController _memoTitleController;
   TextEditingController _memoBodyController;
 
   @override
   void initState() {
-    _memoTitleController = TextEditingController(text:widget.memo.title);
-    _memoBodyController = TextEditingController(text:widget.memo.body);
+    _memoTitleController = TextEditingController(text: widget.memo.title);
+    _memoBodyController = TextEditingController(text: widget.memo.body);
 
     super.initState();
   }
@@ -32,6 +31,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
           style: TextStyle(fontSize: 30),
           controller: _memoTitleController,
           onChanged: (value) {
+            //TODO : 保存されない
             setState(() {
               widget.memo.title = value;
             });
