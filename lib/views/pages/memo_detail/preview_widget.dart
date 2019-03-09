@@ -30,17 +30,14 @@ class MemoPreviewWidget extends StatelessWidget {
                 display1: TextStyle(fontSize: 34.0 * 2.0),
                 headline: TextStyle(
                   fontSize: 24.0 * 2.0,
-                  decoration: TextDecoration.underline,
                   decorationColor: color,
                 ),
                 title: TextStyle(
                   fontSize: 20.0 * 2.0,
-                  decoration: TextDecoration.underline,
                   decorationColor: color,
                 ),
                 subhead: TextStyle(
                   fontSize: 16.0 * 2.0,
-                  decoration: TextDecoration.underline,
                   decorationColor: color,
                 ),
                 body2: TextStyle(

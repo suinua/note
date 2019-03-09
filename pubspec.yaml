@@ -21,7 +21,8 @@ dependencies:
   firebase_database: ^2.0.1+1
 
   # widget,layout
-  flutter_markdown: ^0.2.0
+  flutter_markdown:
+    git: https://github.com/suinua/flutter_markdown
   flutter_slidable: ^0.4.9
   font_awesome_flutter: ^8.4.0
 
