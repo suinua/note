@@ -13,6 +13,23 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
 削除(removeやdeleteなど,,,)は直接子要素がやる。  
   
 具体例  
+```dart
+class Parent {
+  ChildrenBloc _childrenBloc;
+  void addChild() {}
+}
+class ChildrenBloc {
+  //...
+}
+class Child {
+  void remove(){
+    //TODO : どのように削除するべき？
+    //１　Firebaseから直接削除
+  }
+  void update(){}
+  //...
+}
+```
 
 ## ファイル構成
  - ページはフォルダで区切る
@@ -22,8 +39,8 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
  page/
     memo_group/
         //ファイル名に「page」は入れない。
-        //「widget」の場合はファイル名に入れる//ようにする。
-        //クラス名には「page」「widget」を入れ//るようにする。
+        //「widget」の場合はファイル名に入れるようにする。
+        //クラス名には「page」「widget」を入れるようにする。
         main.dart
         setting.dart
         create_memo.dart
