@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/model_widgets/memo.dart';
 import 'package:note/views/pages/memo_group_detail/create_memo.dart';
 import 'package:note/views/pages/memo_group_detail/setting.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class MemoGroupDetailPage extends StatelessWidget {
   //TODO : descriptionを表示する
@@ -81,28 +79,7 @@ class MemoGroupDetailPage extends StatelessWidget {
       itemCount: memos.length,
       separatorBuilder: (_, int index) => Divider(),
       itemBuilder: (_, int index) {
-        return Slidable(
-          delegate: SlidableDrawerDelegate(),
-          actionExtentRatio: 0.25,
-          child: MemoWidget(memo: memos[index]),
-          secondaryActions: <Widget>[
-            IconSlideAction(
-              caption: 'Delete',
-              color: Colors.red,
-              icon: Icons.delete,
-              onTap: () {
-                ConfirmDialog.show(
-                  context,
-                  title: memos[index].title,
-                  body: '削除しますか？',
-                  onApproved: () {
-                    memos[index].remove();
-                  },
-                );
-              },
-            ),
-          ],
-        );
+        return MemoWidget(memo: memos[index]);
       },
     );
   }
