@@ -48,12 +48,14 @@ class Memo {
       : _title = title,
         _body = body,
         _setLabels = labels,
-        _memoRef = FirebaseDatabase.instance
-            .reference()
-            .child('memo_groups')
-            .child(parentKey)
-            .child('memos')
-            .child(key);
+        _memoRef = key == null
+            ? null
+            : FirebaseDatabase.instance
+                .reference()
+                .child('memo_groups')
+                .child(parentKey)
+                .child('memos')
+                .child(key);
 
   Memo.fromMap(this.parentKey, this.key, Map<String, dynamic> memo) {
     List<MemoLabel> labels = [];
@@ -68,12 +70,14 @@ class Memo {
     this._title = memo['title'];
     this._body = memo['body'];
     this._setLabels = labels;
-    this._memoRef = FirebaseDatabase.instance
-        .reference()
-        .child('memo_groups')
-        .child(parentKey)
-        .child('memos')
-        .child(key);
+    this._memoRef = key == null
+        ? null
+        : FirebaseDatabase.instance
+            .reference()
+            .child('memo_groups')
+            .child(parentKey)
+            .child('memos')
+            .child(key);
   }
 
   Map<String, dynamic> asMap() {
