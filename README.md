@@ -9,27 +9,7 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
 データはblocで管理。
 
 ### 入れ子状のデータ管理
-追加(addやcreateなど,,,)は親要素がやる。  
-削除(removeやdeleteなど,,,)は直接子要素がやる。  
-  
-具体例  
-```dart
-class Parent {
-  ChildrenBloc _childrenBloc;
-  void addChild() {}
-}
-class ChildrenBloc {
-  //...
-}
-class Child {
-  void remove(){
-    //TODO : どのように削除するべき？
-    //１　Firebaseから直接削除
-  }
-  void update(){}
-  //...
-}
-```
+わからん。
 
 ## ファイル構成
  - ページはフォルダで区切る
