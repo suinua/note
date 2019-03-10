@@ -1,8 +1,9 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/repositorys/memos_repository.dart';
 import 'package:note/models/memo.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MemosBloc {
+class MemosBloc extends Bloc {
   final String parentGroupKey;
   MemosRepository _repository;
   List<Memo> _memos = <Memo>[];
