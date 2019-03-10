@@ -31,10 +31,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
           style: TextStyle(fontSize: 30),
           controller: _memoTitleController,
           onChanged: (value) {
-            //TODO : 保存されない
-            setState(() {
-              widget.memo.updateTitle(value);
-            });
+            widget.memo.updateTitle(value);
           },
           decoration: InputDecoration(
             hintText: 'Title',
@@ -50,9 +47,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
             controller: _memoBodyController,
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
-              setState(() {
-                widget.memo.updateBody(value);
-              });
+              widget.memo.updateBody(value);
             },
             decoration: InputDecoration(
               hintText: 'Body',
