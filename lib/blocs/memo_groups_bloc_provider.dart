@@ -13,5 +13,14 @@ class MemoGroupsBlocProvider extends BlocProvider<MemoGroupsBloc> {
     },
   );
 
+
+  MemoGroupsBlocProvider.fromBlocContext({
+    @required BuildContext context,
+    @required Widget child,
+  }) : super.fromBlocContext(
+    child: child,
+    context: context,
+  );
+
   static MemoGroupsBloc of(BuildContext context) => BlocProvider.of(context);
 }
