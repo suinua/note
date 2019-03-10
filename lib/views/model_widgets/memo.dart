@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note/blocs/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/pages/memo_detail/main.dart';
@@ -26,7 +27,10 @@ class MemoWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) {
-                return MemoDetailPage(memo: memo);
+                return MemosBlocProvider(
+                  parentGroupKey: memo.parentKey,
+                  child: MemoDetailPage(memo: memo),
+                );
               },
             ),
           );
@@ -43,7 +47,8 @@ class MemoWidget extends StatelessWidget {
               title: memo.title,
               body: '削除しますか？',
               onApproved: () {
-                memo.remove();
+                final bloc = MemosBlocProvider.of(context);
+                bloc.removeMemo.add(memo);
               },
             );
           },

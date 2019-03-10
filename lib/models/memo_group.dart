@@ -20,10 +20,6 @@ class MemoGroup {
 
   Stream<List<MemoLabel>> get getAllMemoLabels => _labelsBloc.getAllLabels;
 
-  void addMemo(Memo memo) {
-    _memosBloc.addMemo.add(memo);
-  }
-
   void addMemoLabel(MemoLabel label) {
     _labelsBloc.addLabel.add(label);
   }

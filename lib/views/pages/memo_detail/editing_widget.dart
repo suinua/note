@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note/blocs/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 
 class EditingMemoWidget extends StatefulWidget {
@@ -23,15 +24,18 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
     super.initState();
   }
 
-  @override
   Widget build(BuildContext context) {
+    final bloc = MemosBlocProvider.of(context);
+
     return Column(
       children: <Widget>[
         TextField(
           style: TextStyle(fontSize: 30),
           controller: _memoTitleController,
           onChanged: (value) {
-            widget.memo.updateTitle(value);
+            widget.memo.title = value;
+
+            bloc.updateMemo.add(widget.memo);
           },
           decoration: InputDecoration(
             hintText: 'Title',
@@ -47,7 +51,9 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
             controller: _memoBodyController,
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
-              widget.memo.updateBody(value);
+              widget.memo.body = value;
+
+              bloc.updateMemo.add(widget.memo);
             },
             decoration: InputDecoration(
               hintText: 'Body',

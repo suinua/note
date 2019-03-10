@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note/blocs/memo_groups_bloc_provider.dart';
+import 'package:note/blocs/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/model_widgets/memo.dart';
@@ -37,7 +39,10 @@ class MemoGroupDetailPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return MemoGroupSettingPage(memoGroup: memoGroup);
+                      return MemoGroupsBlocProvider.fromBlocContext(
+                        context: context,
+                        child: MemoGroupSettingPage(memoGroup: memoGroup),
+                      );
                     },
                   ),
                 );
@@ -52,7 +57,10 @@ class MemoGroupDetailPage extends StatelessWidget {
         label: Text('add memo'),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CreateMemoPage(memoGroup: memoGroup);
+            return MemosBlocProvider.fromBlocContext(
+              context:context,
+              child:CreateMemoPage(memoGroup: memoGroup),
+            );
           }));
         },
       ),

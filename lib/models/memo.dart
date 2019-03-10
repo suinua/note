@@ -1,35 +1,14 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:note/models/memo_label.dart';
 
 class Memo {
   final String parentKey;
   final String key;
-  DatabaseReference _memoRef;
 
-  String _title;
-  String _body;
+  String title;
+  String body;
 
-  String get title => _title;
-
-  String get body => _body;
   List<MemoLabel> _setLabels;
-
-  //TODO : blocを通さずにfirebaseを操作している
-
-  void remove() {
-    _memoRef.remove();
-  }
-
-  void updateTitle(String value) {
-    _title = value;
-    _memoRef.update(asMap());
-  }
-
-  void updateBody(String value) {
-    _body = value;
-    _memoRef.update(asMap());
-  }
 
   void setLabel(MemoLabel label) {
     _setLabels.add(label);
@@ -40,22 +19,12 @@ class Memo {
   }
 
   Memo(
-      {@required title,
-      @required body,
+      {@required this.title,
+      @required this.body,
       List<MemoLabel> labels = const <MemoLabel>[],
       this.key,
       this.parentKey})
-      : _title = title,
-        _body = body,
-        _setLabels = labels,
-        _memoRef = key == null
-            ? null
-            : FirebaseDatabase.instance
-                .reference()
-                .child('memo_groups')
-                .child(parentKey)
-                .child('memos')
-                .child(key);
+      : _setLabels = labels;
 
   Memo.fromMap(this.parentKey, this.key, Map<String, dynamic> memo) {
     List<MemoLabel> labels = [];
@@ -67,17 +36,9 @@ class Memo {
       });
     }
 
-    this._title = memo['title'];
-    this._body = memo['body'];
+    this.title = memo['title'];
+    this.body = memo['body'];
     this._setLabels = labels;
-    this._memoRef = key == null
-        ? null
-        : FirebaseDatabase.instance
-            .reference()
-            .child('memo_groups')
-            .child(parentKey)
-            .child('memos')
-            .child(key);
   }
 
   Map<String, dynamic> asMap() {
