@@ -11,86 +11,32 @@ class MemoGroup {
   String description;
 
   MemosBloc _memosBloc;
-  List<Memo> _memos;
-
   MemoLabelsBloc _labelsBloc;
-  List<MemoLabel> _memoLabels;
 
   Stream<List<Memo>> get getAllMemos => _memosBloc.getAllMemos;
 
   Stream<List<MemoLabel>> get getAllMemoLabels => _labelsBloc.getAllLabels;
 
-  void addMemoLabel(MemoLabel label) {
-    _labelsBloc.addLabel.add(label);
-  }
-
-  void removeMemoLabel(MemoLabel label) {
-    _labelsBloc.removeLabel.add(label);
-  }
-
-  void updateMemoLabel(MemoLabel label) {
-    _labelsBloc.updateLabel.add(label);
-  }
-
-  MemoGroup(
-      {@required this.title,
-      @required this.description,
-      this.key,
-      List<Memo> memos = const <Memo>[],
-      List<MemoLabel> labels = const <MemoLabel>[]}) {
-    _memos = memos;
-    _memoLabels = labels;
+  MemoGroup({@required this.title, @required this.description, this.key}) {
     if (key != null) {
       //TODO :
       _memosBloc = MemosBloc(key);
+      _labelsBloc = MemoLabelsBloc(key);
     }
   }
 
   MemoGroup.fromMap(this.key, Map<String, dynamic> memoGroup) {
-    _memosBloc = MemosBloc(key);
-
-    List<Memo> memos = [];
-    if (memoGroup['memos'] != null) {
-      memoGroup['memos'].forEach((key, value) {
-        Memo memo = Memo.fromMap(this.key,key, Map<String, dynamic>.from(value));
-        memos.add(memo);
-      });
-    }
-
-    List<MemoLabel> labels = [];
-    if (memoGroup['memo_labels'] != null) {
-      memoGroup['memo_labels'].forEach((key, value) {
-        MemoLabel label = MemoLabel.fromMap((Map<String, dynamic>.from(value)));
-        labels.add(label);
-      });
-    }
+    this._memosBloc = MemosBloc(key);
+    this._labelsBloc = MemoLabelsBloc(key);
 
     this.title = memoGroup['title'];
     this.description = memoGroup['description'];
-    this._memos = memos;
-    this._memoLabels = labels;
   }
 
   Map<String, dynamic> asMap() {
-    Map<String, dynamic> memos = {};
-    _memos.forEach((memo) {
-      Map<String, dynamic> mapOfMemo = memo.asMap();
-      mapOfMemo.remove('key');
-      memos[memo.key] = mapOfMemo;
-    });
-
-    Map<String, dynamic> labels = {};
-    _memoLabels.forEach((label) {
-      Map<String, dynamic> mapOfLabel = label.asMap();
-      mapOfLabel.remove('key');
-      labels[label.key] = mapOfLabel;
-    });
-
     return {
       'title': title,
       'description': description,
-      'memos': memos,
-      'memo_labels': labels,
     };
   }
 
