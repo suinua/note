@@ -58,8 +58,8 @@ class MemoGroupDetailPage extends StatelessWidget {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return MemosBlocProvider.fromBlocContext(
-              context:context,
-              child:CreateMemoPage(memoGroup: memoGroup),
+              context: context,
+              child: CreateMemoPage(memoGroup: memoGroup),
             );
           }));
         },
