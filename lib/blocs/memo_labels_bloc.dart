@@ -1,16 +1,20 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/repositorys/memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MemoLabelsBloc {
+class MemoLabelsBloc extends Bloc {
   final String parentGroupKey;
   MemoLabelsRepository _repository;
   List<MemoLabel> _labels = <MemoLabel>[];
 
-  BehaviorSubject<List<MemoLabel>> _labelsController = BehaviorSubject<List<MemoLabel>>();
+  BehaviorSubject<List<MemoLabel>> _labelsController =
+      BehaviorSubject<List<MemoLabel>>();
   BehaviorSubject<MemoLabel> _addLabelController = BehaviorSubject<MemoLabel>();
-  BehaviorSubject<MemoLabel> _removeLabelController = BehaviorSubject<MemoLabel>();
-  BehaviorSubject<MemoLabel> _updateLabelController = BehaviorSubject<MemoLabel>();
+  BehaviorSubject<MemoLabel> _removeLabelController =
+      BehaviorSubject<MemoLabel>();
+  BehaviorSubject<MemoLabel> _updateLabelController =
+      BehaviorSubject<MemoLabel>();
 
   Sink<List<MemoLabel>> get _setLabels => _labelsController.sink;
 
