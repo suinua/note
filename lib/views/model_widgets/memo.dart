@@ -27,8 +27,8 @@ class MemoWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) {
-                return MemosBlocProvider(
-                  parentGroupKey: memo.parentKey,
+                return MemosBlocProvider.fromBlocContext(
+                  context: context,
                   child: MemoDetailPage(memo: memo),
                 );
               },
