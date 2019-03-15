@@ -15,6 +15,8 @@ class MemoGroupDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final memosBloc = MemosBlocProvider.of(context);
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -68,7 +70,7 @@ class MemoGroupDetailPage extends StatelessWidget {
         children: <Widget>[
           Expanded(
               child: StreamBuilder<List<Memo>>(
-            stream: memoGroup.getAllMemos,
+            stream: memosBloc.getAllMemos,
             builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
               if (memos.hasData) {
                 return _buildMemos(context, memos.data);
