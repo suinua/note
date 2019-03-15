@@ -1,4 +1,5 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:note/log.dart';
 import 'package:note/repositorys/memo_groups_repository.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:rxdart/rxdart.dart';
@@ -28,28 +29,25 @@ class MemoGroupsBloc implements Bloc{
 
   MemoGroupsBloc() {
     void _onAdded(MemoGroup addedGroup) {
-      print('added group to firebase : ${addedGroup.asMap()}');
-
       _memoGroups.add(addedGroup);
       _setGroups.add(_memoGroups);
+      Log.memoGroup.onAddedOnFirebase(addedGroup.asMap());
     }
 
     void _onRemoved(MemoGroup removedGroup) {
-      print('removed group to firebase : ${removedGroup.asMap()}');
-
       _memoGroups.remove(removedGroup);
       _setGroups.add(_memoGroups);
+      Log.memoGroup.onRemovedOnFirebase(removedGroup.asMap());
     }
 
     void _onChanged(MemoGroup changedGroup) {
-      print('changed group to firebase : ${changedGroup.asMap()}');
-
       _memoGroups.forEach((MemoGroup memoGroup) {
         if (memoGroup == changedGroup) {
           memoGroup = changedGroup;
         }
       });
       _setGroups.add(_memoGroups);
+      Log.memoGroup.onUpdatedOnFirebase(changedGroup.asMap());
     }
 
     _repository = MemoGroupsRepository(
@@ -58,16 +56,16 @@ class MemoGroupsBloc implements Bloc{
         onGroupChanged: _onChanged);
 
     _addGroupController.stream.listen((MemoGroup memoGroup) {
-      print('add group : ${memoGroup.asMap()}');
       _repository.addGroup(memoGroup);
+      Log.memoGroup.onAdded(memoGroup.asMap());
     });
     _removeGroupController.stream.listen((MemoGroup memoGroup) {
-      print('remove group : ${memoGroup.asMap()}');
       _repository.removeGroup(memoGroup);
+      Log.memoGroup.onRemoved(memoGroup.asMap());
     });
     _updateGroupController.stream.listen((MemoGroup memoGroup) {
-      print('update group : ${memoGroup.asMap()}');
       _repository.updateGroup(memoGroup);
+      Log.memoGroup.onUpdated(memoGroup.asMap());
     });
   }
 

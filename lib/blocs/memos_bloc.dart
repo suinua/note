@@ -1,4 +1,5 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:note/log.dart';
 import 'package:note/repositorys/memos_repository.dart';
 import 'package:note/models/memo.dart';
 import 'package:rxdart/rxdart.dart';
@@ -25,28 +26,28 @@ class MemosBloc extends Bloc {
 
   MemosBloc(this.parentGroupKey) {
     void _onAdded(Memo addedMemo) {
-      print('added memo to firebase : ${addedMemo.asMap()}');
-
       _memos.add(addedMemo);
       _setMemos.add(_memos);
+
+      Log.memo.onAddedOnFirebase(addedMemo.asMap());
     }
 
     void _onRemoved(Memo removedMemo) {
-      print('removed memo to firebase : ${removedMemo.asMap()}');
-
       _memos.remove(removedMemo);
       _setMemos.add(_memos);
+
+      Log.memo.onRemovedOnFirebase(removedMemo.asMap());
     }
 
     void _onChanged(Memo changedMemo) {
-      print('updated memo to firebase : ${changedMemo.asMap()}');
-
       _memos.forEach((Memo memo) {
         if (memo == changedMemo) {
           memo = changedMemo;
         }
       });
       _setMemos.add(_memos);
+
+      Log.memo.onUpdatedOnFirebase(changedMemo.asMap());
     }
 
     _repository = MemosRepository(parentGroupKey,
@@ -55,16 +56,16 @@ class MemosBloc extends Bloc {
         onMemoChanged: _onChanged);
 
     _addMemoController.stream.listen((Memo memo) {
-      print('add memo : ${memo.asMap()}');
       _repository.addMemo(memo);
+      Log.memo.onAdded(memo.asMap());
     });
     _removeMemoController.stream.listen((Memo memo) {
-      print('remove memo : ${memo.asMap()}');
       _repository.removeMemo(memo);
+      Log.memo.onRemoved(memo.asMap());
     });
     _updateMemoController.stream.listen((Memo memo) {
-      print('update memo : ${memo.asMap()}');
       _repository.updateMemo(memo);
+      Log.memo.onUpdated(memo.asMap());
     });
   }
 
