@@ -8,9 +8,23 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
 # アーキテクチャ
 データはblocで管理。
 
-### 入れ子状のデータ管理
-わからん。
+**現状**
+□はページ
+◯はウィジェット
+![architecture](https://github.com/suinua/note/blob/master/architecture.png)
 
+### 入れ子状のデータ管理
+**親要素 parent**
+ - ルール
+     - `children_bloc`を持たない。
+ - フィールド
+    - key
+ 
+**リスト状の子要素 children_bloc**
+ - ルール
+     - 親要素のkeyで呼び出せるようにする。
+ 
+ 
 ## ファイル構成
  - ページはフォルダで区切る
  例えば、メモグループページ
