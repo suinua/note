@@ -70,6 +70,15 @@ class MemosBloc extends Bloc {
   }
 
   void dispose() async {
+    /*
+    なぜdrain？わからん。
+    https://stackoverflow.com/questions/52191451/bad-state-you-cannot-close-the-subject-while-items-are-being-added-from-addstre/52191587
+     */
+    await _memosController.drain();
+    await _addMemoController.drain();
+    await _removeMemoController.drain();
+    await _updateMemoController.drain();
+
     await _memosController.close();
     await _addMemoController.close();
     await _removeMemoController.close();
