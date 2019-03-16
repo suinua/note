@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/memo_groups_bloc_provider.dart';
 import 'package:note/blocs/memos_bloc_provider.dart';
-import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/model_widgets/memo.dart';
 import 'package:note/views/pages/memo_group_detail/create_memo.dart';
+import 'package:note/views/pages/memo_group_detail/memo_list_view.dart';
 import 'package:note/views/pages/memo_group_detail/setting.dart';
 
 class MemoGroupDetailPage extends StatelessWidget {
@@ -15,8 +13,6 @@ class MemoGroupDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final memosBloc = MemosBlocProvider.of(context);
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -63,31 +59,7 @@ class MemoGroupDetailPage extends StatelessWidget {
           }));
         },
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-              child: StreamBuilder<List<Memo>>(
-            stream: memosBloc.getAllMemos,
-            builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
-              if (memos.hasData) {
-                return _buildMemos(memos.data);
-              } else {
-                return _buildMemos([]);
-              }
-            },
-          )),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMemos(List<Memo> memos) {
-    return ListView.separated(
-      itemCount: memos.length,
-      separatorBuilder: (_, _i) => Divider(),
-      itemBuilder: (_, int index) {
-        return MemoWidget(memo: memos[index]);
-      },
+      body: MemoListView(),
     );
   }
 }
