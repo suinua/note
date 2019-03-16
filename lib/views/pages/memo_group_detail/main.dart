@@ -41,10 +41,7 @@ class MemoGroupDetailPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return MemoGroupsBlocProvider.fromBlocContext(
-                        context: context,
-                        child: MemoGroupSettingPage(memoGroup: memoGroup),
-                      );
+                      return MemoGroupSettingPage(memoGroup: memoGroup);
                     },
                   ),
                 );
@@ -61,7 +58,7 @@ class MemoGroupDetailPage extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return MemosBlocProvider.fromBlocContext(
               context: context,
-              child: CreateMemoPage(memoGroup: memoGroup),
+              child: CreateMemoPage(),
             );
           }));
         },
@@ -73,9 +70,9 @@ class MemoGroupDetailPage extends StatelessWidget {
             stream: memosBloc.getAllMemos,
             builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
               if (memos.hasData) {
-                return _buildMemos(context, memos.data);
+                return _buildMemos(memos.data);
               } else {
-                return _buildMemos(context, []);
+                return _buildMemos([]);
               }
             },
           )),
@@ -84,10 +81,10 @@ class MemoGroupDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMemos(BuildContext context, List<Memo> memos) {
+  Widget _buildMemos(List<Memo> memos) {
     return ListView.separated(
       itemCount: memos.length,
-      separatorBuilder: (_, int index) => Divider(),
+      separatorBuilder: (_, _i) => Divider(),
       itemBuilder: (_, int index) {
         return MemoWidget(memo: memos[index]);
       },
