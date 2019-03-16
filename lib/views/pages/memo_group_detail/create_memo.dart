@@ -25,6 +25,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = MemosBlocProvider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -52,7 +54,6 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
           IconButton(
             onPressed: _canSave()
                 ? () {
-                    final bloc = MemosBlocProvider.of(context);
                     bloc.addMemo.add(Memo(
                         title: _memoTitle,
                         body: _memoBody));
