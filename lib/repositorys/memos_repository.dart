@@ -2,13 +2,17 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:note/models/memo.dart';
 
+typedef OnMemoAdded(Memo addedMemo);
+typedef OnMemoRemoved(Memo addedMemo);
+typedef OnMemoChanged(Memo addedMemo);
+
 class MemosRepository {
   final String parentGroupKey;
   DatabaseReference memosRef;
 
-  final Function(Memo) onMemoAdded;
-  final Function(Memo) onMemoRemoved;
-  final Function(Memo) onMemoChanged;
+  final OnMemoAdded onMemoAdded;
+  final OnMemoRemoved onMemoRemoved;
+  final OnMemoChanged onMemoChanged;
 
   MemosRepository(this.parentGroupKey,
       {@required this.onMemoAdded,
