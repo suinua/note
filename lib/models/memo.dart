@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 import 'package:note/models/memo_label.dart';
 
 class Memo {
-  final String parentKey;
   final String key;
 
   String title;
@@ -22,11 +21,10 @@ class Memo {
       {@required this.title,
       @required this.body,
       List<MemoLabel> labels = const <MemoLabel>[],
-      this.key,
-      this.parentKey})
+      this.key})
       : _setLabels = labels;
 
-  Memo.fromMap(this.parentKey, this.key, Map<String, dynamic> memo) {
+  Memo.fromMap(this.key, Map<String, dynamic> memo) {
     List<MemoLabel> labels = [];
     if (memo['memo_labels'] != null) {
       memo['memo_labels'].forEach((key, value) {
