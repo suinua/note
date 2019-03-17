@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/memos_bloc_provider.dart';
+import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/memo_group_detail/main.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:note/blocs/memos_bloc_provider.dart';
+import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/pages/memo_detail/main.dart';
