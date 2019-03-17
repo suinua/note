@@ -2,9 +2,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:note/models/memo_group.dart';
 
-typedef OnMemoGroupAdded(MemoGroup addedMemo);
-typedef OnMemoGroupRemoved(MemoGroup addedMemo);
-typedef OnMemoGroupChanged(MemoGroup addedMemo);
+typedef void OnMemoGroupAdded(MemoGroup addedMemo);
+typedef void OnMemoGroupRemoved(MemoGroup addedMemo);
+typedef void OnMemoGroupChanged(MemoGroup addedMemo);
 
 class MemoGroupsRepository {
   DatabaseReference memoGroupsRef;

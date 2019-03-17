@@ -2,9 +2,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:note/models/memo_label.dart';
 
-typedef OnMemoLabelAdded(MemoLabel addedMemo);
-typedef OnMemoLabelRemoved(MemoLabel addedMemo);
-typedef OnMemoLabelChanged(MemoLabel addedMemo);
+typedef void OnMemoLabelAdded(MemoLabel addedMemo);
+typedef void OnMemoLabelRemoved(MemoLabel addedMemo);
+typedef void OnMemoLabelChanged(MemoLabel addedMemo);
 
 class MemoLabelsRepository {
   final String parentGroupKey;
