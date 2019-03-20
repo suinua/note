@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/memo_group/create_memo.dart';
+import 'package:note/views/pages/memo_group/editing.dart';
 import 'package:note/views/pages/memo_group/memo_list_view.dart';
 
 class MemoGroupPage extends StatelessWidget {
@@ -53,7 +54,7 @@ class MemoGroupPage extends StatelessWidget {
                     showModalBottomSheet<void>(
                       context: context,
                       builder: (_) {
-                        return new _GroupSettingMenu();
+                        return _GroupSettingMenu(memoGroup: memoGroup);
                       },
                     );
                   },
@@ -69,8 +70,10 @@ class MemoGroupPage extends StatelessWidget {
 }
 
 class _GroupSettingMenu extends StatelessWidget {
+  final MemoGroup memoGroup;
+
   const _GroupSettingMenu({
-    Key key,
+    Key key, this.memoGroup,
   }) : super(key: key);
 
   @override
@@ -81,20 +84,42 @@ class _GroupSettingMenu extends StatelessWidget {
         Divider(),
         ListTile(
           title: const Text('Labels'),
-          leading: const Icon(FontAwesomeIcons.tags,size: 17.0),
+          leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
+          onTap: (){
+            //TODO : 実装して
+          },
         ),
         ListTile(
           title: const Text('Remove'),
           leading: const Icon(Icons.delete),
+          onTap: (){
+            //TODO : 実装して
+          },
         ),
         Divider(),
         ListTile(
           title: const Text('Title'),
           leading: const Icon(Icons.edit),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EditingMemoGroupTitlePage(defaultTitle: memoGroup.title),
+              ),
+            );
+          },
         ),
         ListTile(
           title: const Text('Description'),
           leading: const Icon(Icons.edit),
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EditingMemoGroupDescriptionPage(defaultDescription: memoGroup.description),
+              ),
+            );
+          },
         ),
       ],
     );
