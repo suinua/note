@@ -23,6 +23,22 @@ class MemoGroupsPage extends StatelessWidget {
           );
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(icon: Icon(Icons.account_circle), onPressed: () {}),
+                IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+              ],
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(
           'Memo Groups',
