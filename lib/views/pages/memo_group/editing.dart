@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EditingMemoGroupTitlePage extends StatefulWidget {
   final String defaultTitle;
@@ -33,6 +34,15 @@ class _EditingMemoGroupTitlePageState extends State<EditingMemoGroupTitlePage> {
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.close, color: Colors.black),
         ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context,titleController.text);
+            },
+            icon: const Icon(FontAwesomeIcons.solidSave),
+            color: Colors.blue,
+          )
+        ],
       ),
       body: TextField(
         controller: titleController,
@@ -74,6 +84,15 @@ class _EditingMemoGroupDescriptionPageState extends State<EditingMemoGroupDescri
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.close, color: Colors.black),
         ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context,descriptionController.text);
+            },
+            icon: const Icon(FontAwesomeIcons.solidSave),
+            color: Colors.blue,
+          )
+        ],
       ),
       body: TextField(
         controller: descriptionController,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note/blocs/providers/memo_groups_bloc_provider.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/memo_group/create_memo.dart';
@@ -78,6 +79,8 @@ class _GroupSettingMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final memoGroupsBloc = MemoGroupsBlocProvider.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -106,7 +109,12 @@ class _GroupSettingMenu extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) => EditingMemoGroupTitlePage(defaultTitle: memoGroup.title),
               ),
-            );
+            ).then((title){
+              if (title != null) {
+                memoGroup.title = title;
+                memoGroupsBloc.updateGroup.add(memoGroup);
+              }
+            });
           },
         ),
         ListTile(
@@ -118,7 +126,12 @@ class _GroupSettingMenu extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) => EditingMemoGroupDescriptionPage(defaultDescription: memoGroup.description),
               ),
-            );
+            ).then((description){
+              if (description != null) {
+                memoGroup.description = description;
+                memoGroupsBloc.updateGroup.add(memoGroup);
+              }
+            });
           },
         ),
       ],
