@@ -3,6 +3,7 @@ import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/model_widgets/memo.dart';
 
+//TODO : rename
 class MemoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
