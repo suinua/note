@@ -45,11 +45,6 @@ class _CreateMemoGroupPageState extends State<CreateMemoGroupPage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(FontAwesomeIcons.tags),
-            onPressed: () {},
-            color: Colors.blue,
-          ),
-          IconButton(
             onPressed: _canSave()
                 ? () {
                     //TODO : タップしたらその作ったグループのページに移行
