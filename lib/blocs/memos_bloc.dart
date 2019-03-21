@@ -1,6 +1,6 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/log.dart';
-import 'package:note/repositorys/memos_repository.dart';
+import 'package:note/repositories/memos_repository.dart';
 import 'package:note/models/memo.dart';
 import 'package:rxdart/rxdart.dart';
 

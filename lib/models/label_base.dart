@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:note/models/label_base.dart';
 
-class MemoLabel implements LabelBase {
+abstract class LabelBase {
   final String key;
   String title;
   Color color;
 
-  MemoLabel({@required this.title, @required this.color, this.key});
+  LabelBase({@required this.title, @required this.color, this.key});
 
-  @override
-  MemoLabel.fromMap(this.key, Map<String, dynamic> label) {
+  LabelBase.fromMap(this.key, Map<String, dynamic> label) {
     assert(key != null);
 
     Color _rgboToColor(String rgbo) {
@@ -21,13 +19,15 @@ class MemoLabel implements LabelBase {
     this.color = _rgboToColor(label['color']);
   }
 
-  @override
-  Map<String, dynamic> asMap() =>
-      {'title': title, 'color': '${color.red},${color.green},${color.blue}'};
+  @required
+  Map<String, dynamic> asMap() => {
+        'title': title,
+        'color': '${color.red},${color.green},${color.blue}'
+      };
 
   @override
   bool operator ==(o) {
-    return o is MemoLabel && o.key == o.key;
+    return o is LabelBase && o.key == o.key;
   }
 
   @override

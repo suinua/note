@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/label_base.dart';
 
-class MemoLabel implements LabelBase {
+class TemplateMemoLabel implements LabelBase {
   final String key;
   String title;
   Color color;
 
-  MemoLabel({@required this.title, @required this.color, this.key});
+  TemplateMemoLabel({@required this.title, @required this.color, this.key});
 
   @override
-  MemoLabel.fromMap(this.key, Map<String, dynamic> label) {
+  TemplateMemoLabel.fromMap(this.key, Map<String, dynamic> label) {
     assert(key != null);
 
     Color _rgboToColor(String rgbo) {
@@ -27,7 +27,7 @@ class MemoLabel implements LabelBase {
 
   @override
   bool operator ==(o) {
-    return o is MemoLabel && o.key == o.key;
+    return o is TemplateMemoLabel && o.key == o.key;
   }
 
   @override

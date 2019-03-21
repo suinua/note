@@ -13,7 +13,7 @@ class MemoGroup {
   MemosBloc _memosBloc;
   MemosBloc get memosBloc => _memosBloc;
 
-  MemoGroup({@required this.title, @required this.description, this.key}) {
+  MemoGroup({@required this.title, @required this.description,templateLabels, this.key}) {
     if (key != null) {
       _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
       _memosBloc = MemosBloc(key);

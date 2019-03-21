@@ -1,47 +1,47 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/log.dart';
-import 'package:note/models/memo_label.dart';
-import 'package:note/repositorys/template_memo_labels_repository.dart';
+import 'package:note/models/template_memo_label.dart';
+import 'package:note/repositories/template_memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TemplateMemoLabelsBloc extends Bloc {
   final String parentGroupKey;
   TemplateMemoLabelsRepository _repository;
-  List<MemoLabel> _labels = <MemoLabel>[];
+  List<TemplateMemoLabel> _labels = <TemplateMemoLabel>[];
 
-  BehaviorSubject<List<MemoLabel>> _labelsController =
-      BehaviorSubject<List<MemoLabel>>();
-  BehaviorSubject<MemoLabel> _addLabelController = BehaviorSubject<MemoLabel>();
-  BehaviorSubject<MemoLabel> _removeLabelController =
-      BehaviorSubject<MemoLabel>();
-  BehaviorSubject<MemoLabel> _updateLabelController =
-      BehaviorSubject<MemoLabel>();
+  BehaviorSubject<List<TemplateMemoLabel>> _labelsController =
+      BehaviorSubject<List<TemplateMemoLabel>>();
+  BehaviorSubject<TemplateMemoLabel> _addLabelController = BehaviorSubject<TemplateMemoLabel>();
+  BehaviorSubject<TemplateMemoLabel> _removeLabelController =
+      BehaviorSubject<TemplateMemoLabel>();
+  BehaviorSubject<TemplateMemoLabel> _updateLabelController =
+      BehaviorSubject<TemplateMemoLabel>();
 
-  Sink<List<MemoLabel>> get _setLabels => _labelsController.sink;
+  Sink<List<TemplateMemoLabel>> get _setLabels => _labelsController.sink;
 
-  Stream<List<MemoLabel>> get getAllLabels => _labelsController.stream;
+  Stream<List<TemplateMemoLabel>> get getAllLabels => _labelsController.stream;
 
-  Sink<MemoLabel> get addLabel => _addLabelController.sink;
+  Sink<TemplateMemoLabel> get addLabel => _addLabelController.sink;
 
-  Sink<MemoLabel> get removeLabel => _removeLabelController.sink;
+  Sink<TemplateMemoLabel> get removeLabel => _removeLabelController.sink;
 
-  Sink<MemoLabel> get updateLabel => _updateLabelController.sink;
+  Sink<TemplateMemoLabel> get updateLabel => _updateLabelController.sink;
 
   TemplateMemoLabelsBloc(this.parentGroupKey) {
-    void _onAdded(MemoLabel addedLabel) {
+    void _onAdded(TemplateMemoLabel addedLabel) {
       _labels.add(addedLabel);
       _setLabels.add(_labels);
       Log.label.onAddedOnFirebase(addedLabel.asMap());
     }
 
-    void _onRemoved(MemoLabel removedLabel) {
+    void _onRemoved(TemplateMemoLabel removedLabel) {
       _labels.remove(removedLabel);
       _setLabels.add(_labels);
       Log.label.onRemovedOnFirebase(removedLabel.asMap());
     }
 
-    void _onChanged(MemoLabel changedLabel) {
-      _labels.forEach((MemoLabel label) {
+    void _onChanged(TemplateMemoLabel changedLabel) {
+      _labels.forEach((TemplateMemoLabel label) {
         if (label == changedLabel) {
           label = changedLabel;
         }
@@ -55,15 +55,15 @@ class TemplateMemoLabelsBloc extends Bloc {
         onLabelRemoved: _onRemoved,
         onLabelChanged: _onChanged);
 
-    _addLabelController.stream.listen((MemoLabel label) {
+    _addLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.addLabel(label);
       Log.label.onUpdated(label.asMap());
     });
-    _removeLabelController.stream.listen((MemoLabel label) {
+    _removeLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.removeLabel(label);
       Log.label.onUpdated(label.asMap());
     });
-    _updateLabelController.stream.listen((MemoLabel label) {
+    _updateLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.updateLabel(label);
       Log.label.onUpdated(label.asMap());
     });

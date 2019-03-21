@@ -1,7 +1,7 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/log.dart';
 import 'package:note/models/memo_label.dart';
-import 'package:note/repositorys/memo_labels_repository.dart';
+import 'package:note/repositories/memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MemoLabelsBloc extends Bloc {

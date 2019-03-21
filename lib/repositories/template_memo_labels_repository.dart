@@ -1,10 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
-import 'package:note/models/memo_label.dart';
+import 'package:note/models/template_memo_label.dart';
 
-typedef void OnMemoLabelAdded(MemoLabel addedMemo);
-typedef void OnMemoLabelRemoved(MemoLabel addedMemo);
-typedef void OnMemoLabelChanged(MemoLabel addedMemo);
+typedef void OnMemoLabelAdded(TemplateMemoLabel addedMemo);
+typedef void OnMemoLabelRemoved(TemplateMemoLabel addedMemo);
+typedef void OnMemoLabelChanged(TemplateMemoLabel addedMemo);
 
 class TemplateMemoLabelsRepository {
   final String parentGroupKey;
@@ -27,31 +27,31 @@ class TemplateMemoLabelsRepository {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onLabelAdded(MemoLabel.fromMap(event.snapshot.key,value));
+      this.onLabelAdded(TemplateMemoLabel.fromMap(event.snapshot.key,value));
     });
     labelsRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onLabelRemoved(MemoLabel.fromMap(event.snapshot.key,value));
+      this.onLabelRemoved(TemplateMemoLabel.fromMap(event.snapshot.key,value));
     });
     labelsRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onLabelChanged(MemoLabel.fromMap(event.snapshot.key,value));
+      this.onLabelChanged(TemplateMemoLabel.fromMap(event.snapshot.key,value));
     });
   }
 
-  void addLabel(MemoLabel memo) {
+  void addLabel(TemplateMemoLabel memo) {
     labelsRef.push().set(memo.asMap());
   }
 
-  void removeLabel(MemoLabel memo) {
+  void removeLabel(TemplateMemoLabel memo) {
     labelsRef.child(memo.key).remove();
   }
 
-  void updateLabel(MemoLabel memo) {
+  void updateLabel(TemplateMemoLabel memo) {
     labelsRef.child(memo.key).update(memo.asMap());
   }
 }

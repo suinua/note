@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/template_memo_labels_bloc.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/models/memo_label.dart';
-import 'package:note/views/model_widgets/memo_label.dart';
+import 'package:note/models/template_memo_label.dart';
+import 'package:note/views/model_widgets/template_memo_label.dart';
 
 class EditingTemplateMemoLabelsPage extends StatefulWidget {
   final MemoGroup ownerMemoGroup;
@@ -22,7 +22,7 @@ class _EditingTemplateMemoLabelsPageState
   Widget build(BuildContext context) {
     final bloc = widget.ownerMemoGroup.templateMemoLabelsBloc;
 
-    Widget _buildLabels(BuildContext context, List<MemoLabel> labels) {
+    Widget _buildLabels(BuildContext context, List<TemplateMemoLabel> labels) {
       return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: labels.length + 1,
@@ -41,7 +41,7 @@ class _EditingTemplateMemoLabelsPageState
               },
             );
           }
-          return MemoLabelWidget(label: labels[index]);
+          return TemplateMemoLabelWidget(label: labels[index]);
         },
       );
     }
@@ -58,9 +58,9 @@ class _EditingTemplateMemoLabelsPageState
       body: Column(
         children: <Widget>[
           Expanded(
-            child: StreamBuilder<List<MemoLabel>>(
+            child: StreamBuilder<List<TemplateMemoLabel>>(
               stream: bloc.getAllLabels,
-              builder: (_, AsyncSnapshot<List<MemoLabel>> memoLabels) {
+              builder: (_, AsyncSnapshot<List<TemplateMemoLabel>> memoLabels) {
                 if (memoLabels.hasData) {
                   return _buildLabels(context, memoLabels.data);
                 }
@@ -97,9 +97,10 @@ class _CreateLabelBottomSheet extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              bloc.addLabel.add(MemoLabel(
+              bloc.addLabel.add(TemplateMemoLabel(
                 title: _titleController.text,
                 color: Colors.red,
+                //TODO : 色を選択できるように
               ));
             },
           )
