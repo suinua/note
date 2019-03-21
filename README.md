@@ -8,28 +8,50 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
 # アーキテクチャ
 データはblocで管理。
 
-**現状**
-□はページ
-◯はウィジェット
-![architecture](https://github.com/suinua/note/blob/master/architecture.png)
-
-### 入れ子状のデータ管理
-**親要素 parent**
- - ルール
-     - `children_bloc`を持たない。
- - フィールド
-    - key
- 
-**リスト状の子要素 children_bloc**
- - ルール
-     - 親要素のkeyで呼び出せるようにする。
- 
- 
 ## Viewのフォルダ構成 について 
 Htmlのように配置していく。  
 関係が強い場合はファイル、弱い場合はフォルダ。
 
-～編集中～
+### リスト状
+
+**logic**
+Items Bloc ↔ Items Provider
+Item Model
+
+**view**
+↓ `Items Bloc`
+ItemList 
+⇅ `onChanged,onRemoved`
+Item Widget 
+⇅ `Item`
+Item Page 
+
+### 入れ子状
+
+**logic**
+Parents Bloc ↔ Parents Provider
+Parents Model
+ - Children Bloc
+
+Children Bloc ↔ Children Provider
+Children Model
+
+
+**view**
+↓ `Parents Bloc`
+ParentList 
+⇅ `Parent,onChanged,onRemoved`
+Parent Widget 
+⇅ `Parent`
+Parent Page 
+↓ `Parent.Children Bloc`
+Child List
+⇅ `Child,onChanged,onRemoved`
+Child Widget
+⇅ `Child`
+Child Page 
+
+～編集中～ 
 
 # ウィジェット
 タイトル
