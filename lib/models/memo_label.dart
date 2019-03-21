@@ -8,6 +8,8 @@ class MemoLabel {
   MemoLabel({@required this.title, @required this.color, this.key});
 
   MemoLabel.fromMap(this.key, Map<String, dynamic> label) {
+    assert(key != null);
+    
     Color _rgboToColor(String rgbo) {
       List<int> values = rgbo.split(',').map(int.parse).toList();
       return Color.fromRGBO(values[0], values[1], values[2], 1);

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/providers/template_memo_labels_bloc_provider.dart';
 import 'package:note/blocs/template_memo_labels_bloc.dart';
+import 'package:note/models/memo_group.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/views/model_widgets/memo_label.dart';
 
 class EditingTemplateMemoLabelsPage extends StatefulWidget {
+  final MemoGroup ownerMemoGroup;
+
+  const EditingTemplateMemoLabelsPage({Key key, @required this.ownerMemoGroup}) : super(key: key);
+
   @override
   _EditingTemplateMemoLabelsPageState createState() =>
       _EditingTemplateMemoLabelsPageState();
@@ -16,7 +20,7 @@ class _EditingTemplateMemoLabelsPageState
 
   @override
   Widget build(BuildContext context) {
-    final bloc = TemplateMemoLabelsBlocProvider.of(context);
+    final bloc = widget.ownerMemoGroup.templateMemoLabelsBloc;
 
     Widget _buildLabels(BuildContext context, List<MemoLabel> labels) {
       return ListView.builder(

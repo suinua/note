@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/blocs/providers/memo_groups_bloc_provider.dart';
-import 'package:note/blocs/providers/memos_bloc_provider.dart';
-import 'package:note/blocs/providers/template_memo_labels_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/pages/memo_groups/memo_group/create_memo/main.dart';
@@ -36,10 +34,7 @@ class MemoGroupPage extends StatelessWidget {
         label: Text('add memo'),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return MemosBlocProvider.fromBlocContext(
-              context: context,
-              child: CreateMemoPage(),
-            );
+            return CreateMemoPage(parentMemoGroup: memoGroup);
           }));
         },
       ),
@@ -58,10 +53,7 @@ class MemoGroupPage extends StatelessWidget {
                     showModalBottomSheet<void>(
                       context: context,
                       builder: (_) {
-                        return TemplateMemoLabelsBlocProvider.fromBlocContext(
-                          context: context,
-                          child: _GroupSettingMenu(memoGroup: memoGroup),
-                        );
+                        return _GroupSettingMenu(memoGroup: memoGroup);
                       },
                     );
                   },
@@ -71,7 +63,7 @@ class MemoGroupPage extends StatelessWidget {
           ],
         ),
       ),
-      body: MemoListView(),
+      body: MemoListView(memosBloc: memoGroup.memosBloc),
     );
   }
 }
@@ -99,10 +91,7 @@ class _GroupSettingMenu extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => TemplateMemoLabelsBlocProvider.fromBlocContext(
-                      context: context,
-                      child: EditingTemplateMemoLabelsPage(),
-                    ),
+                builder: (_) => EditingTemplateMemoLabelsPage(ownerMemoGroup: memoGroup),
               ),
             );
           },

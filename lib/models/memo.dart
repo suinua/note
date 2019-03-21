@@ -1,20 +1,33 @@
 import 'package:meta/meta.dart';
-import 'package:note/models/memo_label.dart';
+import 'package:note/blocs/memo_labels_bloc.dart';
 
 class Memo {
+  final String parentGroupKey;
   final String key;
 
   String title;
   String body;
 
+  MemoLabelsBloc _labelsBLoc;
+  MemoLabelsBloc get labelsBloc => _labelsBLoc;
+
   Memo(
       {@required this.title,
       @required this.body,
-      this.key});
+      this.parentGroupKey,
+      this.key}) {
+    if (key != null && parentGroupKey != null) {
+      _labelsBLoc = MemoLabelsBloc(parentGroupKey, key);
+    }
+  }
 
-  Memo.fromMap(this.key, Map<String, dynamic> memo) {
+  Memo.fromMap(this.parentGroupKey, this.key, Map<String, dynamic> memo) {
+    assert(key != null || parentGroupKey != null);
+
     this.title = memo['title'];
     this.body = memo['body'];
+
+    _labelsBLoc = MemoLabelsBloc(parentGroupKey, key);
   }
 
   Map<String, dynamic> asMap() {
@@ -28,7 +41,7 @@ class Memo {
   bool operator ==(o) {
     return o is Memo && o.key == key;
   }
-  
+
   @override
   int get hashCode => key.hashCode;
 }

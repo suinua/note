@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo_detail/main.dart';
 
+typedef void OnChanged(Memo memo);
+typedef void OnRemoved(Memo memo);
+
 class MemoWidget extends StatelessWidget {
   final Memo memo;
+  final OnChanged onChanged;
+  final OnRemoved onRemoved;
 
-  const MemoWidget({Key key, @required this.memo}) : super(key: key);
+  const MemoWidget(
+      {Key key,
+      @required this.memo,
+      @required this.onRemoved,
+      @required this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +36,7 @@ class MemoWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) {
-                return MemosBlocProvider.fromBlocContext(
-                  context: context,
-                  child: MemoDetailPage(memo: memo),
-                );
+                return MemoDetailPage(memo: memo,onChanged: onChanged);
               },
             ),
           );
@@ -47,8 +53,7 @@ class MemoWidget extends StatelessWidget {
               title: memo.title,
               body: '削除しますか？',
               onApproved: () {
-                final bloc = MemosBlocProvider.of(context);
-                bloc.removeMemo.add(memo);
+                onRemoved(memo);
               },
             );
           },

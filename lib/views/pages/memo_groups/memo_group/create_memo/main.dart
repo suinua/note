@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
+import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
 
 class CreateMemoPage extends StatefulWidget {
-  const CreateMemoPage();
+  final MemoGroup parentMemoGroup;
+
+  const CreateMemoPage({Key key, @required this.parentMemoGroup}) : super(key: key);
+
 
   @override
   _CreateMemoPageState createState() => _CreateMemoPageState();
@@ -25,7 +28,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = MemosBlocProvider.of(context);
+    final bloc = widget.parentMemoGroup.memosBloc;
 
     return Scaffold(
       appBar: AppBar(

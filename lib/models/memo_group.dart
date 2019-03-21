@@ -1,15 +1,34 @@
 import 'package:meta/meta.dart';
+import 'package:note/blocs/memos_bloc.dart';
+import 'package:note/blocs/template_memo_labels_bloc.dart';
 
 class MemoGroup {
   final String key;
   String title;
   String description;
 
-  MemoGroup({@required this.title, @required this.description, this.key});
+  TemplateMemoLabelsBloc _templateMemoLabelsBloc;
+  TemplateMemoLabelsBloc get templateMemoLabelsBloc => _templateMemoLabelsBloc;
+
+  MemosBloc _memosBloc;
+  MemosBloc get memosBloc => _memosBloc;
+
+  MemoGroup({@required this.title, @required this.description, this.key}) {
+    if (key != null) {
+      _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
+      _memosBloc = MemosBloc(key);
+    }
+  }
 
   MemoGroup.fromMap(this.key, Map<String, dynamic> memoGroup) {
+    assert(key != null);
+
     this.title = memoGroup['title'];
     this.description = memoGroup['description'];
+
+    _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
+    _memosBloc = MemosBloc(key);
+ 
   }
 
   Map<String, dynamic> asMap() {
