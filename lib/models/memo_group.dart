@@ -23,4 +23,7 @@ class MemoGroup {
   bool operator ==(o) {
     return o is MemoGroup && o.key == key;
   }
+
+  @override
+  int get hashCode => key.hashCode;
 }

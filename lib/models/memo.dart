@@ -58,4 +58,7 @@ class Memo {
   bool operator ==(o) {
     return o is Memo && o.key == key;
   }
+  
+  @override
+  int get hashCode => key.hashCode;
 }

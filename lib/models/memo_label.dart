@@ -5,11 +5,6 @@ class MemoLabel {
   final String title;
   Color color;
 
-  @override
-  bool operator ==(o) {
-    return o is MemoLabel && o.key == o.key;
-  }
-
   MemoLabel({@required this.title, @required this.color, this.key});
 
   factory MemoLabel.fromMap(Map<String, dynamic> label) {
@@ -28,4 +23,12 @@ class MemoLabel {
         'title': title,
         'color': '${color.red},${color.green},${color.blue}'
       };
+
+  @override
+  bool operator ==(o) {
+    return o is MemoLabel && o.key == o.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
