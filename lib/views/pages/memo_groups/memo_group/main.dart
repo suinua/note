@@ -6,6 +6,7 @@ import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/pages/memo_groups/memo_group/create_memo/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/editing.dart';
+import 'package:note/views/pages/memo_groups/memo_group/editing_template_labels.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo_list_view.dart';
 
 class MemoGroupPage extends StatelessWidget {
@@ -82,7 +83,7 @@ class _GroupSettingMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final memoGroupsBloc = MemoGroupsBlocProvider.of(context);
-
+    
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -91,7 +92,13 @@ class _GroupSettingMenu extends StatelessWidget {
           title: const Text('Labels'),
           leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
           onTap: () {
-            //TODO : 実装して
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) =>
+                    EditingTemplateMemoLabelsPage(),
+              ),
+            );
           },
         ),
         ListTile(
