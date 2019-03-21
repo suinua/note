@@ -26,23 +26,20 @@ class TemplateMemoLabelsRepository {
     labelsRef.onChildAdded.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onLabelAdded(MemoLabel.fromMap(value));
+      this.onLabelAdded(MemoLabel.fromMap(event.snapshot.key,value));
     });
     labelsRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onLabelRemoved(MemoLabel.fromMap(value));
+      this.onLabelRemoved(MemoLabel.fromMap(event.snapshot.key,value));
     });
     labelsRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
-      value['key'] = event.snapshot.key;
 
-      this.onLabelChanged(MemoLabel.fromMap(value));
+      this.onLabelChanged(MemoLabel.fromMap(event.snapshot.key,value));
     });
   }
 
