@@ -14,11 +14,11 @@ Htmlのように配置していく。
 
 ### リスト状
 
-**logic**
+**logic**  
 Items Bloc ↔ Items Provider  
 Item Model  
 
-**view**
+**view**  
 ↓ `Items Bloc`  
 ItemList   
 ⇅ `onChanged,onRemoved`  
@@ -28,7 +28,7 @@ Item Page
 
 ### 入れ子状
 
-**logic**
+**logic**  
 Parents Bloc ↔ Parents Provider  
 Parents Model  
  - Children Bloc  
@@ -37,7 +37,7 @@ Children Bloc ↔ Children Provider
 Children Model  
 
 
-**view**
+**view**  
 ↓ `Parents Bloc`  
 ParentList   
 ⇅ `Parent,onChanged,onRemoved`  
