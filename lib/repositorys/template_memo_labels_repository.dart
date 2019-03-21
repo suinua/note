@@ -21,7 +21,7 @@ class TemplateMemoLabelsRepository {
         .reference()
         .child('memo_groups')
         .child(parentGroupKey)
-        .child('memo_labels');
+        .child('template_labels');
 
     labelsRef.onChildAdded.listen((event) {
       Map<String, dynamic> value =
