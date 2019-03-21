@@ -51,9 +51,8 @@ class MemoGroupsPage extends StatelessWidget {
         builder: (_, AsyncSnapshot<List<MemoGroup>> memoGroups) {
           if (memoGroups.hasData) {
             return _buildGroups(memoGroups.data);
-          } else {
-            return _buildGroups([]);
           }
+          return _buildGroups([]);
         },
       ),
     );
