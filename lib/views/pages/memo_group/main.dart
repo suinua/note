@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/blocs/providers/memo_groups_bloc_provider.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/pages/memo_group/create_memo.dart';
 import 'package:note/views/pages/memo_group/editing.dart';
 import 'package:note/views/pages/memo_group/memo_list_view.dart';
@@ -74,7 +75,8 @@ class _GroupSettingMenu extends StatelessWidget {
   final MemoGroup memoGroup;
 
   const _GroupSettingMenu({
-    Key key, this.memoGroup,
+    Key key,
+    this.memoGroup,
   }) : super(key: key);
 
   @override
@@ -88,15 +90,23 @@ class _GroupSettingMenu extends StatelessWidget {
         ListTile(
           title: const Text('Labels'),
           leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
-          onTap: (){
+          onTap: () {
             //TODO : 実装して
           },
         ),
         ListTile(
           title: const Text('Remove'),
           leading: const Icon(Icons.delete),
-          onTap: (){
-            //TODO : 実装して
+          onTap: () {
+            ConfirmDialog.show(
+              context,
+              title: memoGroup.title,
+              body: 'Remove it?',
+              onApproved: () {
+                memoGroupsBloc.removeGroup.add(memoGroup);
+                Navigator.pop(context);
+              },
+            );
           },
         ),
         Divider(),
@@ -107,9 +117,10 @@ class _GroupSettingMenu extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => EditingMemoGroupTitlePage(defaultTitle: memoGroup.title),
+                builder: (_) =>
+                    EditingMemoGroupTitlePage(defaultTitle: memoGroup.title),
               ),
-            ).then((title){
+            ).then((title) {
               if (title != null) {
                 memoGroup.title = title;
                 memoGroupsBloc.updateGroup.add(memoGroup);
@@ -120,13 +131,14 @@ class _GroupSettingMenu extends StatelessWidget {
         ListTile(
           title: const Text('Description'),
           leading: const Icon(Icons.edit),
-          onTap: (){
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => EditingMemoGroupDescriptionPage(defaultDescription: memoGroup.description),
+                builder: (_) => EditingMemoGroupDescriptionPage(
+                    defaultDescription: memoGroup.description),
               ),
-            ).then((description){
+            ).then((description) {
               if (description != null) {
                 memoGroup.description = description;
                 memoGroupsBloc.updateGroup.add(memoGroup);
