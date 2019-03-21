@@ -4,7 +4,7 @@ import 'package:note/blocs/providers/memo_groups_bloc_provider.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
-import 'package:note/views/pages/memo_groups/memo_group/create_memo.dart';
+import 'package:note/views/pages/memo_groups/memo_group/create_memo/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/editing.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo_list_view.dart';
 
