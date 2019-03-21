@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/pages/memo_group/main.dart';
+import 'package:note/views/pages/memo_groups/memo_group/main.dart';
 
 class MemoGroupWidget extends StatelessWidget {
   final MemoGroup memoGroup;

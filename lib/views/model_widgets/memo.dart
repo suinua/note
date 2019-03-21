@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/confirm_dialog.dart';
-import 'package:note/views/pages/memo_detail/main.dart';
+import 'package:note/views/pages/memo_groups/memo_group/memo_detail/main.dart';
 
 class MemoWidget extends StatelessWidget {
   final Memo memo;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/models/memo.dart';
-import 'package:note/views/pages/memo_detail/editing_widget.dart';
-import 'package:note/views/pages/memo_detail/preview_widget.dart';
+import 'package:note/views/pages/memo_groups/memo_group/memo_detail/editing_widget.dart';
+import 'package:note/views/pages/memo_groups/memo_group/memo_detail/preview_widget.dart';
 
 class _DisplayMode {
   final String _mode;
