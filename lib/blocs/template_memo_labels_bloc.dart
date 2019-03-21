@@ -1,12 +1,12 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:note/log.dart';
 import 'package:note/models/memo_label.dart';
-import 'package:note/repositorys/memo_labels_repository.dart';
+import 'package:note/repositorys/template_memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TemplateMemoLabelsBloc extends Bloc {
   final String parentGroupKey;
-  MemoLabelsRepository _repository;
+  TemplateMemoLabelsRepository _repository;
   List<MemoLabel> _labels = <MemoLabel>[];
 
   BehaviorSubject<List<MemoLabel>> _labelsController =
