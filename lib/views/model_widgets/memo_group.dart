@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/providers/memos_bloc_provider.dart';
+import 'package:note/blocs/providers/template_memo_labels_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/memo_groups/memo_group/main.dart';
 
@@ -17,7 +18,10 @@ class MemoGroupWidget extends StatelessWidget {
           MaterialPageRoute(builder: (_) {
             return MemosBlocProvider(
               parentGroupKey: memoGroup.key,
-              child: MemoGroupPage(memoGroup: memoGroup),
+              child: TemplateMemoLabelsBlocProvider(
+                parentGroupKey: memoGroup.key,
+                child: MemoGroupPage(memoGroup: memoGroup),
+              ),
             );
           }),
         );
