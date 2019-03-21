@@ -25,28 +25,11 @@ https://firebase.google.com/docs/flutter/setup?hl=ja
      - 親要素のkeyで呼び出せるようにする。
  
  
-## ファイル構成
- - ページはフォルダで区切る
- 例えば、メモグループページ
- 
-```
- page/
-    memo_group/
-        //ファイル名に「page」は入れない。
-        //「widget」の場合はファイル名に入れるようにする。
-        //クラス名には「page」「widget」を入れるようにする。
-        main.dart
-        setting.dart
-        create_memo.dart
- ```
- 
- - modelようのウィジェット
- ```
- model_widgets/
-    //ファイル名に「widget」は入れない。
-    //クラス名にはつける。
-    memo_group.dart
- ```
+## Viewのフォルダ構成 について 
+Htmlのように配置していく。  
+関係が強い場合はファイル、弱い場合はフォルダ。
+
+～編集中～
 
 # ウィジェット
 タイトル
