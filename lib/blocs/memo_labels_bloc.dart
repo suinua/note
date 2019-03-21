@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 class MemoLabelsBloc extends Bloc {
   final String parentGroupKey;
+  final String ownerMemoKey;
   MemoLabelsRepository _repository;
   List<MemoLabel> _labels = <MemoLabel>[];
 
@@ -27,7 +28,7 @@ class MemoLabelsBloc extends Bloc {
 
   Sink<MemoLabel> get updateLabel => _updateLabelController.sink;
 
-  MemoLabelsBloc(this.parentGroupKey) {
+  MemoLabelsBloc(this.parentGroupKey, this.ownerMemoKey) {
     void _onAdded(MemoLabel addedLabel) {
       _labels.add(addedLabel);
       _setLabels.add(_labels);
@@ -50,7 +51,7 @@ class MemoLabelsBloc extends Bloc {
       Log.label.onUpdatedOnFirebase(changedLabel.asMap());
     }
 
-    _repository = MemoLabelsRepository(parentGroupKey,
+    _repository = MemoLabelsRepository(parentGroupKey, ownerMemoKey,
         onLabelAdded: _onAdded,
         onLabelRemoved: _onRemoved,
         onLabelChanged: _onChanged);
