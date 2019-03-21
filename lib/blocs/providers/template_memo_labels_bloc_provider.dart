@@ -22,6 +22,6 @@ class TemplateMemoLabelsBlocProvider extends BlocProvider<TemplateMemoLabelsBloc
           context: context,
         );
 
-  static TemplateMemoLabelsBlocProvider of(BuildContext context) =>
+  static TemplateMemoLabelsBloc of(BuildContext context) =>
       BlocProvider.of(context);
 }

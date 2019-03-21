@@ -23,6 +23,6 @@ class MemoLabelsBlocProvider extends BlocProvider<MemoLabelsBloc> {
           context: context,
         );
 
-  static MemoLabelsBlocProvider of(BuildContext context) =>
+  static MemoLabelsBloc of(BuildContext context) =>
       BlocProvider.of(context);
 }
