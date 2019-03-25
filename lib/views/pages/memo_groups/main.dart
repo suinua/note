@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/providers/memo_groups_bloc_provider.dart';
+import 'package:note/providers/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/model_widgets/memo_group.dart';
 import 'package:note/views/pages/memo_groups/create_memo_group/main.dart';
