@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:note/containers/memo_group_container.dart';
+import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/models/memo.dart';
+import 'package:note/models/memo_group.dart';
+import 'package:provider/provider.dart';
 
 class EditingMemoWidget extends StatefulWidget {
   final Memo memo;
@@ -24,6 +28,9 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
   }
 
   Widget build(BuildContext context) {
+    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+    final MemosBloc memosBloc = memoGroup.memosBloc;
+
     return Column(
       children: <Widget>[
         TextField(
@@ -31,6 +38,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
           controller: _memoTitleController,
           onChanged: (value) {
             widget.memo.title = value;
+            memosBloc.updateMemo.add(widget.memo);
           },
           decoration: InputDecoration(
             hintText: 'Title',
@@ -47,6 +55,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
               widget.memo.body = value;
+              memosBloc.updateMemo.add(widget.memo);
             },
             decoration: InputDecoration(
               hintText: 'Body',

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note/containers/memo_group_container.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/memo_groups/memo_group/main.dart';
+import 'package:provider/provider.dart';
 
 class MemoGroupWidget extends StatelessWidget {
   final MemoGroup memoGroup;
@@ -9,12 +11,14 @@ class MemoGroupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<MemoGroupContainer>(context).setValue(memoGroup);
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) {
-            return MemoGroupPage(memoGroup: memoGroup);
+            return MemoGroupPage();
           }),
         );
       },

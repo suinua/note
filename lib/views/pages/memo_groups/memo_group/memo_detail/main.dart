@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/models/memo.dart';
@@ -23,10 +21,8 @@ typedef void OnChanged(Memo memo);
 
 class MemoDetailPage extends StatefulWidget {
   final Memo memo;
-  final OnChanged onChanged;
 
-  const MemoDetailPage({Key key, @required this.memo, @required this.onChanged})
-      : super(key: key);
+  const MemoDetailPage({Key key, @required this.memo});
 
   @override
   _MemoDetailPageState createState() => _MemoDetailPageState();
@@ -34,23 +30,6 @@ class MemoDetailPage extends StatefulWidget {
 
 class _MemoDetailPageState extends State<MemoDetailPage> {
   _DisplayMode _displayMode = _DisplayMode.preview;
-  StreamController<_DisplayMode> _displayModeController =
-      StreamController<_DisplayMode>();
-
-  @override
-  void initState() {
-    _displayModeController.stream.listen((value) {
-      _displayMode = value;
-      widget.onChanged(widget.memo);
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _displayModeController.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note/containers/memo_group_container.dart';
 import 'package:note/providers/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
@@ -7,14 +8,13 @@ import 'package:note/views/pages/memo_groups/memo_group/create_memo/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/editing.dart';
 import 'package:note/views/pages/memo_groups/memo_group/editing_template_labels.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo_list_view.dart';
+import 'package:provider/provider.dart';
 
 class MemoGroupPage extends StatelessWidget {
-  final MemoGroup memoGroup;
-
-  const MemoGroupPage({Key key, this.memoGroup}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -33,9 +33,11 @@ class MemoGroupPage extends StatelessWidget {
         icon: const Icon(Icons.add),
         label: Text('add memo'),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return CreateMemoPage(parentMemoGroup: memoGroup);
-          }));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => CreateMemoPage(),
+              ));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -53,7 +55,7 @@ class MemoGroupPage extends StatelessWidget {
                     showModalBottomSheet<void>(
                       context: context,
                       builder: (_) {
-                        return _GroupSettingMenu(memoGroup: memoGroup);
+                        return _GroupSettingMenu();
                       },
                     );
                   },
@@ -63,21 +65,17 @@ class MemoGroupPage extends StatelessWidget {
           ],
         ),
       ),
-      body: MemoListView(memosBloc: memoGroup.memosBloc),
+      body: MemoListView(),
     );
   }
 }
 
 class _GroupSettingMenu extends StatelessWidget {
-  final MemoGroup memoGroup;
-
-  const _GroupSettingMenu({
-    Key key,
-    this.memoGroup,
-  }) : super(key: key);
+  const _GroupSettingMenu();
 
   @override
   Widget build(BuildContext context) {
+    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
     final memoGroupsBloc = MemoGroupsBlocProvider.of(context);
 
     return Column(
@@ -91,7 +89,7 @@ class _GroupSettingMenu extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => EditingTemplateMemoLabelsPage(ownerMemoGroup: memoGroup),
+                builder: (_) => EditingTemplateMemoLabelsPage(),
               ),
             );
           },

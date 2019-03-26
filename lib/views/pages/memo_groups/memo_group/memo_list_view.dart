@@ -1,42 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:note/containers/memo_group_container.dart';
 import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/models/memo.dart';
+import 'package:note/models/memo_group.dart';
 import 'package:note/views/model_widgets/memo.dart';
+import 'package:provider/provider.dart';
 
 //TODO : rename
 class MemoListView extends StatelessWidget {
-  final MemosBloc memosBloc;
-
-  const MemoListView({Key key, @required this.memosBloc}) : super(key: key);
+  const MemoListView();
 
   @override
   Widget build(BuildContext context) {
+    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+    final MemosBloc memosBloc = memoGroup.memosBloc;
+
     return StreamBuilder<List<Memo>>(
       stream: memosBloc.getAllMemos,
       builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
         if (memos.hasData) {
-          return _buildMemos(context, memos.data);
+          return _buildMemos(memosBloc, memos.data);
         } else {
-          return _buildMemos(context, []);
+          return _buildMemos(memosBloc, []);
         }
       },
     );
   }
 
-  Widget _buildMemos(BuildContext context, List<Memo> memos) {
+  Widget _buildMemos(MemosBloc memosBloc, List<Memo> memos) {
     return ListView.separated(
       itemCount: memos.length,
       separatorBuilder: (_, _i) => Divider(),
       itemBuilder: (_, int index) {
-        return MemoWidget(
-          memo: memos[index],
-          onChanged: (Memo memo) {
-            memosBloc.updateMemo.add(memo);
-          },
-          onRemoved: (Memo memo) {
-            memosBloc.removeMemo.add(memo);
-          },
-        );
+        return MemoWidget(memo: memos[index]);
       },
     );
   }

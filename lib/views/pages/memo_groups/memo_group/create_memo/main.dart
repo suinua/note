@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note/containers/memo_group_container.dart';
+import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
+import 'package:provider/provider.dart';
 
 class CreateMemoPage extends StatefulWidget {
-  final MemoGroup parentMemoGroup;
-
-  const CreateMemoPage({Key key, @required this.parentMemoGroup}) : super(key: key);
-
+  const CreateMemoPage();
 
   @override
   _CreateMemoPageState createState() => _CreateMemoPageState();
@@ -28,7 +28,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = widget.parentMemoGroup.memosBloc;
+    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+    final MemosBloc memosBloc = memoGroup.memosBloc;
 
     return Scaffold(
       appBar: AppBar(
@@ -57,9 +58,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
           IconButton(
             onPressed: _canSave()
                 ? () {
-                    bloc.addMemo.add(Memo(
-                        title: _memoTitle,
-                        body: _memoBody));
+                    memosBloc.addMemo
+                        .add(Memo(title: _memoTitle, body: _memoBody));
                     Navigator.pop(context);
                   }
                 : null,
