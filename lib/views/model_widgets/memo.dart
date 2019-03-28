@@ -4,8 +4,10 @@ import 'package:note/blocs/memos_bloc.dart';
 import 'package:note/containers/memo_group_container.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/models/memo_label.dart';
 import 'package:note/views/confirm_dialog.dart';
-import 'package:note/views/pages/memo_groups/memo_group/memo_detail/main.dart';
+import 'package:note/views/model_widgets/memo_label.dart';
+import 'package:note/views/pages/memo_groups/memo_group/memo/main.dart';
 import 'package:provider/provider.dart';
 
 typedef void OnChanged(Memo memo);
@@ -24,23 +26,36 @@ class MemoWidget extends StatelessWidget {
     return Slidable(
       delegate: SlidableDrawerDelegate(),
       actionExtentRatio: 0.25,
-      child: ListTile(
-        title: Text(memo.title),
-        subtitle: Text(
-          memo.body,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) {
-                return MemoDetailPage(memo: memo);
-              },
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            title: Text(memo.title),
+            subtitle: Text(
+              memo.body,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
-          );
-        },
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) {
+                    return MemoPage(memo: memo);
+                  },
+                ),
+              );
+            },
+          ),
+          StreamBuilder<List<MemoLabel>>(
+            stream: memo.labelsBloc.getAllLabels,
+            builder: (BuildContext context, AsyncSnapshot<List<MemoLabel>> labels){
+              if (labels.hasData) {
+                return _buildLabels(labels.data);
+              }
+              return _buildLabels([]);
+            },
+          ),
+        ],
       ),
       secondaryActions: <Widget>[
         IconSlideAction(
@@ -59,6 +74,16 @@ class MemoWidget extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildLabels(List<MemoLabel> labels) {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Wrap(
+        alignment: WrapAlignment.start,
+        children: labels.map((label) => MemoLabelWidget(label: label)).toList(),
+      ),
     );
   }
 }
