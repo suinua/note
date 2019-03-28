@@ -20,9 +20,8 @@ class MemoListView extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
         if (memos.hasData) {
           return _buildMemos(memosBloc, memos.data);
-        } else {
-          return _buildMemos(memosBloc, []);
         }
+        return _buildMemos(memosBloc, []);
       },
     );
   }
