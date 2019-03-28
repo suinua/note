@@ -19,14 +19,14 @@ class MemoListView extends StatelessWidget {
       stream: memosBloc.getAllMemos,
       builder: (BuildContext context, AsyncSnapshot<List<Memo>> memos) {
         if (memos.hasData) {
-          return _buildMemos(memosBloc, memos.data);
+          return _buildMemos(memos.data);
         }
-        return _buildMemos(memosBloc, []);
+        return _buildMemos( []);
       },
     );
   }
 
-  Widget _buildMemos(MemosBloc memosBloc, List<Memo> memos) {
+  Widget _buildMemos(List<Memo> memos) {
     return ListView.separated(
       itemCount: memos.length,
       separatorBuilder: (_, _i) => Divider(),
