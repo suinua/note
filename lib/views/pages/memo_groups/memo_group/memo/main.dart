@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/models/memo.dart';
-import 'package:note/views/pages/memo_groups/memo_group/memo_detail/editing_widget.dart';
-import 'package:note/views/pages/memo_groups/memo_group/memo_detail/preview_widget.dart';
+import 'package:note/views/pages/memo_groups/memo_group/memo/editing_widget.dart';
+import 'package:note/views/pages/memo_groups/memo_group/memo/preview_widget.dart';
 
 class _DisplayMode {
   final String _mode;
@@ -19,16 +19,16 @@ class _DisplayMode {
 
 typedef void OnChanged(Memo memo);
 
-class MemoDetailPage extends StatefulWidget {
+class MemoPage extends StatefulWidget {
   final Memo memo;
 
-  const MemoDetailPage({Key key, @required this.memo});
+  const MemoPage({Key key, @required this.memo});
 
   @override
-  _MemoDetailPageState createState() => _MemoDetailPageState();
+  _MemoPageState createState() => _MemoPageState();
 }
 
-class _MemoDetailPageState extends State<MemoDetailPage> {
+class _MemoPageState extends State<MemoPage> {
   _DisplayMode _displayMode = _DisplayMode.preview;
 
   @override
