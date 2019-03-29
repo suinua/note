@@ -96,8 +96,8 @@ class MemoWidget extends StatelessWidget {
 }
 
 enum _DisplayLabelsType {
-  memoLabel,
-  TemplateMemoLabel,
+  MemoLabels,
+  Templates,
 }
 
 class _MemoLabelsMenu extends StatefulWidget {
@@ -110,13 +110,13 @@ class _MemoLabelsMenu extends StatefulWidget {
 }
 
 class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
-  _DisplayLabelsType _displayLabelsType = _DisplayLabelsType.memoLabel;
+  _DisplayLabelsType _displayLabelsType = _DisplayLabelsType.MemoLabels;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60.0,
-      child: _displayLabelsType == _DisplayLabelsType.memoLabel
+      child: _displayLabelsType == _DisplayLabelsType.MemoLabels
           ? StreamBuilder<List<MemoLabel>>(
               stream: widget.memo.labelsBloc.getAllLabels,
               builder: (_, AsyncSnapshot<List<MemoLabel>> labels) {
@@ -146,7 +146,7 @@ class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
             icon: const Icon(Icons.add_circle),
             onPressed: () {
               setState(() {
-                _displayLabelsType = _DisplayLabelsType.TemplateMemoLabel;
+                _displayLabelsType = _DisplayLabelsType.Templates;
               });
             },
           );
