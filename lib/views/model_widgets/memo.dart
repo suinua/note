@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note/blocs/memos_bloc.dart';
+import 'package:note/blocs/template_memo_labels_bloc.dart';
 import 'package:note/containers/memo_group_container.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/models/memo_label.dart';
+import 'package:note/models/template_memo_label.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/model_widgets/memo_label.dart';
+import 'package:note/views/model_widgets/template_memo_label.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo/main.dart';
 import 'package:provider/provider.dart';
 
@@ -114,6 +117,10 @@ class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
 
   @override
   Widget build(BuildContext context) {
+    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+    final TemplateMemoLabelsBloc _templateMemoLabelsBloc =
+        memoGroup.templateMemoLabelsBloc;
+
     return Container(
       height: 60.0,
       child: _displayLabelsType == _DisplayLabelsType.MemoLabels
@@ -126,13 +133,33 @@ class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
                 return _buildLabelList([]);
               },
             )
-          : _buildTemplateLabelList(),
+          : StreamBuilder<List<TemplateMemoLabel>>(
+              stream: _templateMemoLabelsBloc.getAllLabels,
+              builder: (_, AsyncSnapshot<List<TemplateMemoLabel>> labels) {
+                if (labels.hasData) {
+                  return _buildTemplateLabelList(labels.data);
+                }
+                return _buildTemplateLabelList([]);
+              },
+            ),
     );
   }
 
-  Widget _buildTemplateLabelList() {
-    //TODO : 親要素のTemplateMemoLabels表示
-    return Container();
+  Widget _buildTemplateLabelList(List<TemplateMemoLabel> labels) {
+    //TODO : 既にMemoについているLabelを削除。
+    //TODO : Labelをタップで付与。
+
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: labels.length,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (_, int index) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: TemplateMemoLabelWidget(label: labels[index]),
+        );
+      },
+    );
   }
 
   Widget _buildLabelList(List<MemoLabel> labels) {
