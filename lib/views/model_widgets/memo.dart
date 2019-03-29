@@ -126,11 +126,11 @@ class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
                 return _buildLabelList([]);
               },
             )
-          : _buildTemplateMemoLabelList(),
+          : _buildTemplateLabelList(),
     );
   }
 
-  Widget _buildTemplateMemoLabelList() {
+  Widget _buildTemplateLabelList() {
     //TODO : 親要素のTemplateMemoLabels表示
     return Container();
   }
