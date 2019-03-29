@@ -45,10 +45,17 @@ class MemoWidget extends StatelessWidget {
                 ),
               );
             },
+            onLongPress: () {
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (_) => _MemoLabelsMenu(memo: memo),
+              );
+            },
           ),
           StreamBuilder<List<MemoLabel>>(
             stream: memo.labelsBloc.getAllLabels,
-            builder: (BuildContext context, AsyncSnapshot<List<MemoLabel>> labels){
+            builder:
+                (BuildContext context, AsyncSnapshot<List<MemoLabel>> labels) {
               if (labels.hasData) {
                 return _buildLabels(labels.data);
               }
@@ -84,6 +91,72 @@ class MemoWidget extends StatelessWidget {
         alignment: WrapAlignment.start,
         children: labels.map((label) => MemoLabelWidget(label: label)).toList(),
       ),
+    );
+  }
+}
+
+enum _DisplayMode {
+  list,
+  create,
+}
+
+class _MemoLabelsMenu extends StatefulWidget {
+  final Memo memo;
+
+  const _MemoLabelsMenu({Key key, @required this.memo}) : super(key: key);
+
+  @override
+  __MemoLabelsMenuState createState() => __MemoLabelsMenuState();
+}
+
+class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
+  _DisplayMode _displayMode = _DisplayMode.list;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60.0,
+      child: _displayMode == _DisplayMode.list
+          ? StreamBuilder<List<MemoLabel>>(
+              stream: widget.memo.labelsBloc.getAllLabels,
+              builder: (_, AsyncSnapshot<List<MemoLabel>> labels) {
+                if (labels.hasData) {
+                  return _buildLabelList(labels.data);
+                }
+                return _buildLabelList([]);
+              },
+            )
+          : _createMemoLabel(),
+    );
+  }
+
+  Widget _createMemoLabel() {
+    //TODO : やって
+    return Container();
+  }
+
+  Widget _buildLabelList(List<MemoLabel> labels) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: labels.length + 1,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (_, int index) {
+        if (index == 0) {
+          return IconButton(
+            icon: const Icon(Icons.add_circle),
+            onPressed: () {},
+          );
+        }
+        return Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: MemoLabelWidget(
+            label: labels[index - 1],
+            onDelete: (label) {
+              widget.memo.labelsBloc.removeLabel.add(label);
+            },
+          ),
+        );
+      },
     );
   }
 }
