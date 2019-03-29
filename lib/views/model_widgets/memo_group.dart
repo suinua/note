@@ -11,10 +11,10 @@ class MemoGroupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<MemoGroupContainer>(context).setValue(memoGroup);
-
     return GestureDetector(
       onTap: () {
+        Provider.of<MemoGroupContainer>(context).setValue(memoGroup);
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) {
