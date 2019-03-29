@@ -95,9 +95,9 @@ class MemoWidget extends StatelessWidget {
   }
 }
 
-enum _DisplayMode {
-  list,
-  create,
+enum _DisplayLabelsType {
+  memoLabel,
+  TemplateMemoLabel,
 }
 
 class _MemoLabelsMenu extends StatefulWidget {
@@ -110,13 +110,13 @@ class _MemoLabelsMenu extends StatefulWidget {
 }
 
 class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
-  _DisplayMode _displayMode = _DisplayMode.list;
+  _DisplayLabelsType _displayLabelsType = _DisplayLabelsType.memoLabel;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60.0,
-      child: _displayMode == _DisplayMode.list
+      child: _displayLabelsType == _DisplayLabelsType.memoLabel
           ? StreamBuilder<List<MemoLabel>>(
               stream: widget.memo.labelsBloc.getAllLabels,
               builder: (_, AsyncSnapshot<List<MemoLabel>> labels) {
@@ -126,12 +126,12 @@ class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
                 return _buildLabelList([]);
               },
             )
-          : _createMemoLabel(),
+          : _buildTemplateMemoLabelList(),
     );
   }
 
-  Widget _createMemoLabel() {
-    //TODO : やって
+  Widget _buildTemplateMemoLabelList() {
+    //TODO : 親要素のTemplateMemoLabels表示
     return Container();
   }
 
@@ -144,7 +144,11 @@ class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
         if (index == 0) {
           return IconButton(
             icon: const Icon(Icons.add_circle),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _displayLabelsType = _DisplayLabelsType.TemplateMemoLabel;
+              });
+            },
           );
         }
         return Padding(
