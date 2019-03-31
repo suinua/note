@@ -8,6 +8,7 @@ import 'package:note/models/memo_group.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/models/template_memo_label.dart';
 import 'package:note/views/confirm_dialog.dart';
+import 'package:note/views/model_widgets/memo/menu.dart';
 import 'package:note/views/model_widgets/memo_label/main.dart';
 import 'package:note/views/model_widgets/template_memo_label/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo/main.dart';
@@ -51,7 +52,7 @@ class MemoWidget extends StatelessWidget {
             onLongPress: () {
               showModalBottomSheet<void>(
                 context: context,
-                builder: (_) => _MemoLabelsMenu(memo: memo),
+                builder: (_) => MemoMenuWidget(memo: memo),
               );
             },
           ),
@@ -94,100 +95,6 @@ class MemoWidget extends StatelessWidget {
         alignment: WrapAlignment.start,
         children: labels.map((label) => MemoLabelWidget(label: label)).toList(),
       ),
-    );
-  }
-}
-
-enum _DisplayLabelsType {
-  MemoLabels,
-  Templates,
-}
-
-class _MemoLabelsMenu extends StatefulWidget {
-  final Memo memo;
-
-  const _MemoLabelsMenu({Key key, @required this.memo}) : super(key: key);
-
-  @override
-  __MemoLabelsMenuState createState() => __MemoLabelsMenuState();
-}
-
-class __MemoLabelsMenuState extends State<_MemoLabelsMenu> {
-  _DisplayLabelsType _displayLabelsType = _DisplayLabelsType.MemoLabels;
-
-  @override
-  Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
-    final TemplateMemoLabelsBloc _templateMemoLabelsBloc =
-        memoGroup.templateMemoLabelsBloc;
-
-    return Container(
-      height: 60.0,
-      child: _displayLabelsType == _DisplayLabelsType.MemoLabels
-          ? StreamBuilder<List<MemoLabel>>(
-              stream: widget.memo.labelsBloc.getAllLabels,
-              builder: (_, AsyncSnapshot<List<MemoLabel>> labels) {
-                if (labels.hasData) {
-                  return _buildLabelList(labels.data);
-                }
-                return _buildLabelList([]);
-              },
-            )
-          : StreamBuilder<List<TemplateMemoLabel>>(
-              stream: _templateMemoLabelsBloc.getAllLabels,
-              builder: (_, AsyncSnapshot<List<TemplateMemoLabel>> labels) {
-                if (labels.hasData) {
-                  return _buildTemplateLabelList(labels.data);
-                }
-                return _buildTemplateLabelList([]);
-              },
-            ),
-    );
-  }
-
-  Widget _buildTemplateLabelList(List<TemplateMemoLabel> labels) {
-    //TODO : 既にMemoについているLabelを削除。
-    //TODO : Labelをタップで付与。
-
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: labels.length,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (_, int index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: TemplateMemoLabelWidget(label: labels[index]),
-        );
-      },
-    );
-  }
-
-  Widget _buildLabelList(List<MemoLabel> labels) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: labels.length + 1,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (_, int index) {
-        if (index == 0) {
-          return IconButton(
-            icon: const Icon(Icons.add_circle),
-            onPressed: () {
-              setState(() {
-                _displayLabelsType = _DisplayLabelsType.Templates;
-              });
-            },
-          );
-        }
-        return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: MemoLabelWidget(
-            label: labels[index - 1],
-            onDelete: (label) {
-              widget.memo.labelsBloc.removeLabel.add(label);
-            },
-          ),
-        );
-      },
     );
   }
 }
