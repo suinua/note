@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note/containers/memo_group_container.dart';
-import 'package:note/blocs/memos_bloc.dart';
+import 'package:note/blocs/memo_group/memo_group_bloc.dart';
+import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
@@ -28,7 +28,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
     final MemosBloc memosBloc = memoGroup.memosBloc;
 
     return Scaffold(

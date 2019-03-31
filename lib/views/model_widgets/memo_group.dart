@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note/containers/memo_group_container.dart';
+import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/pages/memo_groups/memo_group/main.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,7 @@ class MemoGroupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Provider.of<MemoGroupContainer>(context).setValue(memoGroup);
+        Provider.of<MemoGroupBloc>(context).setValue(memoGroup);
 
         Navigator.push(
           context,

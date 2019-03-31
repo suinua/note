@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:note/blocs/memos_bloc.dart';
-import 'package:note/blocs/template_memo_labels_bloc.dart';
+import 'package:note/blocs/memo/memos_bloc.dart';
+import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 
 class MemoGroup {
   final String key;

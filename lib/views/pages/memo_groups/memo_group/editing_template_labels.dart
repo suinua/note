@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note/containers/memo_group_container.dart';
-import 'package:note/blocs/template_memo_labels_bloc.dart';
+import 'package:note/blocs/memo_group/memo_group_bloc.dart';
+import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/models/template_memo_label.dart';
 import 'package:note/views/model_widgets/template_memo_label.dart';
@@ -20,7 +20,7 @@ class _EditingTemplateMemoLabelsPageState
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupContainer>(context).value;
+    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
     final bloc = memoGroup.templateMemoLabelsBloc;
 
     Widget _buildLabels(BuildContext context, List<TemplateMemoLabel> labels) {

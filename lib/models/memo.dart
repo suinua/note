@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:note/blocs/memo_labels_bloc.dart';
+import 'package:note/blocs/memo/memo_labels_bloc.dart';
 
 class Memo {
   final String parentGroupKey;
