@@ -8,8 +8,8 @@ import 'package:note/models/memo_group.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/models/template_memo_label.dart';
 import 'package:note/views/confirm_dialog.dart';
-import 'package:note/views/model_widgets/memo_label.dart';
-import 'package:note/views/model_widgets/template_memo_label.dart';
+import 'package:note/views/model_widgets/memo_label/main.dart';
+import 'package:note/views/model_widgets/template_memo_label/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo/main.dart';
 import 'package:provider/provider.dart';
 

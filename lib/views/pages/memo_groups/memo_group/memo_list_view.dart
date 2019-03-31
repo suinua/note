@@ -3,7 +3,7 @@ import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
-import 'package:note/views/model_widgets/memo.dart';
+import 'package:note/views/model_widgets/memo/main.dart';
 import 'package:provider/provider.dart';
 
 //TODO : rename

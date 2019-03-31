@@ -3,7 +3,7 @@ import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/models/template_memo_label.dart';
-import 'package:note/views/model_widgets/template_memo_label.dart';
+import 'package:note/views/model_widgets/template_memo_label/main.dart';
 import 'package:provider/provider.dart';
 
 class EditingTemplateMemoLabelsPage extends StatefulWidget {
