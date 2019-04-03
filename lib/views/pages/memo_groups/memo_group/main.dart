@@ -81,9 +81,12 @@ class _GroupSettingMenu extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        ListTile(
+          title: Text(memoGroup.title),
+        ),
         Divider(),
         ListTile(
-          title: const Text('Labels'),
+          title: const Text('Template Labels'),
           leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
           onTap: () {
             Navigator.push(
