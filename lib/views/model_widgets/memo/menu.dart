@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 import 'package:note/models/memo.dart';
@@ -27,12 +28,24 @@ class MemoMenuWidget extends StatefulWidget {
 class _MemoMenuWidgetState extends State<MemoMenuWidget> {
   _MemoMenuTypes _memoMenuTypes = _MemoMenuTypes.MenuList;
 
+  void updateMenuType(_MemoMenuTypes type) {
+    setState(() {
+      _memoMenuTypes = type;
+    });
+  }
+
   Widget _menu() {
     switch (_memoMenuTypes) {
       case _MemoMenuTypes.MenuList:
-        return _MenuList();
+        return _MenuList(
+          memo: widget.memo,
+          onChangedMenuType: updateMenuType,
+        );
       case _MemoMenuTypes.Labels:
-        return _Labels(memo: widget.memo);
+        return _Labels(
+          memo: widget.memo,
+          onChangedMenuType: updateMenuType,
+        );
       case _MemoMenuTypes.SetLabel:
         return _SetLabel();
     }
@@ -47,24 +60,41 @@ class _MemoMenuWidgetState extends State<MemoMenuWidget> {
 
 /* MenuList */
 class _MenuList extends StatelessWidget {
+  final Memo memo;
+  final void Function(_MemoMenuTypes) onChangedMenuType;
+
+  const _MenuList(
+      {Key key, @required this.memo, @required this.onChangedMenuType})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        //TODO :　
+        ListTile(
+          title: Text(memo.title),
+        ),
+        Divider(),
+        ListTile(
+          title: Text('Labels'),
+          leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
+          onTap: () => onChangedMenuType(_MemoMenuTypes.Labels),
+        ),
       ],
     );
   }
 }
 
-
 /* Labels */
 
 class _Labels extends StatelessWidget {
   final Memo memo;
+  final void Function(_MemoMenuTypes) onChangedMenuType;
 
-  const _Labels({Key key, @required this.memo}) : super(key: key);
+  const _Labels(
+      {Key key, @required this.memo, @required this.onChangedMenuType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +121,7 @@ class _Labels extends StatelessWidget {
         if (index == 0) {
           return IconButton(
             icon: const Icon(Icons.add_circle),
-            onPressed: () {
-              //TODO :
-            },
+            onPressed: () => onChangedMenuType(_MemoMenuTypes.SetLabel),
           );
         }
         return Padding(
