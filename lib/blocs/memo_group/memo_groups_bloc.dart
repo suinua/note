@@ -70,6 +70,8 @@ class MemoGroupsBloc implements Bloc{
   }
 
   void dispose() async {
+    _repository.dispose();
+
     await _memoGroupsController.close();
     await _addGroupController.close();
     await _removeGroupController.close();

@@ -71,6 +71,8 @@ class MemoLabelsBloc extends Bloc {
   }
 
   void dispose() async {
+    _repository.dispose();
+
     await _labelsController.close();
     await _addLabelController.close();
     await _removeLabelController.close();
