@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo/memo_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
+import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/providers/memo_bloc_provider.dart';
 import 'package:note/providers/memo_group_provider.dart';
-import 'package:provider/provider.dart';
 
 class EditingMemoWidget extends StatefulWidget {
   final String seedTitleValue;
@@ -43,7 +44,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
     final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
     final MemosBloc memosBloc = memoGroup.memosBloc;
 
-    Memo memo = Provider.of<MemoBloc>(context).value;
+    Memo memo = MemoBlocProvider.of(context).value;
 
     return Column(
       children: <Widget>[
