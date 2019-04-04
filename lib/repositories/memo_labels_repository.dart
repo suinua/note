@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:note/models/memo_label.dart';
@@ -10,9 +12,14 @@ class MemoLabelsRepository {
   final String parentGroupKey;
   final String ownerMemoKey;
   DatabaseReference labelsRef;
+
   final OnMemoLabelAdded onLabelAdded;
   final OnMemoLabelRemoved onLabelRemoved;
   final OnMemoLabelChanged onLabelChanged;
+
+  StreamSubscription<Event> _onChildAddedListener;
+  StreamSubscription<Event> _onChildRemovedListener;
+  StreamSubscription<Event> _onChildChangedListener;
 
   MemoLabelsRepository(this.parentGroupKey, this.ownerMemoKey,
       {@required this.onLabelAdded,
@@ -25,23 +32,23 @@ class MemoLabelsRepository {
         .child(ownerMemoKey)
         .child('labels');
 
-    labelsRef.onChildAdded.listen((event) {
+    _onChildAddedListener = labelsRef.onChildAdded.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onLabelAdded(MemoLabel.fromMap(event.snapshot.key,value));
+      this.onLabelAdded(MemoLabel.fromMap(event.snapshot.key, value));
     });
-    labelsRef.onChildRemoved.listen((event) {
+    _onChildRemovedListener = labelsRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onLabelRemoved(MemoLabel.fromMap(event.snapshot.key,value));
+      this.onLabelRemoved(MemoLabel.fromMap(event.snapshot.key, value));
     });
-    labelsRef.onChildChanged.listen((event) {
+    _onChildChangedListener = labelsRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
-      this.onLabelChanged(MemoLabel.fromMap(event.snapshot.key,value));
+      this.onLabelChanged(MemoLabel.fromMap(event.snapshot.key, value));
     });
   }
 
@@ -55,5 +62,11 @@ class MemoLabelsRepository {
 
   void updateLabel(MemoLabel memo) {
     labelsRef.child(memo.key).update(memo.asMap());
+  }
+
+  void dispose() {
+    _onChildAddedListener.cancel();
+    _onChildRemovedListener.cancel();
+    _onChildChangedListener.cancel();
   }
 }
