@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note/blocs/memo_group/memo_group_bloc.dart';
+import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/providers/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/views/confirm_dialog.dart';
@@ -8,12 +8,11 @@ import 'package:note/views/pages/memo_groups/memo_group/create_memo/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/editing.dart';
 import 'package:note/views/pages/memo_groups/memo_group/editing_template_labels.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo_list_view.dart';
-import 'package:provider/provider.dart';
 
 class MemoGroupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
+    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -75,7 +74,7 @@ class _GroupSettingMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
+    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
     final memoGroupsBloc = MemoGroupsBlocProvider.of(context);
 
     return Column(

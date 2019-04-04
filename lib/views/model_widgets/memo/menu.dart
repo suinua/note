@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/models/template_memo_label.dart';
+import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/views/model_widgets/memo_label/main.dart';
 import 'package:note/views/model_widgets/template_memo_label/main.dart';
-import 'package:provider/provider.dart';
 
 enum _MemoMenuTypes {
   MenuList,
@@ -142,7 +141,7 @@ class _Labels extends StatelessWidget {
 class _SetLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
+    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
     final TemplateMemoLabelsBloc _templateMemoLabelsBloc =
         memoGroup.templateMemoLabelsBloc;
 

@@ -71,6 +71,7 @@ class MemosBloc extends Bloc {
   }
 
   void dispose() async {
+    _repository.dispose();
     /*
     なぜdrain？わからん。
     https://stackoverflow.com/questions/52191451/bad-state-you-cannot-close-the-subject-while-items-are-being-added-from-addstre/52191587

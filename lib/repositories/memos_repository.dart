@@ -14,6 +14,10 @@ class MemosRepository {
   final OnMemoRemoved onMemoRemoved;
   final OnMemoChanged onMemoChanged;
 
+  var _onChildAddedListen;
+  var _onChildRemovedListen;
+  var _onChildChangedListen;
+
   MemosRepository(this.parentGroupKey,
       {@required this.onMemoAdded,
       @required this.onMemoRemoved,
@@ -24,19 +28,19 @@ class MemosRepository {
         .child(parentGroupKey)
         .child('memos');
 
-    memosRef.onChildAdded.listen((event) {
+    _onChildAddedListen = memosRef.onChildAdded.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
       this.onMemoAdded(Memo.fromMap(parentGroupKey,event.snapshot.key, value));
     });
-    memosRef.onChildRemoved.listen((event) {
+    _onChildRemovedListen = memosRef.onChildRemoved.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
       this.onMemoRemoved(Memo.fromMap(parentGroupKey,event.snapshot.key, value));
     });
-    memosRef.onChildChanged.listen((event) {
+    _onChildChangedListen = memosRef.onChildChanged.listen((event) {
       Map<String, dynamic> value =
           Map<String, dynamic>.from(event.snapshot.value);
 
@@ -54,5 +58,11 @@ class MemosRepository {
 
   void updateMemo(Memo memo) {
     memosRef.child(memo.key).update(memo.asMap());
+  }
+
+  void dispose(){
+    _onChildAddedListen.cancel();
+    _onChildRemovedListen.cancel();
+    _onChildChangedListen.cancel();
   }
 }

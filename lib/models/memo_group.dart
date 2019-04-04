@@ -15,25 +15,22 @@ class MemoGroup {
 
   MemosBloc get memosBloc => _memosBloc;
 
+  void setBlocs(){
+    _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
+    _memosBloc = MemosBloc(key);
+  }
+
   MemoGroup(
       {@required this.title,
       @required this.description,
       templateLabels,
-      this.key}) {
-    if (key != null) {
-      _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
-      _memosBloc = MemosBloc(key);
-    }
-  }
+      this.key}) ;
 
   MemoGroup.fromMap(this.key, Map<String, dynamic> memoGroup) {
     assert(key != null);
 
     this.title = memoGroup['title'];
     this.description = memoGroup['description'];
-
-    _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
-    _memosBloc = MemosBloc(key);
   }
 
   Map<String, dynamic> asMap() {

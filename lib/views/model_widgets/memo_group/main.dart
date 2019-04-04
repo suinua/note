@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/views/pages/memo_groups/memo_group/main.dart';
-import 'package:provider/provider.dart';
 
 class MemoGroupWidget extends StatelessWidget {
   final MemoGroup memoGroup;
@@ -13,7 +13,9 @@ class MemoGroupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Provider.of<MemoGroupBloc>(context).setValue(memoGroup);
+        //TODO : disposeを適切な場所へ
+        MemoGroupBlocProvider.of(context).dispose();
+        MemoGroupBlocProvider.of(context).setValue(memoGroup);
 
         Navigator.push(
           context,

@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note/blocs/memo/memo_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
-import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
-import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/models/memo_label.dart';
-import 'package:note/models/template_memo_label.dart';
+import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/model_widgets/memo/menu.dart';
 import 'package:note/views/model_widgets/memo_label/main.dart';
-import 'package:note/views/model_widgets/template_memo_label/main.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo/main.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +22,7 @@ class MemoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
+    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
     final MemosBloc memosBloc = memoGroup.memosBloc;
 
     return Slidable(

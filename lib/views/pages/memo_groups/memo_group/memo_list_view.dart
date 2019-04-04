@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_group.dart';
+import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/views/model_widgets/memo/main.dart';
-import 'package:provider/provider.dart';
 
-//TODO : rename
 class MemoListView extends StatelessWidget {
   const MemoListView();
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
+    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
     final MemosBloc memosBloc = memoGroup.memosBloc;
 
     return StreamBuilder<List<Memo>>(
