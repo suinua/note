@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note/blocs/memo/memo_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo/editing_widget.dart';
 import 'package:note/views/pages/memo_groups/memo_group/memo/preview_widget.dart';
+import 'package:provider/provider.dart';
 
 class _DisplayMode {
   final String _mode;
@@ -20,9 +22,7 @@ class _DisplayMode {
 typedef void OnChanged(Memo memo);
 
 class MemoPage extends StatefulWidget {
-  final Memo memo;
-
-  const MemoPage({Key key, @required this.memo});
+  const MemoPage({Key key});
 
   @override
   _MemoPageState createState() => _MemoPageState();
@@ -33,6 +33,8 @@ class _MemoPageState extends State<MemoPage> {
 
   @override
   Widget build(BuildContext context) {
+    Memo memo = Provider.of<MemoBloc>(context).value;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,8 +57,11 @@ class _MemoPageState extends State<MemoPage> {
         ],
       ),
       body: _displayMode.isPreview
-          ? MemoPreviewWidget(memo: widget.memo)
-          : EditingMemoWidget(memo: widget.memo),
+          ? MemoPreviewWidget()
+          : EditingMemoWidget(
+              seedTitleValue: memo.title,
+              seedBodyValue: memo.body,
+            ),
     );
   }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:note/blocs/memo/memo_bloc.dart';
 import 'package:note/models/memo.dart';
+import 'package:provider/provider.dart';
 
 class MemoPreviewWidget extends StatelessWidget {
-  final Memo memo;
-
-  const MemoPreviewWidget({Key key, @required this.memo}) : super(key: key);
+  const MemoPreviewWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Memo memo = Provider.of<MemoBloc>(context).value;
     final Color color = Color.fromRGBO(204, 204, 204, 0.5);
 
     return Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note/blocs/memo/memo_bloc.dart';
 import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/models/memo.dart';
@@ -6,9 +7,12 @@ import 'package:note/models/memo_group.dart';
 import 'package:provider/provider.dart';
 
 class EditingMemoWidget extends StatefulWidget {
-  final Memo memo;
+  final String seedTitleValue;
+  final String seedBodyValue;
 
-  const EditingMemoWidget({Key key, @required this.memo}) : super(key: key);
+  const EditingMemoWidget(
+      {Key key, @required this.seedTitleValue, @required this.seedBodyValue})
+      : super(key: key);
 
   @override
   _EditingMemoWidgetState createState() => _EditingMemoWidgetState();
@@ -21,15 +25,25 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
 
   @override
   void initState() {
-    _memoTitleController = TextEditingController(text: widget.memo.title);
-    _memoBodyController = TextEditingController(text: widget.memo.body);
+    _memoTitleController = TextEditingController(text: widget.seedTitleValue);
+    _memoBodyController = TextEditingController(text: widget.seedBodyValue);
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _memoTitleController.dispose();
+    _memoBodyController.dispose();
+
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
     final MemoGroup memoGroup = Provider.of<MemoGroupBloc>(context).value;
     final MemosBloc memosBloc = memoGroup.memosBloc;
+
+    Memo memo = Provider.of<MemoBloc>(context).value;
 
     return Column(
       children: <Widget>[
@@ -37,8 +51,8 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
           style: TextStyle(fontSize: 30),
           controller: _memoTitleController,
           onChanged: (value) {
-            widget.memo.title = value;
-            memosBloc.updateMemo.add(widget.memo);
+            memo.title = value;
+            memosBloc.updateMemo.add(memo);
           },
           decoration: InputDecoration(
             hintText: 'Title',
@@ -54,8 +68,8 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
             controller: _memoBodyController,
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
-              widget.memo.body = value;
-              memosBloc.updateMemo.add(widget.memo);
+              memo.body = value;
+              memosBloc.updateMemo.add(memo);
             },
             decoration: InputDecoration(
               hintText: 'Body',

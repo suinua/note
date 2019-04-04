@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note/blocs/memo/memo_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 import 'package:note/blocs/memo_group/memo_group_bloc.dart';
@@ -40,12 +41,12 @@ class MemoWidget extends StatelessWidget {
               maxLines: 1,
             ),
             onTap: () {
+              Provider.of<MemoBloc>(context).setValue(memo);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) {
-                    return MemoPage(memo: memo);
-                  },
+                  builder: (_) => MemoPage(),
                 ),
               );
             },
