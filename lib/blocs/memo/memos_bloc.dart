@@ -43,11 +43,12 @@ class MemosBloc extends Bloc {
       _memos.forEach((Memo memo) {
         if (memo == changedMemo) {
           memo = changedMemo;
+
+          _setMemos.add(_memos);
+
+          Log.memo.onUpdatedOnFirebase(changedMemo.asMap());
         }
       });
-      _setMemos.add(_memos);
-
-      Log.memo.onUpdatedOnFirebase(changedMemo.asMap());
     }
 
     _repository = MemosRepository(parentGroupKey,
