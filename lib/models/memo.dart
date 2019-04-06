@@ -9,17 +9,22 @@ class Memo {
   String body;
 
   MemoLabelsBloc _labelsBLoc;
+
   MemoLabelsBloc get labelsBloc => _labelsBLoc;
+
+  void disposeBlocs(){
+    _labelsBLoc?.dispose();
+  }
+
+  void setBlocs() {
+    _labelsBLoc = MemoLabelsBloc(parentGroupKey, key);
+  }
 
   Memo(
       {@required this.title,
       @required this.body,
       this.parentGroupKey,
-      this.key}) {
-    if (key != null && parentGroupKey != null) {
-      _labelsBLoc = MemoLabelsBloc(parentGroupKey, key);
-    }
-  }
+      this.key});
 
   Memo.fromMap(this.parentGroupKey, this.key, Map<String, dynamic> memo) {
     assert(key != null || parentGroupKey != null);

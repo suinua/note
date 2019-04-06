@@ -5,12 +5,17 @@ class MemoBloc implements Bloc {
   //TODO : 値のやり取りをstream,sinkで
   Memo _memo;
 
-  void setValue(Memo memo) => _memo = memo;
+  void setValue(Memo memo) {
+    _memo = memo;
+    _memo.setBlocs();
+  }
 
   Memo get value => _memo;
 
   MemoBloc();
 
   @override
-  void dispose() {}
+  void dispose() {
+    _memo?.disposeBlocs();
+  }
 }
