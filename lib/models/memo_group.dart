@@ -15,6 +15,11 @@ class MemoGroup {
 
   MemosBloc get memosBloc => _memosBloc;
 
+  void disposeBlocs(){
+    _templateMemoLabelsBloc?.dispose();
+    _memosBloc?.dispose();
+  }
+
   void setBlocs(){
     _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
     _memosBloc = MemosBloc(key);

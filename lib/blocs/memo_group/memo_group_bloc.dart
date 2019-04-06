@@ -16,7 +16,6 @@ class MemoGroupBloc implements Bloc {
 
   @override
   void dispose() {
-    _memoGroup?.memosBloc?.dispose();
-    _memoGroup?.templateMemoLabelsBloc?.dispose();
+    _memoGroup?.disposeBlocs();
   }
 }
