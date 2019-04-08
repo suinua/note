@@ -11,7 +11,8 @@ class TemplateMemoLabelsBloc extends Bloc {
 
   BehaviorSubject<List<TemplateMemoLabel>> _labelsController =
       BehaviorSubject<List<TemplateMemoLabel>>();
-  BehaviorSubject<TemplateMemoLabel> _addLabelController = BehaviorSubject<TemplateMemoLabel>();
+  BehaviorSubject<TemplateMemoLabel> _addLabelController =
+      BehaviorSubject<TemplateMemoLabel>();
   BehaviorSubject<TemplateMemoLabel> _removeLabelController =
       BehaviorSubject<TemplateMemoLabel>();
   BehaviorSubject<TemplateMemoLabel> _updateLabelController =

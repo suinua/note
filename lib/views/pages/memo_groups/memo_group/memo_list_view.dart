@@ -19,7 +19,7 @@ class MemoListView extends StatelessWidget {
         if (memos.hasData) {
           return _buildMemos(memos.data);
         }
-        return _buildMemos( []);
+        return _buildMemos([]);
       },
     );
   }

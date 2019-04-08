@@ -20,10 +20,8 @@ abstract class LabelBase {
   }
 
   @required
-  Map<String, dynamic> asMap() => {
-        'title': title,
-        'color': '${color.red},${color.green},${color.blue}'
-      };
+  Map<String, dynamic> asMap() =>
+      {'title': title, 'color': '${color.red},${color.green},${color.blue}'};
 
   @override
   bool operator ==(o) {

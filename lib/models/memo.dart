@@ -12,7 +12,7 @@ class Memo {
 
   MemoLabelsBloc get labelsBloc => _labelsBLoc;
 
-  void disposeBlocs(){
+  void disposeBlocs() {
     _labelsBLoc?.dispose();
   }
 

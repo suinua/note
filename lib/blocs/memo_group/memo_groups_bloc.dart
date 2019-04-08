@@ -4,14 +4,13 @@ import 'package:note/repositories/memo_groups_repository.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MemoGroupsBloc implements Bloc{
+class MemoGroupsBloc implements Bloc {
   MemoGroupsRepository _repository;
   List<MemoGroup> _memoGroups = <MemoGroup>[];
 
   BehaviorSubject<List<MemoGroup>> _memoGroupsController =
       BehaviorSubject<List<MemoGroup>>();
-  BehaviorSubject<MemoGroup> _addGroupController =
-      BehaviorSubject<MemoGroup>();
+  BehaviorSubject<MemoGroup> _addGroupController = BehaviorSubject<MemoGroup>();
   BehaviorSubject<MemoGroup> _removeGroupController =
       BehaviorSubject<MemoGroup>();
   BehaviorSubject<MemoGroup> _updateGroupController =

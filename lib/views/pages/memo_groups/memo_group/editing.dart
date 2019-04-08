@@ -37,7 +37,7 @@ class _EditingMemoGroupTitlePageState extends State<EditingMemoGroupTitlePage> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.pop(context,titleController.text);
+              Navigator.pop(context, titleController.text);
             },
             icon: const Icon(FontAwesomeIcons.solidSave),
             color: Colors.blue,
@@ -54,7 +54,8 @@ class _EditingMemoGroupTitlePageState extends State<EditingMemoGroupTitlePage> {
 class EditingMemoGroupDescriptionPage extends StatefulWidget {
   final String defaultDescription;
 
-  const EditingMemoGroupDescriptionPage({Key key, @required this.defaultDescription})
+  const EditingMemoGroupDescriptionPage(
+      {Key key, @required this.defaultDescription})
       : super(key: key);
 
   @override
@@ -62,12 +63,14 @@ class EditingMemoGroupDescriptionPage extends StatefulWidget {
       _EditingMemoGroupDescriptionPageState();
 }
 
-class _EditingMemoGroupDescriptionPageState extends State<EditingMemoGroupDescriptionPage> {
+class _EditingMemoGroupDescriptionPageState
+    extends State<EditingMemoGroupDescriptionPage> {
   TextEditingController descriptionController;
 
   @override
   void initState() {
-    descriptionController = TextEditingController(text: widget.defaultDescription);
+    descriptionController =
+        TextEditingController(text: widget.defaultDescription);
     super.initState();
   }
 
@@ -87,7 +90,7 @@ class _EditingMemoGroupDescriptionPageState extends State<EditingMemoGroupDescri
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.pop(context,descriptionController.text);
+              Navigator.pop(context, descriptionController.text);
             },
             icon: const Icon(FontAwesomeIcons.solidSave),
             color: Colors.blue,

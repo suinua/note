@@ -20,7 +20,8 @@ class _EditingTemplateMemoLabelsPageState
   @override
   Widget build(BuildContext context) {
     final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-    final TemplateMemoLabelsBloc templateLabelsBloc = memoGroup.templateMemoLabelsBloc;
+    final TemplateMemoLabelsBloc templateLabelsBloc =
+        memoGroup.templateMemoLabelsBloc;
 
     Widget _buildLabels(BuildContext context, List<TemplateMemoLabel> labels) {
       return ListView.builder(
@@ -35,7 +36,8 @@ class _EditingTemplateMemoLabelsPageState
                   context: context,
                   builder: (_) {
                     return _CreateLabelBottomSheet(
-                        titleController: _titleController, bloc: templateLabelsBloc);
+                        titleController: _titleController,
+                        bloc: templateLabelsBloc);
                   },
                 );
               },

@@ -15,12 +15,12 @@ class MemoGroup {
 
   MemosBloc get memosBloc => _memosBloc;
 
-  void disposeBlocs(){
+  void disposeBlocs() {
     _templateMemoLabelsBloc?.dispose();
     _memosBloc?.dispose();
   }
 
-  void setBlocs(){
+  void setBlocs() {
     _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
     _memosBloc = MemosBloc(key);
   }
@@ -29,7 +29,7 @@ class MemoGroup {
       {@required this.title,
       @required this.description,
       templateLabels,
-      this.key}) ;
+      this.key});
 
   MemoGroup.fromMap(this.key, Map<String, dynamic> memoGroup) {
     assert(key != null);

@@ -6,20 +6,19 @@ class MemoBlocProvider extends BlocProvider<MemoBloc> {
   MemoBlocProvider({
     @required MemoBloc value,
   }) : super(
-    creator: (context, _bag) {
-      assert(context != null);
-      return value;
-    },
-  );
-
+          creator: (context, _bag) {
+            assert(context != null);
+            return value;
+          },
+        );
 
   MemoBlocProvider.fromBlocContext({
     @required BuildContext context,
     @required Widget child,
   }) : super.fromBlocContext(
-    child: child,
-    context: context,
-  );
+          child: child,
+          context: context,
+        );
 
   static MemoBloc of(BuildContext context) => BlocProvider.of(context);
 }
