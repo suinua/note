@@ -3,10 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:note/blocs/memo_group/memo_groups_bloc.dart';
 
 class MemoGroupsBlocProvider extends BlocProvider<MemoGroupsBloc> {
-  MemoGroupsBlocProvider({
-    @required Widget child,
-  }) : super(
-    child: child,
+  MemoGroupsBlocProvider() : super(
     creator: (context, _bag) {
       assert(context != null);
       return MemoGroupsBloc();

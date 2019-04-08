@@ -1,3 +1,4 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:note/blocs/memo/memo_bloc.dart';
@@ -7,15 +8,14 @@ import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/providers/memo_groups_bloc_provider.dart';
 import 'package:note/views/pages/memo_groups/main.dart';
 
-void main(){
-  runApp(MemoGroupsBlocProvider(
-    child: MemoGroupBlocProvider(
-      value: MemoGroupBloc(),
-      child: MemoBlocProvider(
-        value: MemoBloc(),
-        child: NoteApp(),
-      ),
-    ),
+void main() {
+  runApp(BlocProviderTree(
+    blocProviders: [
+      MemoGroupsBlocProvider(),
+      MemoGroupBlocProvider(value: MemoGroupBloc()),
+      MemoBlocProvider(value: MemoBloc()),
+    ],
+    child: NoteApp(),
   ));
 }
 

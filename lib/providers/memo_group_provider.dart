@@ -5,9 +5,7 @@ import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 class MemoGroupBlocProvider extends BlocProvider<MemoGroupBloc> {
   MemoGroupBlocProvider({
     @required MemoGroupBloc value,
-    @required Widget child,
   }) : super(
-    child: child,
     creator: (context, _bag) {
       assert(context != null);
       return value;
