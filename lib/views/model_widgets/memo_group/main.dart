@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/memo_group/memo_group_bloc.dart';
 import 'package:note/models/memo_group.dart';
 import 'package:note/providers/memo_group_provider.dart';
+import 'package:note/providers/memos_bloc_provider.dart';
 import 'package:note/views/pages/memo_groups/memo_group/main.dart';
 
 class MemoGroupWidget extends StatelessWidget {
@@ -16,6 +16,7 @@ class MemoGroupWidget extends StatelessWidget {
         //TODO : disposeを適切な場所へ
         MemoGroupBlocProvider.of(context).dispose();
         MemoGroupBlocProvider.of(context).setValue(memoGroup);
+        MemosBlocProvider.of(context).reset(memoGroup.key);
 
         Navigator.push(
           context,

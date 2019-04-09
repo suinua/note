@@ -7,7 +7,6 @@ class MemosBlocProvider extends BlocProvider<MemosBloc> {
       : super(
           creator: (context, _bag) {
             assert(context != null);
-            if (groupKey == null) return null;
             return MemosBloc(groupKey);
           },
         );

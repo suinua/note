@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 
 class MemoGroup {
@@ -11,18 +10,13 @@ class MemoGroup {
 
   TemplateMemoLabelsBloc get templateMemoLabelsBloc => _templateMemoLabelsBloc;
 
-  MemosBloc _memosBloc;
-
-  MemosBloc get memosBloc => _memosBloc;
 
   void disposeBlocs() {
     _templateMemoLabelsBloc?.dispose();
-    _memosBloc?.dispose();
   }
 
   void setBlocs() {
     _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
-    _memosBloc = MemosBloc(key);
   }
 
   MemoGroup(

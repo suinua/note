@@ -24,38 +24,33 @@ class MemosBloc extends Bloc {
 
   Sink<Memo> get updateMemo => _updateMemoController.sink;
 
-  MemosBloc(this.parentGroupKey) {
-    void _onAdded(Memo addedMemo) {
-      _memos.add(addedMemo);
-      _setMemos.add(_memos);
+  void _onAdded(Memo addedMemo) {
+    _memos.add(addedMemo);
+    _setMemos.add(_memos);
 
-      Log.memo.onAddedOnFirebase(addedMemo.asMap());
-    }
+    Log.memo.onAddedOnFirebase(addedMemo.asMap());
+  }
 
-    void _onRemoved(Memo removedMemo) {
-      _memos.remove(removedMemo);
-      _setMemos.add(_memos);
+  void _onRemoved(Memo removedMemo) {
+    _memos.remove(removedMemo);
+    _setMemos.add(_memos);
 
-      Log.memo.onRemovedOnFirebase(removedMemo.asMap());
-    }
+    Log.memo.onRemovedOnFirebase(removedMemo.asMap());
+  }
 
-    void _onChanged(Memo changedMemo) {
-      _memos.forEach((Memo memo) {
-        if (memo == changedMemo) {
-          memo = changedMemo;
+  void _onChanged(Memo changedMemo) {
+    _memos.forEach((Memo memo) {
+      if (memo == changedMemo) {
+        memo = changedMemo;
 
-          _setMemos.add(_memos);
+        _setMemos.add(_memos);
 
-          Log.memo.onUpdatedOnFirebase(changedMemo.asMap());
-        }
-      });
-    }
+        Log.memo.onUpdatedOnFirebase(changedMemo.asMap());
+      }
+    });
+  }
 
-    _repository = MemosRepository(parentGroupKey,
-        onMemoAdded: _onAdded,
-        onMemoRemoved: _onRemoved,
-        onMemoChanged: _onChanged);
-
+  void _setListener() {
     _addMemoController.stream.listen((Memo memo) {
       _repository.addMemo(memo);
       Log.memo.onAdded(memo.asMap());
@@ -70,8 +65,37 @@ class MemosBloc extends Bloc {
     });
   }
 
+  void reset(parentGroupKey) {
+    this.dispose();
+    _memosController = BehaviorSubject<List<Memo>>();
+    _addMemoController = BehaviorSubject<Memo>();
+    _removeMemoController = BehaviorSubject<Memo>();
+    _updateMemoController = BehaviorSubject<Memo>();
+    _repository = MemosRepository(
+      parentGroupKey,
+      onMemoAdded: _onAdded,
+      onMemoRemoved: _onRemoved,
+      onMemoChanged: _onChanged,
+    );
+
+    _setListener();
+  }
+
+  MemosBloc(this.parentGroupKey) {
+    if (parentGroupKey != null) {
+      _repository = MemosRepository(
+        parentGroupKey,
+        onMemoAdded: _onAdded,
+        onMemoRemoved: _onRemoved,
+        onMemoChanged: _onChanged,
+      );
+      _setListener();
+    }
+  }
+
   void dispose() async {
-    _repository.dispose();
+    _memos = <Memo>[];
+    _repository?.dispose();
     /*
     なぜdrain？わからん。
     https://stackoverflow.com/questions/52191451/bad-state-you-cannot-close-the-subject-while-items-are-being-added-from-addstre/52191587
