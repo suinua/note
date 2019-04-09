@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:note/blocs/memo/memo_labels_bloc.dart';
 
 class Memo {
   final String parentGroupKey;
@@ -7,18 +6,6 @@ class Memo {
 
   String title;
   String body;
-
-  MemoLabelsBloc _labelsBLoc;
-
-  MemoLabelsBloc get labelsBloc => _labelsBLoc;
-
-  void disposeBlocs() {
-    _labelsBLoc?.dispose();
-  }
-
-  void setBlocs() {
-    _labelsBLoc = MemoLabelsBloc(parentGroupKey, key);
-  }
 
   Memo(
       {@required this.title,
@@ -31,8 +18,6 @@ class Memo {
 
     this.title = memo['title'];
     this.body = memo['body'];
-
-    _labelsBLoc = MemoLabelsBloc(parentGroupKey, key);
   }
 
   Map<String, dynamic> asMap() {

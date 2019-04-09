@@ -7,7 +7,6 @@ class MemoBloc implements Bloc {
 
   void setValue(Memo memo) {
     _memo = memo;
-    _memo.setBlocs();
   }
 
   Memo get value => _memo;
@@ -16,6 +15,5 @@ class MemoBloc implements Bloc {
 
   @override
   void dispose() {
-    _memo?.disposeBlocs();
   }
 }

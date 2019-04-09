@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note/blocs/memo/memo_labels_bloc.dart';
 import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/providers/memo_bloc_provider.dart';
+import 'package:note/providers/memo_labels_bloc_provider.dart';
 import 'package:note/providers/memos_bloc_provider.dart';
 import 'package:note/views/confirm_dialog.dart';
 import 'package:note/views/model_widgets/memo/menu.dart';
@@ -21,6 +23,7 @@ class MemoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MemosBloc memosBloc = MemosBlocProvider.of(context);
+    final MemoLabelsBloc memoLabelsBloc = MemoLabelsBlocProvider.of(context);
 
     return Slidable(
       delegate: SlidableDrawerDelegate(),
@@ -52,7 +55,7 @@ class MemoWidget extends StatelessWidget {
             },
           ),
           StreamBuilder<List<MemoLabel>>(
-            stream: memo.labelsBloc.getAllLabels,
+            stream: memoLabelsBloc.getAllLabels,
             builder:
                 (BuildContext context, AsyncSnapshot<List<MemoLabel>> labels) {
               if (labels.hasData) {

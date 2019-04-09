@@ -5,8 +5,10 @@ import 'package:note/repositories/memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MemoLabelsBloc extends Bloc {
-  final String parentGroupKey;
-  final String ownerMemoKey;
+  MemoLabelsBloc();
+
+  String parentGroupKey;
+  String ownerMemoKey;
   MemoLabelsRepository _repository;
   List<MemoLabel> _labels = <MemoLabel>[];
 
@@ -28,34 +30,29 @@ class MemoLabelsBloc extends Bloc {
 
   Sink<MemoLabel> get updateLabel => _updateLabelController.sink;
 
-  MemoLabelsBloc(this.parentGroupKey, this.ownerMemoKey) {
-    void _onAdded(MemoLabel addedLabel) {
-      _labels.add(addedLabel);
-      _setLabels.add(_labels);
-      Log.label.onAddedOnFirebase(addedLabel.asMap());
-    }
+  void _onAdded(MemoLabel addedLabel) {
+    _labels.add(addedLabel);
+    _setLabels.add(_labels);
+    Log.label.onAddedOnFirebase(addedLabel.asMap());
+  }
 
-    void _onRemoved(MemoLabel removedLabel) {
-      _labels.remove(removedLabel);
-      _setLabels.add(_labels);
-      Log.label.onRemovedOnFirebase(removedLabel.asMap());
-    }
+  void _onRemoved(MemoLabel removedLabel) {
+    _labels.remove(removedLabel);
+    _setLabels.add(_labels);
+    Log.label.onRemovedOnFirebase(removedLabel.asMap());
+  }
 
-    void _onChanged(MemoLabel changedLabel) {
-      _labels.forEach((MemoLabel label) {
-        if (label == changedLabel) {
-          label = changedLabel;
-        }
-      });
-      _setLabels.add(_labels);
-      Log.label.onUpdatedOnFirebase(changedLabel.asMap());
-    }
+  void _onChanged(MemoLabel changedLabel) {
+    _labels.forEach((MemoLabel label) {
+      if (label == changedLabel) {
+        label = changedLabel;
+      }
+    });
+    _setLabels.add(_labels);
+    Log.label.onUpdatedOnFirebase(changedLabel.asMap());
+  }
 
-    _repository = MemoLabelsRepository(parentGroupKey, ownerMemoKey,
-        onLabelAdded: _onAdded,
-        onLabelRemoved: _onRemoved,
-        onLabelChanged: _onChanged);
-
+  void _setListener() {
     _addLabelController.stream.listen((MemoLabel label) {
       _repository.addLabel(label);
       Log.label.onUpdated(label.asMap());
@@ -70,8 +67,25 @@ class MemoLabelsBloc extends Bloc {
     });
   }
 
+  void reset(parentGroupKey, ownerMemoKey) {
+    _repository = MemoLabelsRepository(
+      parentGroupKey,
+      ownerMemoKey,
+      onLabelAdded: _onAdded,
+      onLabelRemoved: _onRemoved,
+      onLabelChanged: _onChanged,
+    );
+    _setListener();
+  }
+
   void dispose() async {
-    _repository.dispose();
+    _labels = <MemoLabel>[];
+    _repository?.dispose();
+
+    await _labelsController.drain();
+    await _addLabelController.drain();
+    await _removeLabelController.drain();
+    await _updateLabelController.drain();
 
     await _labelsController.close();
     await _addLabelController.close();

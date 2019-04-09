@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note/blocs/memo/memo_labels_bloc.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 import 'package:note/models/memo.dart';
 import 'package:note/models/memo_label.dart';
 import 'package:note/models/template_memo_label.dart';
+import 'package:note/providers/memo_labels_bloc_provider.dart';
 import 'package:note/providers/template_memo_labels_bloc_provider.dart';
 import 'package:note/views/model_widgets/memo_label/main.dart';
 import 'package:note/views/model_widgets/template_memo_label/main.dart';
@@ -41,7 +43,6 @@ class _MemoMenuWidgetState extends State<MemoMenuWidget> {
         );
       case _MemoMenuTypes.Labels:
         return _Labels(
-          memo: widget.memo,
           onChangedMenuType: updateMenuType,
         );
       case _MemoMenuTypes.SetLabel:
@@ -87,52 +88,50 @@ class _MenuList extends StatelessWidget {
 /* Labels */
 
 class _Labels extends StatelessWidget {
-  final Memo memo;
   final void Function(_MemoMenuTypes) onChangedMenuType;
 
-  const _Labels(
-      {Key key, @required this.memo, @required this.onChangedMenuType})
-      : super(key: key);
+  const _Labels({Key key, @required this.onChangedMenuType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60.0,
-      child: StreamBuilder<List<MemoLabel>>(
-        stream: memo.labelsBloc.getAllLabels,
-        builder: (_, AsyncSnapshot<List<MemoLabel>> labels) {
-          if (labels.hasData) {
-            return _buildLabels(labels.data);
-          }
-          return _buildLabels([]);
-        },
-      ),
+      child: _buildLabels(context),
     );
   }
 
-  Widget _buildLabels(List<MemoLabel> labels) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: labels.length + 1,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (_, int index) {
-        if (index == 0) {
-          return IconButton(
-            icon: const Icon(Icons.add_circle),
-            onPressed: () => onChangedMenuType(_MemoMenuTypes.SetLabel),
-          );
-        }
-        return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: MemoLabelWidget(
-            label: labels[index - 1],
-            onDelete: (label) {
-              memo.labelsBloc.removeLabel.add(label);
+  Widget _buildLabels(BuildContext context) {
+    MemoLabelsBloc _memoLabelsBloc = MemoLabelsBlocProvider.of(context);
+
+    return StreamBuilder<Object>(
+        stream: _memoLabelsBloc.getAllLabels,
+        builder: (context, snapshot) {
+
+          List<MemoLabel> labels = snapshot.hasData ? snapshot.data : [];
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: labels.length + 1,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (_, int index) {
+              if (index == 0) {
+                return IconButton(
+                  icon: const Icon(Icons.add_circle),
+                  onPressed: () => onChangedMenuType(_MemoMenuTypes.SetLabel),
+                );
+              }
+              return Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: MemoLabelWidget(
+                  label: labels[index - 1],
+                  onDelete: (label) {
+                    _memoLabelsBloc.removeLabel.add(label);
+                  },
+                ),
+              );
             },
-          ),
-        );
-      },
-    );
+          );
+        });
   }
 }
 
@@ -141,7 +140,7 @@ class _SetLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TemplateMemoLabelsBloc _templateMemoLabelsBloc =
-    TemplateMemoLabelsBlocProvider.of(context);
+        TemplateMemoLabelsBlocProvider.of(context);
 
     return Container(
       height: 60.0,
@@ -167,9 +166,8 @@ class _SetLabel extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemBuilder: (_, int index) {
         return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: TemplateMemoLabelWidget(label: labels[index]),
-        );
+            padding: const EdgeInsets.only(right: 8.0),
+            child: TemplateMemoLabelWidget(label: labels[index]));
       },
     );
   }
