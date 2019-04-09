@@ -5,7 +5,9 @@ import 'package:note/models/memo.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MemosBloc extends Bloc {
-  final String parentGroupKey;
+  MemosBloc();
+
+  String parentGroupKey;
   MemosRepository _repository;
   List<Memo> _memos = <Memo>[];
 
@@ -65,7 +67,7 @@ class MemosBloc extends Bloc {
     });
   }
 
-  void reset(parentGroupKey) {
+  void reset(String parentGroupKey) {
     this.dispose();
     _memosController = BehaviorSubject<List<Memo>>();
     _addMemoController = BehaviorSubject<Memo>();
@@ -79,18 +81,6 @@ class MemosBloc extends Bloc {
     );
 
     _setListener();
-  }
-
-  MemosBloc(this.parentGroupKey) {
-    if (parentGroupKey != null) {
-      _repository = MemosRepository(
-        parentGroupKey,
-        onMemoAdded: _onAdded,
-        onMemoRemoved: _onRemoved,
-        onMemoChanged: _onChanged,
-      );
-      _setListener();
-    }
   }
 
   void dispose() async {

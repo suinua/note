@@ -7,7 +7,6 @@ class MemoGroupBloc implements Bloc {
 
   void setValue(MemoGroup memoGroup) {
     _memoGroup = memoGroup;
-    _memoGroup.setBlocs();
   }
 
   MemoGroup get value => _memoGroup;
@@ -16,6 +15,5 @@ class MemoGroupBloc implements Bloc {
 
   @override
   void dispose() {
-    _memoGroup?.disposeBlocs();
   }
 }

@@ -5,7 +5,9 @@ import 'package:note/repositories/template_memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TemplateMemoLabelsBloc extends Bloc {
-  final String parentGroupKey;
+  TemplateMemoLabelsBloc();
+
+  String parentGroupKey;
   TemplateMemoLabelsRepository _repository;
   List<TemplateMemoLabel> _labels = <TemplateMemoLabel>[];
 
@@ -28,34 +30,29 @@ class TemplateMemoLabelsBloc extends Bloc {
 
   Sink<TemplateMemoLabel> get updateLabel => _updateLabelController.sink;
 
-  TemplateMemoLabelsBloc(this.parentGroupKey) {
-    void _onAdded(TemplateMemoLabel addedLabel) {
-      _labels.add(addedLabel);
-      _setLabels.add(_labels);
-      Log.label.onAddedOnFirebase(addedLabel.asMap());
-    }
+  void _onAdded(TemplateMemoLabel addedLabel) {
+    _labels.add(addedLabel);
+    _setLabels.add(_labels);
+    Log.label.onAddedOnFirebase(addedLabel.asMap());
+  }
 
-    void _onRemoved(TemplateMemoLabel removedLabel) {
-      _labels.remove(removedLabel);
-      _setLabels.add(_labels);
-      Log.label.onRemovedOnFirebase(removedLabel.asMap());
-    }
+  void _onRemoved(TemplateMemoLabel removedLabel) {
+    _labels.remove(removedLabel);
+    _setLabels.add(_labels);
+    Log.label.onRemovedOnFirebase(removedLabel.asMap());
+  }
 
-    void _onChanged(TemplateMemoLabel changedLabel) {
-      _labels.forEach((TemplateMemoLabel label) {
-        if (label == changedLabel) {
-          label = changedLabel;
-        }
-      });
-      _setLabels.add(_labels);
-      Log.label.onUpdatedOnFirebase(changedLabel.asMap());
-    }
+  void _onChanged(TemplateMemoLabel changedLabel) {
+    _labels.forEach((TemplateMemoLabel label) {
+      if (label == changedLabel) {
+        label = changedLabel;
+      }
+    });
+    _setLabels.add(_labels);
+    Log.label.onUpdatedOnFirebase(changedLabel.asMap());
+  }
 
-    _repository = TemplateMemoLabelsRepository(parentGroupKey,
-        onLabelAdded: _onAdded,
-        onLabelRemoved: _onRemoved,
-        onLabelChanged: _onChanged);
-
+  void _setListener() {
     _addLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.addLabel(label);
       Log.label.onUpdated(label.asMap());
@@ -70,8 +67,31 @@ class TemplateMemoLabelsBloc extends Bloc {
     });
   }
 
+  void reset(String parentGroupKey) {
+    this.dispose();
+
+    _labelsController = BehaviorSubject<List<TemplateMemoLabel>>();
+    _addLabelController = BehaviorSubject<TemplateMemoLabel>();
+    _removeLabelController = BehaviorSubject<TemplateMemoLabel>();
+    _updateLabelController = BehaviorSubject<TemplateMemoLabel>();
+
+    _repository = TemplateMemoLabelsRepository(
+      parentGroupKey,
+      onLabelAdded: _onAdded,
+      onLabelRemoved: _onRemoved,
+      onLabelChanged: _onChanged,
+    );
+    _setListener();
+  }
+
   void dispose() async {
-    _repository.dispose();
+    _labels = <TemplateMemoLabel>[];
+    _repository?.dispose();
+
+    await _labelsController.drain();
+    await _addLabelController.drain();
+    await _removeLabelController.drain();
+    await _updateLabelController.drain();
 
     await _labelsController.close();
     await _addLabelController.close();

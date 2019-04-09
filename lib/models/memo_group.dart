@@ -1,23 +1,9 @@
 import 'package:meta/meta.dart';
-import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
 
 class MemoGroup {
   final String key;
   String title;
   String description;
-
-  TemplateMemoLabelsBloc _templateMemoLabelsBloc;
-
-  TemplateMemoLabelsBloc get templateMemoLabelsBloc => _templateMemoLabelsBloc;
-
-
-  void disposeBlocs() {
-    _templateMemoLabelsBloc?.dispose();
-  }
-
-  void setBlocs() {
-    _templateMemoLabelsBloc = TemplateMemoLabelsBloc(key);
-  }
 
   MemoGroup(
       {@required this.title,

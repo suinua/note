@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/blocs/memo_group/template_memo_labels_bloc.dart';
-import 'package:note/models/memo_group.dart';
 import 'package:note/models/template_memo_label.dart';
-import 'package:note/providers/memo_group_provider.dart';
+import 'package:note/providers/template_memo_labels_bloc_provider.dart';
 import 'package:note/views/model_widgets/template_memo_label/main.dart';
 
 class EditingTemplateMemoLabelsPage extends StatefulWidget {
@@ -19,9 +18,8 @@ class _EditingTemplateMemoLabelsPageState
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
     final TemplateMemoLabelsBloc templateLabelsBloc =
-        memoGroup.templateMemoLabelsBloc;
+        TemplateMemoLabelsBlocProvider.of(context);
 
     Widget _buildLabels(BuildContext context, List<TemplateMemoLabel> labels) {
       return ListView.builder(
@@ -36,8 +34,7 @@ class _EditingTemplateMemoLabelsPageState
                   context: context,
                   builder: (_) {
                     return _CreateLabelBottomSheet(
-                        titleController: _titleController,
-                        bloc: templateLabelsBloc);
+                        titleController: _titleController);
                   },
                 );
               },
@@ -77,18 +74,18 @@ class _EditingTemplateMemoLabelsPageState
 }
 
 class _CreateLabelBottomSheet extends StatelessWidget {
-  const _CreateLabelBottomSheet({
-    Key key,
-    @required TextEditingController titleController,
-    @required this.bloc,
-  })  : _titleController = titleController,
+  const _CreateLabelBottomSheet(
+      {Key key, @required TextEditingController titleController})
+      : _titleController = titleController,
         super(key: key);
 
   final TextEditingController _titleController;
-  final TemplateMemoLabelsBloc bloc;
 
   @override
   Widget build(BuildContext context) {
+    final TemplateMemoLabelsBloc templateLabelsBloc =
+        TemplateMemoLabelsBlocProvider.of(context);
+
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -99,7 +96,7 @@ class _CreateLabelBottomSheet extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              bloc.addLabel.add(TemplateMemoLabel(
+              templateLabelsBloc.addLabel.add(TemplateMemoLabel(
                 title: _titleController.text,
                 color: Colors.red,
                 //TODO : 色を選択できるように
