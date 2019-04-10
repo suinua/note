@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:note/blocs/memo/memos_bloc.dart';
 import 'package:note/models/memo.dart';
+import 'package:note/models/memo_group.dart';
 import 'package:note/providers/memo_bloc_provider.dart';
-import 'package:note/providers/memos_bloc_provider.dart';
+import 'package:note/providers/memo_group_provider.dart';
 
 class EditingMemoWidget extends StatefulWidget {
   final String seedTitleValue;
@@ -38,7 +38,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
   }
 
   Widget build(BuildContext context) {
-    final MemosBloc memosBloc = MemosBlocProvider.of(context);
+    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
 
     Memo memo = MemoBlocProvider.of(context).value;
 
@@ -49,7 +49,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
           controller: _memoTitleController,
           onChanged: (value) {
             memo.title = value;
-            memosBloc.updateMemo.add(memo);
+            memoGroup.children.incrementMemos.update(memo);
           },
           decoration: InputDecoration(
             hintText: 'Title',
@@ -66,7 +66,7 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
             style: TextStyle(fontSize: 25),
             onChanged: (value) {
               memo.body = value;
-              memosBloc.updateMemo.add(memo);
+              memoGroup.children.incrementMemos.update(memo);
             },
             decoration: InputDecoration(
               hintText: 'Body',

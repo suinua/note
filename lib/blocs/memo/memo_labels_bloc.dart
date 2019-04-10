@@ -5,9 +5,18 @@ import 'package:note/repositories/memo_labels_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MemoLabelsBloc extends Bloc {
-  MemoLabelsBloc();
+  MemoLabelsBloc(this.parentGroupKey,this.ownerMemoKey){
+    _repository = MemoLabelsRepository(
+      parentGroupKey,
+      ownerMemoKey,
+      onLabelAdded: _onAdded,
+      onLabelRemoved: _onRemoved,
+      onLabelChanged: _onChanged,
+    );
+    _setListener();
+  }
 
-  String parentGroupKey;
+  final String parentGroupKey;
   String ownerMemoKey;
   MemoLabelsRepository _repository;
   List<MemoLabel> _labels = <MemoLabel>[];
@@ -65,17 +74,6 @@ class MemoLabelsBloc extends Bloc {
       _repository.updateLabel(label);
       Log.label.onUpdated(label.asMap());
     });
-  }
-
-  void reset(parentGroupKey, ownerMemoKey) {
-    _repository = MemoLabelsRepository(
-      parentGroupKey,
-      ownerMemoKey,
-      onLabelAdded: _onAdded,
-      onLabelRemoved: _onRemoved,
-      onLabelChanged: _onChanged,
-    );
-    _setListener();
   }
 
   void dispose() async {
