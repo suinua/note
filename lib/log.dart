@@ -1,6 +1,8 @@
 class Log {
   static _MemoGroupLog get memoGroup => _MemoGroupLog();
 
+  static _TemplateMemoLabelLog get templateLabel => _TemplateMemoLabelLog();
+
   static _MemoLog get memo => _MemoLog();
 
   static _MemoLabelLog get label => _MemoLabelLog();
@@ -87,4 +89,24 @@ class _MemoLabelLog {
 
   void onUpdatedOnFirebase(Map<String, dynamic> itemValue) =>
       _LogTemplate.itemUpdatedOnFirebase('memo label', itemValue);
+}
+
+class _TemplateMemoLabelLog {
+  void onAdded(Map<String, dynamic> itemValue) =>
+      _LogTemplate.itemAdded('template memo label', itemValue);
+
+  void onRemoved(Map<String, dynamic> itemValue) =>
+      _LogTemplate.itemRemoved('template memo label', itemValue);
+
+  void onUpdated(Map<String, dynamic> itemValue) =>
+      _LogTemplate.itemUpdated('template memo label', itemValue);
+
+  void onAddedOnFirebase(Map<String, dynamic> itemValue) =>
+      _LogTemplate.itemAddedOnFirebase('template memo label', itemValue);
+
+  void onRemovedOnFirebase(Map<String, dynamic> itemValue) =>
+      _LogTemplate.itemRemovedOnFirebase('template memo label', itemValue);
+
+  void onUpdatedOnFirebase(Map<String, dynamic> itemValue) =>
+      _LogTemplate.itemUpdatedOnFirebase('template memo label', itemValue);
 }

@@ -41,13 +41,13 @@ class TemplateMemoLabelsBloc extends Bloc {
   void _onAdded(TemplateMemoLabel addedLabel) {
     _labels.add(addedLabel);
     _setLabels.add(_labels);
-    Log.label.onAddedOnFirebase(addedLabel.asMap());
+    Log.templateLabel.onAddedOnFirebase(addedLabel.asMap());
   }
 
   void _onRemoved(TemplateMemoLabel removedLabel) {
     _labels.remove(removedLabel);
     _setLabels.add(_labels);
-    Log.label.onRemovedOnFirebase(removedLabel.asMap());
+    Log.templateLabel.onRemovedOnFirebase(removedLabel.asMap());
   }
 
   void _onChanged(TemplateMemoLabel changedLabel) {
@@ -57,21 +57,21 @@ class TemplateMemoLabelsBloc extends Bloc {
       }
     });
     _setLabels.add(_labels);
-    Log.label.onUpdatedOnFirebase(changedLabel.asMap());
+    Log.templateLabel.onUpdatedOnFirebase(changedLabel.asMap());
   }
 
   void _setListener() {
     _addLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.addLabel(label);
-      Log.label.onUpdated(label.asMap());
+      Log.templateLabel.onUpdated(label.asMap());
     });
     _removeLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.removeLabel(label);
-      Log.label.onUpdated(label.asMap());
+      Log.templateLabel.onUpdated(label.asMap());
     });
     _updateLabelController.stream.listen((TemplateMemoLabel label) {
       _repository.updateLabel(label);
-      Log.label.onUpdated(label.asMap());
+      Log.templateLabel.onUpdated(label.asMap());
     });
   }
 
