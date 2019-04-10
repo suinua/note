@@ -17,7 +17,7 @@ class MemoLabelsBloc extends Bloc {
   }
 
   final String parentGroupKey;
-  String ownerMemoKey;
+  final String ownerMemoKey;
   MemoLabelsRepository _repository;
   List<MemoLabel> _labels = <MemoLabel>[];
 
