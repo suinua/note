@@ -13,8 +13,6 @@ class MemoGroupsBloc implements Bloc {
   BehaviorSubject<MemoGroup> _addGroupController = BehaviorSubject<MemoGroup>();
   BehaviorSubject<MemoGroup> _removeGroupController =
       BehaviorSubject<MemoGroup>();
-  BehaviorSubject<MemoGroup> _updateGroupController =
-      BehaviorSubject<MemoGroup>();
 
   Sink<List<MemoGroup>> get _setGroups => _memoGroupsController.sink;
 
@@ -23,8 +21,6 @@ class MemoGroupsBloc implements Bloc {
   Sink<MemoGroup> get addGroup => _addGroupController.sink;
 
   Sink<MemoGroup> get removeGroup => _removeGroupController.sink;
-
-  Sink<MemoGroup> get updateGroup => _updateGroupController.sink;
 
   MemoGroupsBloc() {
     void _onAdded(MemoGroup addedGroup) {
@@ -39,20 +35,10 @@ class MemoGroupsBloc implements Bloc {
       Log.memoGroup.onRemovedOnFirebase(removedGroup.asMap());
     }
 
-    void _onChanged(MemoGroup changedGroup) {
-      _memoGroups.forEach((MemoGroup memoGroup) {
-        if (memoGroup == changedGroup) {
-          memoGroup = changedGroup;
-        }
-      });
-      _setGroups.add(_memoGroups);
-      Log.memoGroup.onUpdatedOnFirebase(changedGroup.asMap());
-    }
-
     _repository = MemoGroupsRepository(
-        onGroupAdded: _onAdded,
-        onGroupRemoved: _onRemoved,
-        onGroupChanged: _onChanged);
+      onGroupAdded: _onAdded,
+      onGroupRemoved: _onRemoved,
+    );
 
     _addGroupController.stream.listen((MemoGroup memoGroup) {
       _repository.addGroup(memoGroup);
@@ -62,10 +48,6 @@ class MemoGroupsBloc implements Bloc {
       _repository.removeGroup(memoGroup);
       Log.memoGroup.onRemoved(memoGroup.asMap());
     });
-    _updateGroupController.stream.listen((MemoGroup memoGroup) {
-      _repository.updateGroup(memoGroup);
-      Log.memoGroup.onUpdated(memoGroup.asMap());
-    });
   }
 
   void dispose() async {
@@ -74,6 +56,5 @@ class MemoGroupsBloc implements Bloc {
     await _memoGroupsController.close();
     await _addGroupController.close();
     await _removeGroupController.close();
-    await _updateGroupController.close();
   }
 }

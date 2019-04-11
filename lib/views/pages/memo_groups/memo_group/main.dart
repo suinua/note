@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note/blocs/memo_group/memo_group_bloc.dart';
+import 'package:note/blocs/memo_group/memo_groups_bloc.dart';
 import 'package:note/providers/memo_group_provider.dart';
 import 'package:note/providers/memo_groups_bloc_provider.dart';
 import 'package:note/models/memo_group.dart';
@@ -12,15 +14,20 @@ import 'package:note/views/pages/memo_groups/memo_group/memo_list_view.dart';
 class MemoGroupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text(
-          memoGroup.title,
-          style: TextStyle(color: Colors.black),
-        ),
+        title: StreamBuilder<MemoGroup>(
+            stream: MemoGroupBlocProvider.of(context).getValue,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return Container();
+
+              final MemoGroup memoGroup = snapshot.data;
+              return Text(
+                memoGroup.title,
+                style: TextStyle(color: Colors.black),
+              );
+            }),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -74,81 +81,86 @@ class _GroupSettingMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-    final memoGroupsBloc = MemoGroupsBlocProvider.of(context);
+    final MemoGroupsBloc memoGroupsBloc = MemoGroupsBlocProvider.of(context);
+    final MemoGroupBloc memoGroupBloc = MemoGroupBlocProvider.of(context);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        ListTile(
-          title: Text(memoGroup.title),
-        ),
-        Divider(),
-        ListTile(
-          title: const Text('Template Labels'),
-          leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => EditingTemplateMemoLabelsPage(),
+    return StreamBuilder<MemoGroup>(
+        stream: MemoGroupBlocProvider.of(context).getValue,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Container();
+
+          final MemoGroup memoGroup = snapshot.data;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: Text(memoGroup.title),
               ),
-            );
-          },
-        ),
-        ListTile(
-          title: const Text('Remove'),
-          leading: const Icon(Icons.delete),
-          onTap: () {
-            ConfirmDialog.show(
-              context,
-              title: memoGroup.title,
-              body: 'Remove it?',
-              onApproved: () {
-                memoGroupsBloc.removeGroup.add(memoGroup);
-                Navigator.pop(context);
-              },
-            );
-          },
-        ),
-        Divider(),
-        ListTile(
-          title: const Text('Title'),
-          leading: const Icon(Icons.edit),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) =>
-                    EditingMemoGroupTitlePage(defaultTitle: memoGroup.title),
+              Divider(),
+              ListTile(
+                title: const Text('Template Labels'),
+                leading: const Icon(FontAwesomeIcons.tags, size: 17.0),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => EditingTemplateMemoLabelsPage(),
+                    ),
+                  );
+                },
               ),
-            ).then((title) {
-              if (title != null) {
-                memoGroup.title = title;
-                memoGroupsBloc.updateGroup.add(memoGroup);
-              }
-            });
-          },
-        ),
-        ListTile(
-          title: const Text('Description'),
-          leading: const Icon(Icons.edit),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => EditingMemoGroupDescriptionPage(
-                    defaultDescription: memoGroup.description),
+              ListTile(
+                title: const Text('Remove'),
+                leading: const Icon(Icons.delete),
+                onTap: () {
+                  ConfirmDialog.show(
+                    context,
+                    title: memoGroup.title,
+                    body: 'Remove it?',
+                    onApproved: () {
+                      memoGroupsBloc.removeGroup.add(memoGroup);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
               ),
-            ).then((description) {
-              if (description != null) {
-                memoGroup.description = description;
-                memoGroupsBloc.updateGroup.add(memoGroup);
-              }
-            });
-          },
-        ),
-      ],
-    );
+              Divider(),
+              ListTile(
+                title: const Text('Title'),
+                leading: const Icon(Icons.edit),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => EditingMemoGroupTitlePage(
+                          defaultTitle: memoGroup.title),
+                    ),
+                  ).then((title) {
+                    if (title != null) {
+                      memoGroupBloc.updateTitle.add(title);
+                    }
+                  });
+                },
+              ),
+              ListTile(
+                title: const Text('Description'),
+                leading: const Icon(Icons.edit),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => EditingMemoGroupDescriptionPage(
+                          defaultDescription: memoGroup.description),
+                    ),
+                  ).then((description) {
+                    if (description != null) {
+                      memoGroupBloc.updateDescription.add(description);
+                    }
+                  });
+                },
+              ),
+            ],
+          );
+        });
   }
 }

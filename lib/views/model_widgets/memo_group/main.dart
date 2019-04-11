@@ -14,7 +14,7 @@ class MemoGroupWidget extends StatelessWidget {
       onTap: () {
         //TODO : disposeを適切な場所へ
         MemoGroupBlocProvider.of(context).dispose();
-        MemoGroupBlocProvider.of(context).setValue(memoGroup);
+        MemoGroupBlocProvider.of(context).resetGroup.add(memoGroup);
 
         Navigator.push(
           context,

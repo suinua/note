@@ -8,14 +8,19 @@ class MemoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
+    return StreamBuilder<MemoGroup>(
+        stream: MemoGroupBlocProvider.of(context).getValue,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Container();
 
-    return ListView.separated(
-      itemCount: memoGroup.children.memos.length,
-      separatorBuilder: (_, _i) => Divider(),
-      itemBuilder: (_, int index) {
-        return MemoWidget(memo: memoGroup.children.memos[index]);
-      },
-    );
+          final MemoGroup memoGroup = snapshot.data;
+          return ListView.separated(
+            itemCount: memoGroup?.children?.memos?.length,
+            separatorBuilder: (_, _i) => Divider(),
+            itemBuilder: (_, int index) {
+              return MemoWidget(memo: memoGroup.children.memos[index]);
+            },
+          );
+        });
   }
 }

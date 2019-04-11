@@ -20,58 +20,63 @@ class MemoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
+    return StreamBuilder<MemoGroup>(
+        stream: MemoGroupBlocProvider.of(context).getValue,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Container();
 
-    return Slidable(
-      delegate: SlidableDrawerDelegate(),
-      actionExtentRatio: 0.25,
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            title: Text(memo.title),
-            subtitle: Text(
-              memo.body,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-            onTap: () {
-              MemoBlocProvider.of(context).setValue(memo);
+          final MemoGroup memoGroup = snapshot.data;
+          return Slidable(
+            delegate: SlidableDrawerDelegate(),
+            actionExtentRatio: 0.25,
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(memo.title),
+                  subtitle: Text(
+                    memo.body,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  onTap: () {
+                    MemoBlocProvider.of(context).setValue(memo);
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => MemoPage(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MemoPage(),
+                      ),
+                    );
+                  },
+                  onLongPress: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (_) => MemoMenuWidget(memo: memo),
+                    );
+                  },
                 ),
-              );
-            },
-            onLongPress: () {
-              showModalBottomSheet<void>(
-                context: context,
-                builder: (_) => MemoMenuWidget(memo: memo),
-              );
-            },
-          ),
-          _buildLabels(memo.children.memoLabels),
-        ],
-      ),
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () {
-            ConfirmDialog.show(
-              context,
-              title: memo.title,
-              body: '削除しますか？',
-              onApproved: () {
-                memoGroup.children.incrementMemos.delete(memo);
-              },
-            );
-          },
-        ),
-      ],
-    );
+                _buildLabels(memo.children.memoLabels),
+              ],
+            ),
+            secondaryActions: <Widget>[
+              IconSlideAction(
+                caption: 'Delete',
+                color: Colors.red,
+                icon: Icons.delete,
+                onTap: () {
+                  ConfirmDialog.show(
+                    context,
+                    title: memo.title,
+                    body: '削除しますか？',
+                    onApproved: () {
+                      memoGroup.children.incrementMemos.delete(memo);
+                    },
+                  );
+                },
+              ),
+            ],
+          );
+        });
   }
 
   Widget _buildLabels(List<MemoLabel> labels) {

@@ -134,12 +134,17 @@ class _Labels extends StatelessWidget {
 class _SetLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
+    return StreamBuilder<MemoGroup>(
+        stream: MemoGroupBlocProvider.of(context).getValue,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Container();
 
-    return Container(
-      height: 60.0,
-      child: _buildTemplateLabels(memoGroup.children.templateMemoLabels),
-    );
+          final MemoGroup memoGroup = snapshot.data;
+          return Container(
+            height: 60.0,
+            child: _buildTemplateLabels(memoGroup.children.templateMemoLabels),
+          );
+        });
   }
 
   Widget _buildTemplateLabels(List<TemplateMemoLabel> labels) {

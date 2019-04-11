@@ -26,8 +26,6 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -52,15 +50,24 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
           icon: const Icon(Icons.close, color: Colors.black),
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: _canSave()
-                ? () {
-                    memoGroup.children.incrementMemos.add(Memo(title: _memoTitle, body: _memoBody));
-                    Navigator.pop(context);
-                  }
-                : null,
-            icon: const Icon(FontAwesomeIcons.solidSave),
-            color: Colors.blue,
+          StreamBuilder<MemoGroup>(
+            stream:  MemoGroupBlocProvider.of(context).getValue,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return Container();
+
+              final MemoGroup memoGroup = snapshot.data;
+
+              return IconButton(
+                onPressed: _canSave()
+                    ? () {
+                        memoGroup?.children?.incrementMemos?.add(Memo(title: _memoTitle, body: _memoBody));
+                        Navigator.pop(context);
+                      }
+                    : null,
+                icon: const Icon(FontAwesomeIcons.solidSave),
+                color: Colors.blue,
+              );
+            }
           )
         ],
       ),

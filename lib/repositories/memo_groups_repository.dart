@@ -6,23 +6,20 @@ import 'package:note/models/memo_group.dart';
 
 typedef void OnMemoGroupAdded(MemoGroup addedMemo);
 typedef void OnMemoGroupRemoved(MemoGroup addedMemo);
-typedef void OnMemoGroupChanged(MemoGroup addedMemo);
 
 class MemoGroupsRepository {
   DatabaseReference memoGroupsRef;
 
   final OnMemoGroupAdded onGroupAdded;
   final OnMemoGroupRemoved onGroupRemoved;
-  final OnMemoGroupChanged onGroupChanged;
 
   StreamSubscription<Event> _onChildAddedListener;
   StreamSubscription<Event> _onChildRemovedListener;
-  StreamSubscription<Event> _onChildChangedListener;
 
-  MemoGroupsRepository(
-      {@required this.onGroupAdded,
-      @required this.onGroupRemoved,
-      @required this.onGroupChanged}) {
+  MemoGroupsRepository({
+    @required this.onGroupAdded,
+    @required this.onGroupRemoved,
+  }) {
     memoGroupsRef = FirebaseDatabase.instance.reference().child('memo_groups');
 
     _onChildAddedListener = memoGroupsRef.onChildAdded.listen((event) {
@@ -36,12 +33,6 @@ class MemoGroupsRepository {
           Map<String, dynamic>.from(event.snapshot.value);
 
       this.onGroupRemoved(MemoGroup.fromMap(event.snapshot.key, value));
-    });
-    _onChildChangedListener = memoGroupsRef.onChildChanged.listen((event) {
-      Map<String, dynamic> value =
-          Map<String, dynamic>.from(event.snapshot.value);
-
-      this.onGroupChanged(MemoGroup.fromMap(event.snapshot.key, value));
     });
   }
 
@@ -60,6 +51,5 @@ class MemoGroupsRepository {
   void dispose() {
     _onChildAddedListener.cancel();
     _onChildRemovedListener.cancel();
-    _onChildChangedListener.cancel();
   }
 }

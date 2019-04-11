@@ -38,46 +38,51 @@ class _EditingMemoWidgetState extends State<EditingMemoWidget> {
   }
 
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-
     Memo memo = MemoBlocProvider.of(context).value;
 
-    return Column(
-      children: <Widget>[
-        TextField(
-          style: TextStyle(fontSize: 30),
-          controller: _memoTitleController,
-          onChanged: (value) {
-            memo.title = value;
-            memoGroup.children.incrementMemos.update(memo);
-          },
-          decoration: InputDecoration(
-            hintText: 'Title',
-            border: InputBorder.none,
-          ),
-        ),
-        Divider(),
-        Padding(padding: const EdgeInsets.only(bottom: 30.0)),
-        Expanded(
-          child: TextField(
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            controller: _memoBodyController,
-            style: TextStyle(fontSize: 25),
-            onChanged: (value) {
-              memo.body = value;
-              memoGroup.children.incrementMemos.update(memo);
-            },
-            decoration: InputDecoration(
-              hintText: 'Body',
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        Divider(),
-        //MEMO : キーボードで文字が隠れるのを防ぐため
-        Padding(padding: const EdgeInsets.only(bottom: 40.0)),
-      ],
-    );
+    return StreamBuilder<MemoGroup>(
+        stream: MemoGroupBlocProvider.of(context).getValue,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Container();
+
+          final MemoGroup memoGroup = snapshot.data;
+          return Column(
+            children: <Widget>[
+              TextField(
+                style: TextStyle(fontSize: 30),
+                controller: _memoTitleController,
+                onChanged: (value) {
+                  memo.title = value;
+                  memoGroup?.children?.incrementMemos?.update(memo);
+                },
+                decoration: InputDecoration(
+                  hintText: 'Title',
+                  border: InputBorder.none,
+                ),
+              ),
+              Divider(),
+              Padding(padding: const EdgeInsets.only(bottom: 30.0)),
+              Expanded(
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  controller: _memoBodyController,
+                  style: TextStyle(fontSize: 25),
+                  onChanged: (value) {
+                    memo.body = value;
+                    memoGroup?.children?.incrementMemos?.update(memo);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Body',
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              Divider(),
+              //MEMO : キーボードで文字が隠れるのを防ぐため
+              Padding(padding: const EdgeInsets.only(bottom: 40.0)),
+            ],
+          );
+        });
   }
 }

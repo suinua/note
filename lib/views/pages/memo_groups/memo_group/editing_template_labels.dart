@@ -18,8 +18,6 @@ class _EditingTemplateMemoLabelsPageState
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-
     Widget _buildLabels(List<TemplateMemoLabel> labels) {
       return ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -55,9 +53,16 @@ class _EditingTemplateMemoLabelsPageState
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: _buildLabels(memoGroup.children.templateMemoLabels),
-          )
+          StreamBuilder<MemoGroup>(
+              stream: MemoGroupBlocProvider.of(context).getValue,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+
+                final MemoGroup memoGroup = snapshot.data;
+                return Expanded(
+                  child: _buildLabels(memoGroup.children.templateMemoLabels),
+                );
+              })
         ],
       ),
     );
@@ -74,8 +79,6 @@ class _CreateLabelBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MemoGroup memoGroup = MemoGroupBlocProvider.of(context).value;
-
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -83,17 +86,24 @@ class _CreateLabelBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(child: TextField(controller: _titleController)),
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              memoGroup.children.incrementTemplateMemoLabels
-                  .add(TemplateMemoLabel(
-                title: _titleController.text,
-                color: Colors.red,
-                //TODO : 色を選択できるように
-              ));
-            },
-          )
+          StreamBuilder<MemoGroup>(
+              stream: MemoGroupBlocProvider.of(context).getValue,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+
+                final MemoGroup memoGroup = snapshot.data;
+                return IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    memoGroup.children.incrementTemplateMemoLabels
+                        .add(TemplateMemoLabel(
+                      title: _titleController.text,
+                      color: Colors.red,
+                      //TODO : 色を選択できるように
+                    ));
+                  },
+                );
+              })
         ],
       ),
     );
